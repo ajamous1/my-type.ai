@@ -1,0 +1,180 @@
+.landingPage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+    padding: 2rem 0;
+    margin: 0 auto;
+    background-color: transparent;
+    max-width: 100%;
+  }
+  
+  .mainContent {
+    flex: 1;
+    background-color: transparent;
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    overflow-x: visible;
+  }
+  
+  .gridBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+  
+  .gridBackground::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      linear-gradient(to right, rgba(240, 240, 240, 0.8) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(240, 240, 240, 0.8) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: 0 0;
+    transform: translateZ(0);
+  }
+  
+  .heroSection {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    background-color: transparent;
+    max-width: 1440px;
+  }
+  
+  .logoContainer {
+    width: 150%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    padding-top: 0;
+    z-index: 5;
+    position: relative;
+  }
+  
+  .logoSvg {
+    width: 100%;
+    max-width: 1000px;
+    max-height: 350px;
+    height: auto;
+  }
+  
+  @media (min-width: 1441px) {
+    .logoSvg {
+      max-width: 1200px;
+    }
+  }
+  
+  .heroContent {
+    text-align: center;
+    margin-top: 1rem;
+    z-index: 20;
+    position: relative;
+    width: 100%;
+    max-width: 1440px;
+  }
+  
+  .heroContent h1 {
+    font-size: 5.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    color: #000;
+  }
+  
+  .ctaButton {
+    background-color: white;
+    color: #0d0d0d;
+    border: 2px solid #0d0d0d;
+    border-radius: 50px;
+    padding: 0.75rem 6rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .ctaButton:hover {
+    background-color: #0d0d0d;
+    color: white;
+  }
+  
+  .sideContent {
+    margin: 4rem auto;
+    padding: 0 2rem;
+    max-width: 1440px;
+    width: 100%;
+  }
+  
+  .sideContent h2 {
+    font-size: 3.5rem;
+    font-weight: 400;
+    margin-top: 2rem;
+    text-align: left;
+  }
+  
+  .sideContent h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: 0;
+    text-align: left;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .heroContent h1 {
+      font-size: 2.8rem;
+    }
+  
+    .sideContent h2 {
+      font-size: 2rem;
+    }
+  
+    .logoSvg {
+      max-width: 800px;
+    }
+  
+    .logoContainer {
+      width: 130%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .heroContent h1 {
+      font-size: 2.3rem;
+    }
+  
+    .sideContent h2 {
+      font-size: 1.8rem;
+    }
+  
+    .ctaButton {
+      padding: 0.6rem 1.5rem;
+      font-size: 1.1rem;
+    }
+  
+    .logoContainer {
+      width: 110%;
+    }
+  
+    .logoSvg {
+      max-width: 600px;
+    }
+  }
+  

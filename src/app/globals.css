@@ -1,0 +1,31 @@
+/* globals.css */
+:root {
+  --font-primary: 'Inter', sans-serif;
+  --background: #ffffff;
+  --text-color: #0d0d0d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: var(--font-primary);
+  background-color: var(--background);
+  color: var(--text-color);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}

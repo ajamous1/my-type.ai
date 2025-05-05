@@ -1,0 +1,95 @@
+.fontCardsContainer {
+    position: relative;
+    width: 100%;
+    margin: -9rem auto 4rem;
+    height: 400px;
+    overflow: visible;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --card-offset: 220px;
+  }
+  
+  .fontCard {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    width: 16rem;
+    height: 22rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, box-shadow;
+  }
+  
+  /* Fan Layout */
+  .fontCardsContainer .fontCard:nth-child(1) { transform: translateX(calc(-2.5 * var(--card-offset))) rotate(-12deg); top: 40px; z-index: 10; }
+  .fontCardsContainer .fontCard:nth-child(2) { transform: translateX(calc(-1.5 * var(--card-offset))) rotate(3deg);  top: 40px; z-index: 11; }
+  .fontCardsContainer .fontCard:nth-child(3) { transform: translateX(calc(-0.5 * var(--card-offset))) rotate(-3deg); top: 40px; z-index: 12; }
+  .fontCardsContainer .fontCard:nth-child(4) { transform: translateX(calc(0.5 * var(--card-offset)))  rotate(5deg);  top: 40px; z-index: 13; }
+  .fontCardsContainer .fontCard:nth-child(5) { transform: translateX(calc(1.5 * var(--card-offset)))  rotate(-10deg); top: 40px; z-index: 14; }
+  .fontCardsContainer .fontCard:nth-child(6) { transform: translateX(calc(2.5 * var(--card-offset)))  rotate(3deg);  top: 40px; z-index: 15; }
+  
+  .fontCardsContainer .fontCard:nth-child(1) { --rotate-deg: -15deg; --translate-x: calc(-2.5 * var(--card-offset)); }
+  .fontCardsContainer .fontCard:nth-child(2) { --rotate-deg: -10deg; --translate-x: calc(-1.5 * var(--card-offset)); }
+  .fontCardsContainer .fontCard:nth-child(3) { --rotate-deg: -5deg;  --translate-x: calc(-0.5 * var(--card-offset)); }
+  .fontCardsContainer .fontCard:nth-child(4) { --rotate-deg: 5deg;   --translate-x: calc(0.5 * var(--card-offset)); }
+  .fontCardsContainer .fontCard:nth-child(5) { --rotate-deg: 10deg;  --translate-x: calc(1.5 * var(--card-offset)); }
+  .fontCardsContainer .fontCard:nth-child(6) { --rotate-deg: 15deg;  --translate-x: calc(2.5 * var(--card-offset)); }
+  
+  .fontCard:hover {
+    transform: translateY(-15px) translateX(var(--translate-x)) rotate(var(--rotate-deg));
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+    z-index: 30;
+  }
+  
+  .highlighted {
+    border: 2px solid #0d0d0d;
+    z-index: 25;
+    transform: translateY(-15px) translateX(var(--translate-x)) rotate(var(--rotate-deg));
+    box-shadow: 0 16px 32px rgba(194, 33, 38, 0.2);
+  }
+  
+  .fontLetters {
+    color: #0d0d0d;
+    font-size: 5rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  
+  .fontName {
+    font-size: 1.3rem;
+    color: #333;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  /* 🔁 Scale down fan layout on mobile instead of removing it */
+  @media (max-width: 768px) {
+    .fontCardsContainer {
+      --card-offset: 160px;
+      height: 320px;
+    }
+  
+    .fontCard {
+      width: 15rem;
+      height: 20rem;
+      padding: 1rem;
+    }
+  
+    .fontLetters {
+      font-size: 3.5rem;
+    }
+  
+    .fontName {
+      font-size: 1.1rem;
+    }
+  }
+  
