@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FontCardsContainer } from './FontCard';
+import FontCard from './FontCard';
 import styles from '@/styles/LandingPage.module.css';
 
 export default function LandingPage() {
@@ -16,7 +16,7 @@ export default function LandingPage() {
   }, []);
 
   const fonts = [
-    { fontName: 'Helvetica'}, 
+    { fontName: 'Helvetica' }, 
     { fontName: 'Futura' },
     { fontName: 'Avant Garde' },
     { fontName: 'Garamond' },
@@ -63,7 +63,16 @@ export default function LandingPage() {
             <img src="/assets/logos/MyType.svg" alt="MyType Logo" className={styles.logoSvg} />
           </div>
 
-          <FontCardsContainer fonts={visibleFonts()} />
+          {/* Cards Container */}
+          <div className={styles.fontCardsContainer}>
+            {visibleFonts().map((font, index) => (
+              <FontCard
+                key={index}
+                fontName={font.fontName}
+          
+              />
+            ))}
+          </div>
 
           <div className={styles.heroContent}>
             <h1>Unlock your brand<br />with type.</h1>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import styles from '@/styles/FontCard.module.css';
 
 type FontProps = {
@@ -7,54 +8,44 @@ type FontProps = {
   highlighted?: boolean;
 };
 
-function FontCard({ fontName, highlighted = false }: FontProps) {
-  // Convert font name to lowercase filename
+const fontDescriptions: Record<string, string> = {
+  Helvetica: 'A classic Swiss sans-serif known for its clarity and neutrality.',
+  Futura: 'A geometric sans-serif typeface designed in the 1920s.',
+  'Avant Garde': 'Inspired by the logo of the Avant Garde magazine.',
+  Garamond: 'An old-style serif font used in books and publishing.',
+  Inter: 'A modern sans-serif designed for digital interfaces.',
+  'Times New Roman': 'A traditional serif font used in newspapers and academia.',
+};
+
+export default function FontCard({ fontName, highlighted = false }: FontProps) {
+  const [flipped, setFlipped] = useState(false);
+
   const normalizedFont = fontName.toLowerCase().replace(/\s+/g, '');
   const filename = fontName === 'Times New Roman'
     ? 'mytypecardtimes.svg'
     : `mytypecard${normalizedFont}.svg`;
 
   return (
-    <div className={`${styles.fontCard} ${highlighted ? styles.highlighted : ''}`}>
-      <img
-        src={`/assets/cards/${filename}`}
-        alt={fontName}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          borderRadius: '0.5rem',
-        }}
-      />
-    </div>
-  );
-}
+    <div
+      className={`${styles.fontCardWrapper} ${flipped ? styles.flipped : ''}`}
+      onClick={() => setFlipped(prev => !prev)}
+    >
+      <div className={styles.fontCardInner}>
+        {/* Front: SVG */}
+        <div className={styles.fontCardFront}>
+          <img
+            src={`/assets/cards/${filename}`}
+            alt={fontName}
+            className={styles.svgImage}
+          />
+        </div>
 
-type ContainerProps = {
-  fonts?: FontProps[];
-};
-
-export function FontCardsContainer({ fonts = [] }: ContainerProps) {
-  const defaultFonts: FontProps[] = [
-    { fontName: 'Helvetica' },
-    { fontName: 'Futura' },
-    { fontName: 'Avant Garde' },
-    { fontName: 'Garamond' },
-    { fontName: 'Inter' },
-    { fontName: 'Times New Roman' },
-  ];
-
-  const displayFonts = fonts.length > 0 ? fonts : defaultFonts;
-
-  return (
-    <div className={styles.fontCardsContainer} style={{ justifyContent: 'space-evenly' }}>
-      {displayFonts.map((font, index) => (
-        <FontCard
-          key={index}
-          fontName={font.fontName}
-          highlighted={font.highlighted}
-        />
-      ))}
+        {/* Back: Font Info */}
+        <div className={styles.fontCardBack}>
+          <h3>{fontName}</h3>
+          <p>{fontDescriptions[fontName] || 'No description available.'}</p>
+        </div>
+      </div>
     </div>
   );
 }
