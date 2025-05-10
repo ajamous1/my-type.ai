@@ -1,15 +1,15 @@
-// src/app/layout.tsx
 import './globals.css';
+import { Inter } from 'next/font/google';
 
-export const metadata = {
-  title: 'MyType',
-  description: 'Unlock your brand with type.',
-};
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={inter.variable}>{children}</body>
     </html>
   );
 }

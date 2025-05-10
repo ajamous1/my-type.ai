@@ -8,14 +8,24 @@ type FontProps = {
 };
 
 function FontCard({ fontName, highlighted = false }: FontProps) {
-  const getFontStyle = (name: string) => {
-    return { fontFamily: name.includes(' ') ? `"${name}"` : name };
-  };
+  // Convert font name to lowercase filename
+  const normalizedFont = fontName.toLowerCase().replace(/\s+/g, '');
+  const filename = fontName === 'Times New Roman'
+    ? 'mytypecardtimes.svg'
+    : `mytypecard${normalizedFont}.svg`;
 
   return (
     <div className={`${styles.fontCard} ${highlighted ? styles.highlighted : ''}`}>
-      <span className={styles.fontLetters} style={getFontStyle(fontName)}>Aa</span>
-      <div className={styles.fontName}>{fontName}</div>
+      <img
+        src={`/assets/cards/${filename}`}
+        alt={fontName}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          borderRadius: '0.5rem',
+        }}
+      />
     </div>
   );
 }
@@ -27,11 +37,11 @@ type ContainerProps = {
 export function FontCardsContainer({ fonts = [] }: ContainerProps) {
   const defaultFonts: FontProps[] = [
     { fontName: 'Helvetica' },
-    { fontName: 'Courier New' },
-    { fontName: 'Times' },
+    { fontName: 'Futura' },
+    { fontName: 'Avant Garde' },
+    { fontName: 'Garamond' },
     { fontName: 'Inter' },
-    { fontName: 'Verdana' },
-    { fontName: 'Georgia' }
+    { fontName: 'Times New Roman' },
   ];
 
   const displayFonts = fonts.length > 0 ? fonts : defaultFonts;
@@ -39,7 +49,11 @@ export function FontCardsContainer({ fonts = [] }: ContainerProps) {
   return (
     <div className={styles.fontCardsContainer} style={{ justifyContent: 'space-evenly' }}>
       {displayFonts.map((font, index) => (
-        <FontCard key={index} fontName={font.fontName} highlighted={font.highlighted} />
+        <FontCard
+          key={index}
+          fontName={font.fontName}
+          highlighted={font.highlighted}
+        />
       ))}
     </div>
   );

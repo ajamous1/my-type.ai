@@ -16,21 +16,46 @@ export default function LandingPage() {
   }, []);
 
   const fonts = [
-    { fontName: 'Helvetica' },
-    { fontName: 'Courier New' },
-    { fontName: 'Times' },
+    { fontName: 'Helvetica'}, 
+    { fontName: 'Futura' },
+    { fontName: 'Avant Garde' },
+    { fontName: 'Garamond' },
     { fontName: 'Inter' },
-    { fontName: 'Verdana' },
-    { fontName: 'Georgia' },
+    { fontName: 'Times New Roman' },
   ];
 
   const visibleFonts = () => {
     return windowWidth <= 576 ? fonts.slice(1, 6) : fonts;
   };
 
+  const createGridCells = () => {
+    const cells = [];
+    const cols = Math.ceil(windowWidth / 150) + 1;
+    const rows = Math.ceil((typeof window !== 'undefined' ? window.innerHeight : 1000) / 150) * 5;
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        cells.push(
+          <div
+            key={`cell-${i}-${j}`}
+            className={styles.gridCell}
+            style={{
+              top: `${i * 150}px`,
+              left: `${j * 150}px`,
+            }}
+          />
+        );
+      }
+    }
+    return cells;
+  };
+
   return (
     <div className={styles.landingPage}>
-      <div className={styles.gridBackground}></div>
+      {/* Background grid */}
+      <div className={styles.gridContainer}>
+        {createGridCells()}
+      </div>
 
       <main className={styles.mainContent}>
         <div className={styles.heroSection}>

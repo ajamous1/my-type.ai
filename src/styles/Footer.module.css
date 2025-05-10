@@ -1,3 +1,4 @@
+/* Footer.module.css */
 .footer {
     background-color: white;
     padding: 1.5rem 0;
@@ -21,5 +22,16 @@
   .footerText {
     color: #666666;
     font-size: 0.9rem;
+    text-align: center;
   }
+  
+  @media (max-width: 768px) {
+    .footerText {
+      font-size: 0.8rem;
+    }
+  }
+  
+  
+  
+  
   

@@ -8,14 +8,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    --card-offset: 220px;
+    --card-offset: 240px;
+    user-select: none;
   }
   
   .fontCard {
     background-color: white;
     border-radius: 0.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
+    padding: 1rem;
     width: 16rem;
     height: 22rem;
     display: flex;
@@ -29,24 +30,55 @@
   }
   
   /* Fan Layout */
-  .fontCardsContainer .fontCard:nth-child(1) { transform: translateX(calc(-2.5 * var(--card-offset))) rotate(-12deg); top: 40px; z-index: 10; }
-  .fontCardsContainer .fontCard:nth-child(2) { transform: translateX(calc(-1.5 * var(--card-offset))) rotate(3deg);  top: 40px; z-index: 11; }
-  .fontCardsContainer .fontCard:nth-child(3) { transform: translateX(calc(-0.5 * var(--card-offset))) rotate(-3deg); top: 40px; z-index: 12; }
-  .fontCardsContainer .fontCard:nth-child(4) { transform: translateX(calc(0.5 * var(--card-offset)))  rotate(5deg);  top: 40px; z-index: 13; }
-  .fontCardsContainer .fontCard:nth-child(5) { transform: translateX(calc(1.5 * var(--card-offset)))  rotate(-10deg); top: 40px; z-index: 14; }
-  .fontCardsContainer .fontCard:nth-child(6) { transform: translateX(calc(2.5 * var(--card-offset)))  rotate(3deg);  top: 40px; z-index: 15; }
+  .fontCardsContainer .fontCard:nth-child(1) {
+    transform: translateX(calc(-2.5 * var(--card-offset)));
+    top: 40px;
+    z-index: 10;
+  }
   
-  .fontCardsContainer .fontCard:nth-child(1) { --rotate-deg: -15deg; --translate-x: calc(-2.5 * var(--card-offset)); }
-  .fontCardsContainer .fontCard:nth-child(2) { --rotate-deg: -10deg; --translate-x: calc(-1.5 * var(--card-offset)); }
-  .fontCardsContainer .fontCard:nth-child(3) { --rotate-deg: -5deg;  --translate-x: calc(-0.5 * var(--card-offset)); }
-  .fontCardsContainer .fontCard:nth-child(4) { --rotate-deg: 5deg;   --translate-x: calc(0.5 * var(--card-offset)); }
-  .fontCardsContainer .fontCard:nth-child(5) { --rotate-deg: 10deg;  --translate-x: calc(1.5 * var(--card-offset)); }
-  .fontCardsContainer .fontCard:nth-child(6) { --rotate-deg: 15deg;  --translate-x: calc(2.5 * var(--card-offset)); }
+  .fontCardsContainer .fontCard:nth-child(2) {
+    transform: translateX(calc(-1.5 * var(--card-offset)));
+    top: 40px;
+    z-index: 11;
+  }
   
+  .fontCardsContainer .fontCard:nth-child(3) {
+    transform: translateX(calc(-0.5 * var(--card-offset)));
+    top: 40px;
+    z-index: 12;
+  }
+  
+  .fontCardsContainer .fontCard:nth-child(4) {
+    transform: translateX(calc(0.5 * var(--card-offset)));
+    top: 40px;
+    z-index: 13;
+  }
+  
+  .fontCardsContainer .fontCard:nth-child(5) {
+    transform: translateX(calc(1.5 * var(--card-offset)));
+    top: 40px;
+    z-index: 14;
+  }
+  
+  .fontCardsContainer .fontCard:nth-child(6) {
+    transform: translateX(calc(2.5 * var(--card-offset)));
+    top: 40px;
+    z-index: 15;
+  }
+  
+  /* Optional: clean up unused custom properties */
+  .fontCardsContainer .fontCard:nth-child(1),
+  .fontCardsContainer .fontCard:nth-child(2),
+  .fontCardsContainer .fontCard:nth-child(3),
+  .fontCardsContainer .fontCard:nth-child(4),
+  .fontCardsContainer .fontCard:nth-child(5),
+  .fontCardsContainer .fontCard:nth-child(6) {
+    --rotate-deg: 0deg;
+  }
   .fontCard:hover {
     transform: translateY(-15px) translateX(var(--translate-x)) rotate(var(--rotate-deg));
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
-    z-index: 30;
+    z-index: 10000;
   }
   
   .highlighted {
@@ -58,7 +90,7 @@
   
   .fontLetters {
     color: #0d0d0d;
-    font-size: 5rem;
+    font-size: 4rem;
     font-weight: bold;
     line-height: 1;
     margin-bottom: 0.5rem;
@@ -69,27 +101,53 @@
     color: #333;
     margin-top: 1rem;
     text-align: center;
+    display: none;
   }
   
+
+  .fontCard img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  
+
   /* 🔁 Scale down fan layout on mobile instead of removing it */
   @media (max-width: 768px) {
     .fontCardsContainer {
       --card-offset: 160px;
-      height: 320px;
+      height: auto;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      gap: 1rem;
+      padding: 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
     }
   
     .fontCard {
+      position: static;
+      flex-shrink: 0;
       width: 15rem;
       height: 20rem;
-      padding: 1rem;
+      padding: 0.25rem;
+      scroll-snap-align: center;
+      transform: none !important;
     }
   
-    .fontLetters {
-      font-size: 3.5rem;
+    .fontCardsContainer .fontCard:nth-child(n) {
+      transform: none !important;
     }
   
-    .fontName {
-      font-size: 1.1rem;
+    .fontCard:hover {
+      transform: translateY(-10px); /* optional subtle hover */
     }
+
+    .fontCardsContainer::-webkit-scrollbar {
+        display: none;
+      }
+      
   }
   

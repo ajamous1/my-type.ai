@@ -1,4 +1,4 @@
-/* globals.css */
+/* this is where we have our global styles */
 :root {
   --font-primary: 'Inter', sans-serif;
   --background: #ffffff;
@@ -9,6 +9,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  user-drag: none;
+
+
+  
+  }
+
+
+::selection{
+  background-color: #DC143C;
+  color: white;
 }
 
 html,
