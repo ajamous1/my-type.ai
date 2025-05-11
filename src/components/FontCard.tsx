@@ -1,51 +1,69 @@
-'use client';
-
 import { useState } from 'react';
-import styles from '@/styles/FontCard.module.css';
+import styles from '@/styles/FontCard.module.css'; // Import the CSS module
 
-type FontProps = {
+
+
+export interface FontCardProps {
   fontName: string;
-  highlighted?: boolean;
-};
+  image?: string;
+}
 
-const fontDescriptions: Record<string, string> = {
-  Helvetica: 'A classic Swiss sans-serif known for its clarity and neutrality.',
-  Futura: 'A geometric sans-serif typeface designed in the 1920s.',
-  'Avant Garde': 'Inspired by the logo of the Avant Garde magazine.',
-  Garamond: 'An old-style serif font used in books and publishing.',
-  Inter: 'A modern sans-serif designed for digital interfaces.',
-  'Times New Roman': 'A traditional serif font used in newspapers and academia.',
-};
-
-export default function FontCard({ fontName, highlighted = false }: FontProps) {
+const FontCard = ({ fontName, image }: FontCardProps) => {
   const [flipped, setFlipped] = useState(false);
-
-  const normalizedFont = fontName.toLowerCase().replace(/\s+/g, '');
-  const filename = fontName === 'Times New Roman'
-    ? 'mytypecardtimes.svg'
-    : `mytypecard${normalizedFont}.svg`;
-
+  
+  // Generate a fontDescription based on the fontName
+  const getFontDescription = (name: string): string => {
+    switch (name) {
+      case 'Helvetica':
+        return 'A classic Swiss sans-serif known for its clarity and neutrality.';
+      case 'Futura':
+        return 'A geometric sans-serif typeface designed in the 1920s.';
+      case 'Avant Garde':
+        return 'Inspired by the logo of the Avant Garde magazine.';
+      case 'Garamond':
+        return 'An old-style serif font used in books and publishing.';
+      case 'Inter':
+        return 'A modern sans-serif designed for digital interfaces.';
+      case 'Times New Roman':
+        return 'A traditional serif font used in newspapers and academia.';
+      default:
+        return 'A beautiful typeface with distinctive characteristics.';
+    }
+  };
+  
+  // Generate SVG path based on the fontName
+  const getSvgPath = (name: string): string => {
+    // Normalize font name for file naming: remove spaces, lowercase
+    const normalizedName = name.replace(/\s+/g, '').toLowerCase();
+    return `/assets/cards/mytypecard${normalizedName}.svg`;
+  };
+  
   return (
-    <div
-      className={`${styles.fontCardWrapper} ${flipped ? styles.flipped : ''}`}
+    <div 
+      className={styles.fontCardWrapper} 
       onClick={() => setFlipped(prev => !prev)}
     >
-      <div className={styles.fontCardInner}>
-        {/* Front: SVG */}
-        <div className={styles.fontCardFront}>
-          <img
-            src={`/assets/cards/${filename}`}
+      <div 
+        className={`${styles.cardInner} ${flipped ? styles.flipped : ''}`}
+      >
+        {/* Front of card */}
+        <div className={styles.cardFront}>
+          {/* Always use the SVG with our naming convention */}
+          <img 
+            src={getSvgPath(fontName)} 
             alt={fontName}
-            className={styles.svgImage}
+            className={styles.fontImage}
           />
         </div>
-
-        {/* Back: Font Info */}
-        <div className={styles.fontCardBack}>
+        
+        {/* Back of card */}
+        <div className={styles.cardBack}>
           <h3>{fontName}</h3>
-          <p>{fontDescriptions[fontName] || 'No description available.'}</p>
+          <p>{getFontDescription(fontName)}</p>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default FontCard;

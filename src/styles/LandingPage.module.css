@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow-x: auto; /* ✅ allow horizontal scrolling */
+    overflow-x: auto;
     padding: 2rem 0;
     margin: 0 auto;
     max-width: 100%;
@@ -42,7 +42,7 @@
   }
   
   .heroSection {
-    width: 100vw; /* ✅ stretch to full width */
+    width: 100vw;
     margin: 0 auto;
     padding: 0;
     display: flex;
@@ -141,16 +141,21 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding: 1.5rem;
-    width: max-content;
-    height: 100%;
-    margin-top: -8rem; /* ✅ lift cards upward to overlap logo */
+    width: 100vw;
+    margin-top: -8rem;
     position: relative;
-    z-index: 100; /* ✅ ensures it's above the grid or logo */
+    z-index: 100;
+    overscroll-behavior-x: contain;
   }
   
-  
+  /* Hide scrollbars for all browsers */
   .fontCardsContainer::-webkit-scrollbar {
     display: none;
+  }
+  
+  .fontCardsContainer {
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE/Edge */
   }
   
   /* Responsive adjustments */
