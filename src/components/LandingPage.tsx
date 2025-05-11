@@ -28,6 +28,16 @@ export default function LandingPage() {
     { fontName: 'Times New Roman' },
   ];
 
+  // These are the Adobe integrations from your second image
+  const integrations = [
+    'acrobat',
+    'aftereffects',
+    'illustrator',
+    'photoshop',
+    'premierepro',
+    'figma',
+  ];
+
   const createGridCells = () => {
     const cells = [];
     const cols = Math.ceil(windowWidth / 150) + 4;
@@ -56,12 +66,12 @@ export default function LandingPage() {
           <h1>
             Unlock your brand
             <br />
-            with type.
+            with type
           </h1>
           <button className={styles.ctaButton}>Get Started</button>
         </div>
       </main>
-      
+
       <div className={styles.scrollWrapper}>
         <div className={styles.fontCardsContainer}>
           {fonts.map((font, index) => (
@@ -69,18 +79,56 @@ export default function LandingPage() {
           ))}
         </div>
       </div>
-      
-      <main className={styles.mainContent}>
 
+      <main className={styles.mainContent}>
         <div className={styles.sideContentContainer}>
           <div className={styles.sideContent}>
             <h2>By designers, for designers</h2>
             <h3>We've designed this tool perfectly to streamline your workflow.</h3>
           </div>
+
+          {/* Integration section with side-by-side layout */}
           <div className={styles.sideContent}>
-            <h2>Anywhere, any type</h2>
-            <h3>Stay updated on our latest products!</h3>
+            <div className={styles.integrationsSection}>
+              <div className={styles.integrationsText}>
+                <h2>Coming Soon</h2>
+                <h3>
+                  Integrate with your favorite design tools and streamline your workflow.
+                </h3>
+              </div>
+              
+              <div className={styles.integrationsContainer}>
+                <div className={styles.integrationsGrid}>
+                  {/* First row of Adobe logos */}
+                  <div className={styles.integrationsRow}>
+                    {integrations.slice(0, 3).map((name) => (
+                      <div className={styles.integrationItem} key={name}>
+                        <img
+                          src={`/assets/logos/${name}.svg`}
+                          alt={name}
+                          className={styles.integrationLogo}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Second row of Adobe logos */}
+                  <div className={styles.integrationsRow}>
+                    {integrations.slice(3).map((name) => (
+                      <div className={styles.integrationItem} key={name}>
+                        <img
+                          src={`/assets/logos/${name}.svg`}
+                          alt={name}
+                          className={styles.integrationLogo}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div className={styles.sideContent}>
             <h2>Find your type</h2>
             <h3>Get the extension now, it's free!</h3>
