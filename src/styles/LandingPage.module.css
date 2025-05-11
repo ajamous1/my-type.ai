@@ -1,35 +1,23 @@
-/* Local classes only - move global styles to a separate global CSS file */
 .landingPage {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    position: relative;
-    overflow: visible; /* Critical for allowing content to flow outside */
+    background-color: white;
     padding: 0;
     margin: 0;
     width: 100%;
-    background-color: white;
+    position: relative;
+    overflow-x: hidden; /* Contain horizontal overflow for page but let cards scroll */
   }
   
-  .pageWrapper {
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: visible; /* Critical for allowing content to flow outside */
-  }
-  
-  /* Grid styling */
   .gridContainer {
-    position: fixed; /* Fixed positioning so grid stays visible */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
+    width: 100vw;
+    height: 100vh;
     z-index: 0;
     pointer-events: none;
-    overflow: visible;
   }
   
   .gridCell {
@@ -42,45 +30,27 @@
   }
   
   .mainContent {
-    flex: 1;
-    position: relative;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
-    min-height: 100vh;
-    overflow: visible; /* Critical for allowing content to flow outside */
-    z-index: 1;
+    position: relative;
+    z-index: 2;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   
-  /* Key fix: Changed from overflow-x: clip to overflow: visible */
-  .heroSection {
-    width: 100%;
-    overflow: visible; /* This is critical - no clipping! */
-    margin: 0 auto;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
-    z-index: 2;
-  }
-  
   .heroContent {
     text-align: center;
-    margin-top: 1rem;
-    z-index: 20;
-    position: relative;
+    margin-top: 2rem;
+    z-index: 2;
     width: 100%;
-    padding: 0 1rem;
   }
   
   .heroContent h1 {
     font-size: 5.5rem;
     font-weight: 600;
-    margin-top: 2rem;
     margin-bottom: 2rem;
     line-height: 1.2;
     color: #000;
@@ -104,41 +74,38 @@
     color: white;
   }
   
-  /* Horizontal scrolling container - similar to Linear's approach */
+  /* Horizontally scrollable wrapper */
+  .scrollWrapper {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    padding: 2rem 0;
+    z-index: 5;
+  }
+  
+  .scrollWrapper::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari/Opera */
+  }
+  
+  .scrollWrapper {
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+  }
+  
   .fontCardsContainer {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
     gap: 1.5rem;
-    overflow-x: auto;
-    overflow-y: hidden;
+    width: max-content; /* Allow container to grow as needed */
+    padding: 0 2rem;
+    margin: 0 auto;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding: 2rem;
-    /* Critical for extending beyond parent boundaries */
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    z-index: 100;
-    overscroll-behavior-x: contain;
     scroll-padding: 2rem;
-    box-sizing: border-box;
-    transform: translateZ(0); /* Force hardware acceleration */
-    will-change: scroll; /* Optimize for scrolling */
-    scroll-behavior: smooth; /* Enable smooth scrolling */
-  }
-  
-  /* Hide scrollbar but keep functionality */
-  .fontCardsContainer::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .fontCardsContainer {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    position: relative;
+    left: 0;
+    right: 0;
   }
   
   .sideContentContainer {
@@ -146,7 +113,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: visible; /* Allow content to overflow */
+    margin-top: 4rem;
   }
   
   .sideContent {
@@ -154,7 +121,6 @@
     padding: 0 2rem;
     width: 100%;
     max-width: 1200px;
-    position: relative;
     z-index: 2;
   }
   
@@ -187,7 +153,12 @@
     }
   
     .fontCardsContainer {
-      padding: 1.5rem;
       gap: 1rem;
+      padding-left: calc(50vw - 120px); /* Adjust padding for mobile */
+      padding-right: calc(50vw - 120px); /* Adjust padding for mobile */
+    }
+  
+    .scrollWrapper {
+      padding: 1rem 0;
     }
   }
