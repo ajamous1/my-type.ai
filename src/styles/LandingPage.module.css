@@ -1,22 +1,32 @@
+/* Local classes only - move global styles to a separate global CSS file */
 .landingPage {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow-x: auto;
-    padding: 2rem 0;
-    margin: 0 auto;
-    max-width: 100%;
+    overflow: visible; /* Critical for allowing content to flow outside */
+    padding: 0;
+    margin: 0;
+    width: 100%;
     background-color: white;
   }
   
-  /* Static background grid */
+  .pageWrapper {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: visible; /* Critical for allowing content to flow outside */
+  }
+  
+  /* Grid styling */
   .gridContainer {
-    position: absolute;
+    position: fixed; /* Fixed positioning so grid stays visible */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
     z-index: 0;
     pointer-events: none;
     overflow: visible;
@@ -34,42 +44,28 @@
   .mainContent {
     flex: 1;
     position: relative;
-    margin: 0 auto;
     width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
     min-height: 100vh;
-    overflow: visible;
+    overflow: visible; /* Critical for allowing content to flow outside */
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
+  /* Key fix: Changed from overflow-x: clip to overflow: visible */
   .heroSection {
-    width: 100vw;
+    width: 100%;
+    overflow: visible; /* This is critical - no clipping! */
     margin: 0 auto;
     padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
     z-index: 2;
-    max-width: none;
-  }
-  
-  .logoContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    padding-top: 0;
-    z-index: 5;
-    position: relative;
-  }
-  
-  .logoSvg {
-    width: 100%;
-    max-width: 1000px;
-    max-height: 350px;
-    height: auto;
-    pointer-events: none;
-    user-select: none;
   }
   
   .heroContent {
@@ -78,7 +74,7 @@
     z-index: 20;
     position: relative;
     width: 100%;
-    max-width: 1440px;
+    padding: 0 1rem;
   }
   
   .heroContent h1 {
@@ -100,6 +96,7 @@
     font-weight: 500;
     transition: all 0.3s ease;
     user-select: none;
+    cursor: pointer;
   }
   
   .ctaButton:hover {
@@ -107,11 +104,56 @@
     color: white;
   }
   
-  .sideContent {
-    margin: 4rem auto;
-    padding: 0 2rem;
-    max-width: 1440px;
+  /* Horizontal scrolling container - similar to Linear's approach */
+  .fontCardsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 2rem;
+    /* Critical for extending beyond parent boundaries */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    z-index: 100;
+    overscroll-behavior-x: contain;
+    scroll-padding: 2rem;
+    box-sizing: border-box;
+    transform: translateZ(0); /* Force hardware acceleration */
+    will-change: scroll; /* Optimize for scrolling */
+    scroll-behavior: smooth; /* Enable smooth scrolling */
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .fontCardsContainer::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .fontCardsContainer {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .sideContentContainer {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: visible; /* Allow content to overflow */
+  }
+  
+  .sideContent {
+    margin: 4rem 0;
+    padding: 0 2rem;
+    width: 100%;
+    max-width: 1200px;
     position: relative;
     z-index: 2;
   }
@@ -130,35 +172,6 @@
     text-align: left;
   }
   
-  /* === Font Card Container === */
-  .fontCardsContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 0.5rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding: 1.5rem;
-    width: 100vw;
-    margin-top: -8rem;
-    position: relative;
-    z-index: 100;
-    overscroll-behavior-x: contain;
-  }
-  
-  /* Hide scrollbars for all browsers */
-  .fontCardsContainer::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .fontCardsContainer {
-    scrollbar-width: none;        /* Firefox */
-    -ms-overflow-style: none;     /* IE/Edge */
-  }
-  
-  /* Responsive adjustments */
   @media (max-width: 768px) {
     .heroContent h1 {
       font-size: 3rem;
@@ -168,17 +181,13 @@
       font-size: 2rem;
     }
   
-    .logoSvg {
-      max-width: 90%;
-    }
-  
-    .logoContainer {
-      width: 100%;
-    }
-  
     .ctaButton {
       padding: 0.6rem 1.5rem;
       font-size: 1.1rem;
     }
-  }
   
+    .fontCardsContainer {
+      padding: 1.5rem;
+      gap: 1rem;
+    }
+  }

@@ -5,6 +5,15 @@
   --text-color: #0d0d0d;
 }
 
+
+html, 
+body {
+  overflow-x: visible;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 * {
   margin: 0;
   padding: 0;
