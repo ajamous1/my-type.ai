@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import FontCard from './FontCard';
+import FontCard from './assets/FontCard';
+import BentoGrid from './assets/BentoGrid';
 import styles from '@/styles/LandingPage.module.css';
 
 interface Font {
@@ -28,14 +29,14 @@ export default function LandingPage() {
     { fontName: 'Times New Roman' },
   ];
 
-  // These are the Adobe integrations from your second image
+  // These are the Adobe integrations with their ID values
   const integrations = [
-    'acrobat',
-    'aftereffects',
-    'illustrator',
-    'photoshop',
-    'premierepro',
-    'figma',
+    { id: 'acrobat', name: 'Adobe Acrobat' },
+    { id: 'aftereffects', name: 'Adobe After Effects' },
+    { id: 'illustrator', name: 'Adobe Illustrator' },
+    { id: 'photoshop', name: 'Adobe Photoshop' },
+    { id: 'premierepro', name: 'Adobe Premiere Pro' },
+    { id: 'figma', name: 'Figma' },
   ];
 
   const createGridCells = () => {
@@ -66,7 +67,7 @@ export default function LandingPage() {
           <h1>
             Unlock your brand
             <br />
-            with type
+            with type.
           </h1>
           <button className={styles.ctaButton}>Get Started</button>
         </div>
@@ -83,15 +84,16 @@ export default function LandingPage() {
       <main className={styles.mainContent}>
         <div className={styles.sideContentContainer}>
           <div className={styles.sideContent}>
-            <h2>By designers, for designers</h2>
-            <h3>We've designed this tool perfectly to streamline your workflow.</h3>
+            <h2>By designers, for designers.</h2>
+            <h3>Find the font you're looking in the click of a button.</h3>
+            <BentoGrid />
           </div>
 
           {/* Integration section with side-by-side layout */}
           <div className={styles.sideContent}>
             <div className={styles.integrationsSection}>
               <div className={styles.integrationsText}>
-                <h2>Coming Soon</h2>
+                <h2>Coming soon...</h2>
                 <h3>
                   Integrate with your favorite design tools and streamline your workflow.
                 </h3>
@@ -101,11 +103,15 @@ export default function LandingPage() {
                 <div className={styles.integrationsGrid}>
                   {/* First row of Adobe logos */}
                   <div className={styles.integrationsRow}>
-                    {integrations.slice(0, 3).map((name) => (
-                      <div className={styles.integrationItem} key={name}>
+                    {integrations.slice(0, 3).map((integration) => (
+                      <div 
+                        className={styles.integrationItem} 
+                        key={integration.id}
+                        data-app={integration.id}
+                      >
                         <img
-                          src={`/assets/logos/${name}.svg`}
-                          alt={name}
+                          src={`/assets/logos/${integration.id}.svg`}
+                          alt={integration.name}
                           className={styles.integrationLogo}
                         />
                       </div>
@@ -114,11 +120,15 @@ export default function LandingPage() {
                   
                   {/* Second row of Adobe logos */}
                   <div className={styles.integrationsRow}>
-                    {integrations.slice(3).map((name) => (
-                      <div className={styles.integrationItem} key={name}>
+                    {integrations.slice(3).map((integration) => (
+                      <div 
+                        className={styles.integrationItem} 
+                        key={integration.id}
+                        data-app={integration.id}
+                      >
                         <img
-                          src={`/assets/logos/${name}.svg`}
-                          alt={name}
+                          src={`/assets/logos/${integration.id}.svg`}
+                          alt={integration.name}
                           className={styles.integrationLogo}
                         />
                       </div>
@@ -130,8 +140,8 @@ export default function LandingPage() {
           </div>
 
           <div className={styles.sideContent}>
-            <h2>Find your type</h2>
-            <h3>Get the extension now, it's free!</h3>
+            <h2>Find your type.</h2>
+           
           </div>
         </div>
       </main>

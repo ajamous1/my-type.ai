@@ -136,7 +136,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 5rem;
     width: 100%;
   }
   
@@ -153,33 +153,123 @@
   .integrationsGrid {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
   
   .integrationsRow {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.5rem;
     flex-wrap: wrap;
   }
   
-  .integrationItem {
+
+  
+/* Base integration styles */
+/* Base integration styles */
+.integrationItem {
     width: 140px;
     height: 140px;
-    background-color: #fff;
-    border: 1px solid #eaeaea;
-    /* No border-radius for square appearance */
+    background-color: #fff; /* Solid white background */
+    border: 2px solid #eaeaea;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    position: relative;
+    overflow: hidden; /* Prevent any content from bleeding outside */
   }
   
+  /* Gradient border - positioned as a contained element */
+  .integrationItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 4px solid transparent;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Allow clicks to pass through */
+  }
+  
+  /* Hover effects */
   .integrationItem:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    
   }
   
+  .integrationItem:hover::before {
+    opacity: 1; /* Show the gradient border on hover */
+  }
+  
+  /* Add shadow effect on hover instead of extending background */
+  .integrationItem:hover {
+    border: none;
+
+  }
+  
+  /* Photoshop specific styling */
+  .integrationItem[data-app="photoshop"]::before {
+    border-image: radial-gradient(circle at top left, #40D0FB, #18152E) 1;
+  }
+  
+  .integrationItem[data-app="photoshop"]:hover {
+    background-color: #fff; /* Keep solid white background */
+    background-image: linear-gradient(to bottom, rgba(64, 208, 251, 0.1), rgba(64, 208, 251, 0.1)); /* Add color overlay */
+  }
+  
+  /* Acrobat specific styling */
+  .integrationItem[data-app="acrobat"]::before {
+    border-image: radial-gradient(circle at top left, #F40F02, #9A004D) 1;
+  }
+  
+  .integrationItem[data-app="acrobat"]:hover {
+    background-color: #fff; /* Keep solid white background */
+    background-image: linear-gradient(to bottom, rgba(244, 15, 2, 0.1), rgba(244, 15, 2, 0.1)); /* Add color overlay */
+  }
+  
+  /* After Effects specific styling */
+  .integrationItem[data-app="aftereffects"]::before {
+    border-image: radial-gradient(circle at top left, #CF96FD, #9999FF) 1;
+  }
+  
+  .integrationItem[data-app="aftereffects"]:hover {
+    background-color: #fff; /* Keep solid white background */
+    background-image: linear-gradient(to bottom, rgba(207, 150, 253, 0.1), rgba(207, 150, 253, 0.1)); /* Add color overlay */
+  }
+  
+  /* Illustrator specific styling */
+  .integrationItem[data-app="illustrator"]::before {
+    border-image: radial-gradient(circle at top left, #FF9A00, #D45C00) 1;
+  }
+  
+  .integrationItem[data-app="illustrator"]:hover {
+    background-color: #fff; /* Keep solid white background */
+    background-image: linear-gradient(to bottom, rgba(255, 154, 0, 0.1), rgba(255, 154, 0, 0.1)); /* Add color overlay */
+  }
+  
+  /* Premiere Pro specific styling */
+  .integrationItem[data-app="premierepro"]::before {
+    border-image: radial-gradient(circle at top left, #9999FF, #00005B) 1;
+  }
+  
+  .integrationItem[data-app="premierepro"]:hover {
+    background-color: #fff; /* Keep solid white background */
+    background-image: linear-gradient(to bottom, rgba(153, 153, 255, 0.1), rgba(153, 153, 255, 0.1)); /* Add color overlay */
+  }
+  
+  /* Figma specific styling */
+  .integrationItem[data-app="figma"]::before {
+    border-image: radial-gradient(circle at top left, #FF7262, #A259FF) 1;
+  }
+  
+  .integrationItem[data-app="figma"]:hover {
+    background-color: #fff; /* Keep solid white background */
+    background-image: linear-gradient(to bottom, rgba(255, 114, 98, 0.1), rgba(255, 114, 98, 0.1)); /* Add color overlay */
+  }
+
   .integrationLogo {
     width: 60px;
     height: 60px;
