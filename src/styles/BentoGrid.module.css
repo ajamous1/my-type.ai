@@ -1,263 +1,217 @@
 .bentoSection {
-    width: 100%;
-    max-width: 1800px;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-    -webkit-user-drag: none;
-  }
-  
-  .bentoCard {
-    background-color: white;
-    border-radius: 12px;
-    padding: 36px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid #ebebeb;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .bentoCard:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .cardHeader {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-    height: 60px;
-  }
-  
-  .thumbnail {
-    width: 60px;
-    height: 60px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    margin-right: 16px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 24px;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-  }
-  
-  .bentoCard p {
-    font-size: 18px;
-    color: #666;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-  }
-  
-  /* Grid Layouts */
-  .desktopGrid {
-    display: grid;
-    gap: 6px;
-    width: 100%;
-  }
-  
-  .topRow, .bottomRow {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 36px;
-    margin-bottom: 36px;
-  }
-  
-  .bottomRow {
-    grid-template-columns: 1fr 2fr;
-  }
-  
-  .tabletGrid, .mobileGrid {
-    display: flex;
-    flex-direction: column;
-    gap: 36px;
-    width: 100%;
-  }
-  
-  .twoCol {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
-  }
-  
-  .mobileGrid {
-    gap: 24px;
-  }
-  
-  .large, .small, .full, .default {
-    height: 360px;
-  }
-  
-  .fullWidth {
-    grid-column: 1 / -1;
-  }
-  
-  /* Responsive */
-  @media (max-width: 640px) {
-    .bentoCard {
-      padding: 24px;
-    }
-  
-    .cardHeader {
-      height: 40px;
-    }
-  
-    .thumbnail {
-      width: 40px;
-      height: 40px;
-      margin-right: 12px;
-    }
-  
-    .title {
-      font-size: 16px;
-    }
-  
-    .bentoCard p {
-      font-size: 14px;
-      margin-top: 12px;
-    }
-  
-    .default, .small, .large, .full {
-      height: auto;
-      min-height: 80px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .bentoSection {
-      padding: 0 12px;
-    }
-  
-    .mobileGrid {
-      gap: 16px;
-    }
-  
-    .bentoCard {
-      padding: 20px;
-    }
-  
-    .bentoCard p {
-      color: #777;
-    }
-  }
-  
-  /* Typographic Depth Column Layout */
-  .cardContentRow {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    height: 100%;
-  }
-  
-  .leftColumn {
-    flex: 1;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  /* Floating Font Animation */
-  .fallingTextContainer {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex: 1;
-    min-height: 300px;
-    max-height: 360px;
-    gap: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .fallingText {
-    font-size: 42px;
-    font-weight: 300;
-    position: relative;
-    z-index: 2;
-    transition: all 0.15s ease;
-    color: rgba(51, 51, 51, 0.4);
-  }
-  
-  .hovering .fallingText {
-    background: radial-gradient(
-      circle at var(--el-mouse-x, 50%) var(--el-mouse-y, 50%),
-      rgba(220, 20, 60, 1) 0%,
-      rgba(220, 20, 60, 0.8) 30%,
-      rgba(220, 20, 60, 0.4) 60%,
-      rgba(51, 51, 51, 0.4) 80%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: rgba(51, 51, 51, calc(0.4 * (1 - var(--text-intensity))));
-    opacity: calc(0.4 + (var(--text-intensity) * 0.6));
-  }
-  
+  width: 100%;
+  max-width: 1800px;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
 
-  
-  .col0 { animation-delay: -5s; }
-  .col1 { animation-delay: -15s; }
-  .col2 { animation-delay: -25s; }
-  
-  @keyframes continuousScrollDown {
-    0% {
-      transform: translateY(-166.66%);
-    }
-    100% {
-      transform: translateY(0%);
-    }
+.bentoCard {
+  background-color: white;
+  border-radius: 12px;
+  padding: 36px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ebebeb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bentoCard:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  height: 60px;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+.bentoCard p {
+  font-size: 18px;
+  color: #666;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+/* Grid Layouts */
+.desktopGrid {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+}
+
+.topRow, .bottomRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 36px;
+  margin-bottom: 36px;
+}
+
+.bottomRow {
+  grid-template-columns: 1fr 2fr;
+}
+
+.tabletGrid, .mobileGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 100%;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.mobileGrid {
+  gap: 24px;
+}
+
+.large, .small, .full, .default {
+  height: 360px;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 640px) {
+  .bentoCard {
+    padding: 24px;
   }
-  
-  
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  .cardHeader {
+    height: 40px;
   }
-  
-  .hovering .column {
-    animation: continuousScrollDown 10s linear infinite;
+  .thumbnail {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
   }
-  
-  
-  .bottomBlur {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 80px; /* adjust as needed */
-    z-index: 3;
-    pointer-events: none;
-    background: linear-gradient(to top, white 0%, rgba(255, 255, 255, 0) 100%);
+  .title {
+    font-size: 16px;
   }
-  
-  
-  .topBlur, .bottomBlur {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 120px;
-    z-index: 3;
-    pointer-events: none;
+  .bentoCard p {
+    font-size: 14px;
+    margin-top: 12px;
   }
-  
-  .topBlur {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    z-index: 3;
-    pointer-events: none;
-    background: linear-gradient(to bottom, white 0%, rgba(255, 255, 255, 0) 100%);
+  .default, .small, .large, .full {
+    height: auto;
+    min-height: 80px;
   }
-  
-  
+}
+
+.cardContentRow {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  height: 100%;
+}
+
+.leftColumn {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* === FONT SCROLLING === */
+.fallingTextContainer {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+  min-height: 300px;
+  max-height: 360px;
+  gap: 1.5rem;
+  cursor: pointer;
+}
+
+.fallingText {
+  font-size: 42px;
+  font-weight: 300;
+  position: relative;
+  z-index: 2;
+  color: rgba(51, 51, 51, 0.4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition: none;
+}
+
+.fallingTextContainer:hover .fallingText {
+  background: radial-gradient(
+    circle at var(--el-mouse-x, 50%) var(--el-mouse-y, 50%),
+    rgba(220, 20, 60, 1) 0%,
+    rgba(220, 20, 60, 0.8) 30%,
+    rgba(220, 20, 60, 0.4) 60%,
+    rgba(51, 51, 51, 0.4) 80%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: scrollDown 10s linear infinite;
+  animation-play-state: paused;
+}
+
+.bentoCard:hover .column {
+  animation-play-state: running;
+}
+
+.col0 { animation-delay: -5s; }
+.col1 { animation-delay: -15s; }
+.col2 { animation-delay: -25s; }
+
+@keyframes scrollDown {
+  0% { transform: translateY(-166.66%); }
+  100% { transform: translateY(0); }
+}
+
+/* Blur Fades */
+.topBlur, .bottomBlur {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.topBlur {
+  top: 0;
+  background: linear-gradient(to bottom, white 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.bottomBlur {
+  bottom: 0;
+  background: linear-gradient(to top, white 0%, rgba(255, 255, 255, 0) 100%);
+}

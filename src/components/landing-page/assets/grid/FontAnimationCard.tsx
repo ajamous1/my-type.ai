@@ -20,7 +20,8 @@ export default function FontAnimationCard({
   size = 'large',
 }: FontAnimationCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [hovering, setHovering] = useState(false);
+  const [isCardHovered, setIsCardHovered] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -38,7 +39,6 @@ export default function FontAnimationCard({
 
         const distance = Math.hypot(elCenterX - mouseX, elCenterY - mouseY);
         const intensity = Math.max(0, 1 - distance / 300);
-
         el.style.setProperty('--text-intensity', intensity.toString());
         el.style.setProperty('--el-mouse-x', `${mouseX - (elRect.left - rect.left)}px`);
         el.style.setProperty('--el-mouse-y', `${mouseY - (elRect.top - rect.top)}px`);
@@ -46,12 +46,7 @@ export default function FontAnimationCard({
     };
 
     const handleLeave = () => {
-      container.querySelectorAll<HTMLElement>(`.${styles.fallingText}`).forEach((el) => {
-        el.style.setProperty('--text-intensity', '0');
-        el.style.setProperty('--el-mouse-x', '50%');
-        el.style.setProperty('--el-mouse-y', '50%');
-      });
-      setHovering(false);
+      setIsCardHovered(false);
     };
 
     container.addEventListener('mousemove', handleMove);
@@ -79,8 +74,11 @@ export default function FontAnimationCard({
   return (
     <div
       className={`${styles.bentoCard} ${styles[size]}`}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
+      onMouseEnter={() => {
+        setIsCardHovered(true);
+        setHasInteracted(true);
+      }}
+      onMouseLeave={() => setIsCardHovered(false)}
     >
       <div className={styles.cardContentRow}>
         <div className={styles.leftColumn}>
@@ -93,7 +91,7 @@ export default function FontAnimationCard({
 
         <div
           ref={containerRef}
-          className={`${styles.fallingTextContainer} ${hovering ? styles.hovering : ''}`}
+          className={`${styles.fallingTextContainer} ${isCardHovered ? styles.hovering : ''} ${hasInteracted ? styles.animated : ''}`}
         >
           <div className={styles.topBlur}></div>
           <div className={styles.bottomBlur}></div>
