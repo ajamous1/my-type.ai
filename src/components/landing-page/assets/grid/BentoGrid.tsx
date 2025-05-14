@@ -3,6 +3,9 @@
 import { useState, useEffect, ReactElement } from 'react';
 import styles from '@/styles/BentoGrid.module.css';
 import FontAnimationCard from './FontAnimationCard';
+import LightningBoltCard from './LightningBoltCard';
+import PinpointAccuracyCard from './PinpointAccuracyCard';
+
 
 interface CardData {
   title: string;
@@ -62,13 +65,14 @@ export default function BentoGrid(): ReactElement {
           {/* Top row: large + small */}
           <div className={styles.topRow}>
             <FontAnimationCard title={fontCards[0].title} description={fontCards[0].description} size="large" />
-            <BentoCard title={fontCards[1].title} description={fontCards[1].description} size="small" />
+            <LightningBoltCard title={fontCards[1].title} description={fontCards[1].description} size="small" />
           </div>
 
           <div className={styles.bottomRow}>
             <BentoCard title={fontCards[2].title} description={fontCards[2].description} size="small" />
-            <BentoCard title={fontCards[3].title} description={fontCards[3].description} size="large" />
+            <PinpointAccuracyCard title={fontCards[3].title} description={fontCards[3].description} size="large" />
           </div>
+
 
           <div className={styles.fullWidthRow}>
             <BentoCard title={fontCards[4].title} description={fontCards[4].description} size="full" />

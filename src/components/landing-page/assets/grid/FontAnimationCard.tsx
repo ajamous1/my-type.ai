@@ -22,6 +22,23 @@ export default function FontAnimationCard({
   const containerRef = useRef<HTMLDivElement>(null);
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if screen is mobile size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 425);
+    };
+    
+    // Set initial value
+    checkMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -81,37 +98,39 @@ export default function FontAnimationCard({
       onMouseLeave={() => setIsCardHovered(false)}
     >
       <div className={styles.cardContentRow}>
-        <div className={styles.leftColumn}>
+        <div className={`${styles.leftColumn} ${isMobile ? styles.fullWidth : ''}`}>
           <div className={styles.cardHeader}>
-            <div className={styles.thumbnail}>T</div>
+            <div className={styles.thumbnail}></div>
             <h3 className={styles.title}>{title}</h3>
           </div>
           <p>{description}</p>
         </div>
 
-        <div
-          ref={containerRef}
-          className={`${styles.fallingTextContainer} ${isCardHovered ? styles.hovering : ''} ${hasInteracted ? styles.animated : ''}`}
-        >
-          <div className={styles.topBlur}></div>
-          <div className={styles.bottomBlur}></div>
+        {!isMobile && (
+          <div
+            ref={containerRef}
+            className={`${styles.fallingTextContainer} ${isCardHovered ? styles.hovering : ''} ${hasInteracted ? styles.animated : ''}`}
+          >
+            <div className={styles.topBlur}></div>
+            <div className={styles.bottomBlur}></div>
 
-          <div className={`${styles.column} ${styles.col0}`}>
-            {generateFontItems(0)}
-            {generateFontItems(12)}
-            {generateFontItems(24)}
+            <div className={`${styles.column} ${styles.col0}`}>
+              {generateFontItems(0)}
+              {generateFontItems(12)}
+              {generateFontItems(24)}
+            </div>
+            <div className={`${styles.column} ${styles.col1}`}>
+              {generateFontItems(6)}
+              {generateFontItems(18)}
+              {generateFontItems(30)}
+            </div>
+            <div className={`${styles.column} ${styles.col2}`}>
+              {generateFontItems(3)}
+              {generateFontItems(15)}
+              {generateFontItems(27)}
+            </div>
           </div>
-          <div className={`${styles.column} ${styles.col1}`}>
-            {generateFontItems(6)}
-            {generateFontItems(18)}
-            {generateFontItems(30)}
-          </div>
-          <div className={`${styles.column} ${styles.col2}`}>
-            {generateFontItems(3)}
-            {generateFontItems(15)}
-            {generateFontItems(27)}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
