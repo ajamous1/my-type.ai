@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import FontCard from './assets/FontCard';
-import BentoGrid from './assets/BentoGrid';
+import BentoGrid from './assets/grid/BentoGrid';
 import styles from '@/styles/LandingPage.module.css';
 
 interface Font {
