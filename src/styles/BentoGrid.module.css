@@ -311,23 +311,25 @@
 
 .pinpointContainer {
   position: relative;
-  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
   height: 100%;
   width: 100%;
   overflow: visible;
 
   mask-image: radial-gradient(
     circle 34px at var(--mask-x, 50%) var(--mask-y, 50%),
-    white 99%, transparent 100%
+    white 95%, transparent 100%
   );
   -webkit-mask-image: radial-gradient(
     circle 34px at var(--mask-x, 50%) var(--mask-y, 50%),
-    white 99%, transparent 100%
+    white 95%, transparent 100%
   );
 
   mask-repeat: no-repeat;
   -webkit-mask-repeat: no-repeat;
-  transition: mask-position 0.1s ease, -webkit-mask-position 0.1s ease;
 }
 
 .fontGridStatic {
@@ -335,12 +337,15 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   padding: 1rem;
+  position: relative;
+  z-index: 1;
+  flex: 1;
 }
 
 .crosshair {
   position: absolute;
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   transform: translate(-50%, -50%);
   background: url('/assets/elements/crosshair.svg') no-repeat center center;
   background-size: contain;
@@ -350,7 +355,6 @@
 
 @media (pointer: fine) {
   .pinpointContainer {
-    /* JS logic will constrain crosshair via inline style using these boundaries */
-    --crosshair-margin: 30px; /* half of 160px */
+    --crosshair-margin: 10px;
   }
 }
