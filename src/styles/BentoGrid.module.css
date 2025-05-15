@@ -347,15 +347,16 @@
 
 /* Crosshair is now completely separate from the mask */
 .crosshair {
-  position: fixed;
-  width: 100px;
-  height: 100px;
+  position: absolute;
+  width: 60px;
+  height: 60px;
   transform: translate(-50%, -50%);
   background: url('/assets/elements/crosshair.svg') no-repeat center center;
   background-size: contain;
   pointer-events: none;
-  z-index: 10000; /* Ensure crosshair always appears on top */
+  z-index: 10;
 }
+
 
 @media (pointer: fine) {
   .pinpointContainer {

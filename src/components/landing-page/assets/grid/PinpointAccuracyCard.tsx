@@ -4,10 +4,11 @@ import { useRef, useState, useEffect } from 'react';
 import styles from '@/styles/BentoGrid.module.css';
 
 const fonts = ['Helvetica', 'Futura', 'Avant Garde', 'Garamond', 'Inter', 'Times New Roman'];
+
 interface PinpointAccuracyCardProps {
-    title: string;
-    description: string;
-    size?: 'default' | 'small' | 'large' | 'full';
+  title: string;
+  description: string;
+  size?: 'default' | 'small' | 'large' | 'full';
 }
 
 export default function PinpointAccuracyCard({ title, description, size = 'large' }: PinpointAccuracyCardProps) {
@@ -16,210 +17,165 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
   const [mousePos, setMousePos] = useState({ x: 120, y: 120 });
   const [mode, setMode] = useState<'idle' | 'auto' | 'user'>('idle');
   const defaultPos = { x: 120, y: 120 };
-  
-  // Continuous back-and-forth scanning pattern with delay at boundaries
+
   useEffect(() => {
     let frame: number;
-    let startTime = performance.now();
-    let direction = 1; // 1 for forward, -1 for backward
-    let currentY = defaultPos.y;
+    let rowIndex = 0;
+    let sweepProgress = 0;
+    let sweepDirection = 1;
     let isPaused = false;
     let pauseStartTime = 0;
-    const PAUSE_DURATION = 700; // 0.7 seconds delay at boundaries
-    
+    const PAUSE_DURATION = 300;
+    const NUM_ROWS = 8;
+
     const animate = (t: number) => {
       if (mode !== 'auto') return;
-  
-      const bounds = containerRef.current?.getBoundingClientRect();
-      if (!bounds) return;
-  
+
+      const container = containerRef.current;
+      if (!container) return;
+
+      const bounds = container.getBoundingClientRect();
       const MARGIN = 40;
       const minX = MARGIN;
       const minY = MARGIN;
       const maxX = bounds.width - MARGIN;
       const maxY = bounds.height - MARGIN;
-      
-      const moveSpeed = 10; // pixels per second
-      
-      // Handle pausing at boundaries
+
+      const moveSpeed = 0.004;
+
       if (isPaused) {
         if (t - pauseStartTime >= PAUSE_DURATION) {
           isPaused = false;
+          rowIndex += sweepDirection;
+          if (rowIndex >= NUM_ROWS - 1) {
+            rowIndex = NUM_ROWS - 1;
+            sweepDirection = -1;
+          } else if (rowIndex <= 0) {
+            rowIndex = 0;
+            sweepDirection = 1;
+          }
         }
       } else {
-        // Update Y position with continuous movement
-        currentY += moveSpeed * 0.016 * direction; // 0.016 is approx one frame at 60fps
-        
-        // Check for boundary and pause if needed
-        if (currentY >= maxY) {
-          currentY = maxY;
-          direction = -1;
-          isPaused = true;
-          pauseStartTime = t;
-        } else if (currentY <= minY) {
-          currentY = minY;
-          direction = 1;
+        sweepProgress += moveSpeed;
+        if (sweepProgress >= 1) {
+          sweepProgress = 0;
           isPaused = true;
           pauseStartTime = t;
         }
       }
-      
-      const y = currentY;
-      
-      // X position follows sinusoidal pattern based on Y position
-      const progress = (y - minY) / (maxY - minY);
-      const rangeX = maxX - minX;
-      const x = minX + (rangeX / 2) * (1 + Math.sin(progress * 2 * Math.PI));
-  
-      // Apply position to reveal mask
-      setMousePos({ x, y });
-      containerRef.current?.style.setProperty('--mask-x', `${x}px`);
-      containerRef.current?.style.setProperty('--mask-y', `${y}px`);
-  
-      // Position crosshair separately on top
-      if (crosshairRef.current) {
-        const containerRect = containerRef.current.getBoundingClientRect();
-        crosshairRef.current.style.left = `${x + containerRect.left}px`;
-        crosshairRef.current.style.top = `${y + containerRect.top}px`;
+
+      const rowHeight = (maxY - minY) / (NUM_ROWS - 1);
+      const y = minY + rowIndex * rowHeight;
+      const x = rowIndex % 2 === 0
+        ? minX + sweepProgress * (maxX - minX)
+        : maxX - sweepProgress * (maxX - minX);
+
+      const easedX = mousePos.x + (x - mousePos.x) * 0.08;
+      const easedY = mousePos.y + (y - mousePos.y) * 0.08;
+
+      setMousePos({ x: easedX, y: easedY });
+      container.style.setProperty('--mask-x', `${easedX}px`);
+      container.style.setProperty('--mask-y', `${easedY}px`);
+
+      const crosshair = crosshairRef.current;
+      if (crosshair) {
+        crosshair.style.transform = `translate(${easedX}px, ${easedY}px)`;
       }
-  
+
       frame = requestAnimationFrame(animate);
     };
-  
-    if (mode === 'auto') frame = requestAnimationFrame(animate);
+
+    if (mode === 'auto') {
+      frame = requestAnimationFrame(animate);
+    }
+
     return () => cancelAnimationFrame(frame);
-  }, [mode]);
+  }, [mode, mousePos]);
 
-  // Mouse takes over when inside font grid
-  const handleFontGridEnter = (e: React.MouseEvent) => {
-    const bounds = containerRef.current?.getBoundingClientRect();
-    if (!bounds) return;
-
-    const x0 = mousePos.x;
-    const y0 = mousePos.y;
-    const x1 = e.clientX - bounds.left;
-    const y1 = e.clientY - bounds.top;
-
-    const duration = 800;
-    const start = performance.now();
-
-    const animateToCursor = (t: number) => {
-      const progress = Math.min(1, (t - start) / duration);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      const x = x0 + (x1 - x0) * ease;
-      const y = y0 + (y1 - y0) * ease;
-
-      // Update reveal mask position
-      setMousePos({ x, y });
-      containerRef.current?.style.setProperty('--mask-x', `${x}px`);
-      containerRef.current?.style.setProperty('--mask-y', `${y}px`);
-
-      // Update crosshair position separately
-      if (crosshairRef.current && containerRef.current) {
-        const containerRect = containerRef.current.getBoundingClientRect();
-        crosshairRef.current.style.left = `${x + containerRect.left}px`;
-        crosshairRef.current.style.top = `${y + containerRect.top}px`;
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(animateToCursor);
-      } else {
-        setMode('user');
-      }
-    };
-
-    requestAnimationFrame(animateToCursor);
+  const handleFontGridEnter = () => {
+    setMode('user');
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (mode !== 'user') return;
-    const bounds = containerRef.current?.getBoundingClientRect();
-    if (!bounds) return;
 
-    const MARGIN = 80;
+    const container = containerRef.current;
+    if (!container) return;
+
+    const bounds = container.getBoundingClientRect();
+    const MARGIN = 40;
     const x = Math.min(bounds.width - MARGIN, Math.max(MARGIN, e.clientX - bounds.left));
     const y = Math.min(bounds.height - MARGIN, Math.max(MARGIN, e.clientY - bounds.top));
 
-    // Update reveal mask position
-    setMousePos({ x, y });
-    containerRef.current?.style.setProperty('--mask-x', `${x}px`);
-    containerRef.current?.style.setProperty('--mask-y', `${y}px`);
+    const easedX = mousePos.x + (x - mousePos.x) * 0.2;
+    const easedY = mousePos.y + (y - mousePos.y) * 0.2;
 
-    // Update crosshair position separately
-    if (crosshairRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      crosshairRef.current.style.left = `${x + containerRect.left}px`;
-      crosshairRef.current.style.top = `${y + containerRect.top}px`;
+    setMousePos({ x: easedX, y: easedY });
+    container.style.setProperty('--mask-x', `${easedX}px`);
+    container.style.setProperty('--mask-y', `${easedY}px`);
+
+    const crosshair = crosshairRef.current;
+    if (crosshair) {
+      crosshair.style.transform = `translate(${easedX}px, ${easedY}px)`;
     }
   };
 
   const handleMouseLeave = () => {
-    setMode('idle');
-
     const x0 = mousePos.x;
     const y0 = mousePos.y;
     const x1 = defaultPos.x;
     const y1 = defaultPos.y;
-    const duration = 1000;
+    const duration = 500;
     const start = performance.now();
 
+    setMode('idle');
+
     const animateBack = (t: number) => {
+      const container = containerRef.current;
+      if (!container) return;
+
       const progress = Math.min(1, (t - start) / duration);
       const ease = 1 - Math.pow(1 - progress, 2);
 
       const x = x0 + (x1 - x0) * ease;
       const y = y0 + (y1 - y0) * ease;
 
-      // Update reveal mask position
       setMousePos({ x, y });
-      containerRef.current?.style.setProperty('--mask-x', `${x}px`);
-      containerRef.current?.style.setProperty('--mask-y', `${y}px`);
+      container.style.setProperty('--mask-x', `${x}px`);
+      container.style.setProperty('--mask-y', `${y}px`);
 
-      // Update crosshair position separately
-      if (crosshairRef.current && containerRef.current) {
-        const containerRect = containerRef.current.getBoundingClientRect();
-        crosshairRef.current.style.left = `${x + containerRect.left}px`;
-        crosshairRef.current.style.top = `${y + containerRect.top}px`;
+      const crosshair = crosshairRef.current;
+      if (crosshair) {
+        crosshair.style.transform = `translate(${x}px, ${y}px)`;
       }
 
-      if (progress < 1) requestAnimationFrame(animateBack);
+      if (progress < 1) {
+        requestAnimationFrame(animateBack);
+      } else {
+        setTimeout(() => {
+          if (mode === 'idle') setMode('auto');
+        }, 800);
+      }
     };
 
     requestAnimationFrame(animateBack);
   };
 
-  // Effect to handle resizing and scrolling
   useEffect(() => {
-    const updateCrosshairPosition = () => {
-      if (crosshairRef.current && containerRef.current) {
-        const containerRect = containerRef.current.getBoundingClientRect();
-        crosshairRef.current.style.left = `${mousePos.x + containerRect.left}px`;
-        crosshairRef.current.style.top = `${mousePos.y + containerRect.top}px`;
-      }
-    };
-
-    window.addEventListener('resize', updateCrosshairPosition);
-    window.addEventListener('scroll', updateCrosshairPosition);
-
-    return () => {
-      window.removeEventListener('resize', updateCrosshairPosition);
-      window.removeEventListener('scroll', updateCrosshairPosition);
-    };
-  }, [mousePos]);
-
-  useEffect(() => {
-    // Initial position
-    if (crosshairRef.current && containerRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      crosshairRef.current.style.left = `${defaultPos.x + containerRect.left}px`;
-      crosshairRef.current.style.top = `${defaultPos.y + containerRect.top}px`;
+    const container = containerRef.current;
+    const crosshair = crosshairRef.current;
+    if (container && crosshair) {
+      container.style.setProperty('--mask-x', `${defaultPos.x}px`);
+      container.style.setProperty('--mask-y', `${defaultPos.y}px`);
+      crosshair.style.transform = `translate(${defaultPos.x}px, ${defaultPos.y}px)`;
+      setTimeout(() => setMode('auto'), 500);
     }
   }, []);
 
   return (
     <>
       <div
-        className={`${styles.bentoCard} ${styles.large}`}
+        className={`${styles.bentoCard} ${styles[size]}`}
         onMouseEnter={() => setMode('auto')}
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
@@ -228,9 +184,9 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
           <div className={styles.leftColumn}>
             <div className={styles.cardHeader}>
               <div className={styles.thumbnail}></div>
-              <h3 className={styles.title}>Pinpoint Accuracy</h3>
+              <h3 className={styles.title}>{title}</h3>
             </div>
-            <p>Precise font matching through advanced algorithms</p>
+            <p>{description}</p>
           </div>
 
           <div ref={containerRef} className={styles.pinpointContainer}>
@@ -251,11 +207,9 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
           </div>
         </div>
       </div>
-      {/* Crosshair element separate from the mask reveal effect */}
-      <div
-        ref={crosshairRef}
-        className={styles.crosshair}
-      />
+
+      {/* Crosshair (overlay layer) */}
+      <div ref={crosshairRef} className={styles.crosshair} />
     </>
   );
 }
