@@ -94,6 +94,7 @@
     margin: 0 auto;
     scroll-snap-type: x mandatory;
     scroll-padding: 2rem;
+    cursor: crosshair;
   }
   
   .sideContentContainer {

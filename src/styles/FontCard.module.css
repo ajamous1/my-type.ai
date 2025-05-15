@@ -8,6 +8,7 @@
     padding: 0.5rem;
     box-sizing: border-box;
     transform: translateZ(0); /* Force GPU rendering */
+    cursor: crosshair;
   }
 
   .fontCardWrapper:hover .cardInner {
