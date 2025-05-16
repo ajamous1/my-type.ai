@@ -347,8 +347,8 @@
 
 .crosshair {
   position: absolute;
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   top: 0;
   left: 0;
   transform: translate(-50%, -50%);
