@@ -5,6 +5,7 @@ import styles from '@/styles/BentoGrid.module.css';
 import FontAnimationCard from './FontAnimationCard';
 import LightningBoltCard from './LightningBoltCard';
 import PinpointAccuracyCard from './PinpointAccuracyCard';
+import AnywhereAnyTypeCard from './AnyType';
 
 
 interface CardData {
@@ -75,7 +76,8 @@ export default function BentoGrid(): ReactElement {
 
 
           <div className={styles.fullWidthRow}>
-            <BentoCard title={fontCards[4].title} description={fontCards[4].description} size="full" />
+          <AnywhereAnyTypeCard title={fontCards[4].title} description={fontCards[4].description} size="full" />
+
           </div>
         </div>
       );
