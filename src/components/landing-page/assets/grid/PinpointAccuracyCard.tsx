@@ -40,7 +40,6 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
       const minY = MARGIN;
       const maxX = bounds.width - MARGIN;
       const maxY = bounds.height - MARGIN;
-
       const moveSpeed = 0.004;
 
       if (isPaused) {
@@ -74,12 +73,15 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
       const easedY = mousePos.y + (y - mousePos.y) * 0.08;
 
       setMousePos({ x: easedX, y: easedY });
+      
+      // Set the mask position
       container.style.setProperty('--mask-x', `${easedX}px`);
       container.style.setProperty('--mask-y', `${easedY}px`);
-
-      const crosshair = crosshairRef.current;
-      if (crosshair) {
-        crosshair.style.transform = `translate(${easedX}px, ${easedY}px)`;
+      
+      // Set the crosshair position to match the mask position
+      if (crosshairRef.current) {
+        crosshairRef.current.style.left = `${easedX}px`;
+        crosshairRef.current.style.top = `${easedY}px`;
       }
 
       frame = requestAnimationFrame(animate);
@@ -111,12 +113,15 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
     const easedY = mousePos.y + (y - mousePos.y) * 0.2;
 
     setMousePos({ x: easedX, y: easedY });
+    
+    // Set the mask position
     container.style.setProperty('--mask-x', `${easedX}px`);
     container.style.setProperty('--mask-y', `${easedY}px`);
-
-    const crosshair = crosshairRef.current;
-    if (crosshair) {
-      crosshair.style.transform = `translate(${easedX}px, ${easedY}px)`;
+    
+    // Set the crosshair position to match the mask position
+    if (crosshairRef.current) {
+      crosshairRef.current.style.left = `${easedX}px`;
+      crosshairRef.current.style.top = `${easedY}px`;
     }
   };
 
@@ -136,17 +141,19 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
 
       const progress = Math.min(1, (t - start) / duration);
       const ease = 1 - Math.pow(1 - progress, 2);
-
       const x = x0 + (x1 - x0) * ease;
       const y = y0 + (y1 - y0) * ease;
 
       setMousePos({ x, y });
+      
+      // Set the mask position
       container.style.setProperty('--mask-x', `${x}px`);
       container.style.setProperty('--mask-y', `${y}px`);
-
-      const crosshair = crosshairRef.current;
-      if (crosshair) {
-        crosshair.style.transform = `translate(${x}px, ${y}px)`;
+      
+      // Set the crosshair position to match the mask position
+      if (crosshairRef.current) {
+        crosshairRef.current.style.left = `${x}px`;
+        crosshairRef.current.style.top = `${y}px`;
       }
 
       if (progress < 1) {
@@ -163,17 +170,22 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
 
   useEffect(() => {
     const container = containerRef.current;
-    const crosshair = crosshairRef.current;
-    if (container && crosshair) {
+    if (container) {
       container.style.setProperty('--mask-x', `${defaultPos.x}px`);
       container.style.setProperty('--mask-y', `${defaultPos.y}px`);
-      crosshair.style.transform = `translate(${defaultPos.x}px, ${defaultPos.y}px)`;
+      
+      // Set initial crosshair position
+      if (crosshairRef.current) {
+        crosshairRef.current.style.left = `${defaultPos.x}px`;
+        crosshairRef.current.style.top = `${defaultPos.y}px`;
+      }
+      
       setTimeout(() => setMode('auto'), 500);
     }
   }, []);
 
   return (
-    <>
+    <div className={styles.cardWrapper}>
       <div
         className={`${styles.bentoCard} ${styles[size]}`}
         onMouseEnter={() => setMode('auto')}
@@ -189,7 +201,7 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
             <p>{description}</p>
           </div>
 
-          <div ref={containerRef} className={styles.pinpointContainer}>
+          <div ref={containerRef} className={styles.pinpointContainer} style={{ position: 'relative' }}>
             <div
               className={styles.fontGridStatic}
               onMouseEnter={handleFontGridEnter}
@@ -204,12 +216,21 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
                 </span>
               ))}
             </div>
+            
+            {/* Crosshair positioned inside the container with the same coordinates as the mask */}
+            <div 
+              ref={crosshairRef} 
+              className={styles.crosshair}
+              style={{
+                position: 'absolute',
+                pointerEvents: 'none',
+                zIndex: 5,
+                transform: 'translate(-50%, -50%)'
+              }}
+            />
           </div>
         </div>
       </div>
-
-      {/* Crosshair (overlay layer) */}
-      <div ref={crosshairRef} className={styles.crosshair} />
-    </>
+    </div>
   );
 }
