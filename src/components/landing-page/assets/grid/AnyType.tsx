@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/BentoGrid.module.css';
 
 interface AnywhereAnyTypeCardProps {
@@ -9,44 +9,101 @@ interface AnywhereAnyTypeCardProps {
   size?: 'default' | 'small' | 'large' | 'full';
 }
 
-export default function AnywhereAnyTypeCard({ title, description, size = 'full' }: AnywhereAnyTypeCardProps) {
-  const gridRef = useRef<HTMLDivElement>(null);
+export default function AnywhereAnyTypeCard({
+  title,
+  description,
+  size = 'full',
+}: AnywhereAnyTypeCardProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const letterRefs = useRef<HTMLSpanElement[]>([]);
+  const hoverTimes = useRef<number[]>(Array(15).fill(0));
+  const animationRef = useRef<number | null>(null);
+  const [mousePos, setMousePos] = useState({ x: -9999, y: -9999 });
 
   useEffect(() => {
-    const grid = gridRef.current;
-    if (!grid) return;
+    const updateMouse = (e: MouseEvent) => {
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    };
 
-    const columns = 8;
-    const rows = 4;
-    const total = columns * rows;
-    const elements: HTMLSpanElement[] = [];
+    const leave = () => setMousePos({ x: -9999, y: -9999 });
 
-    for (let i = 0; i < total; i++) {
-      const span = document.createElement('span');
-      span.textContent = 'a';
-      span.className = styles.scalingA;
-      grid.appendChild(span);
-      elements.push(span);
-    }
+    const el = containerRef.current;
+    el?.addEventListener('mousemove', updateMouse);
+    el?.addEventListener('mouseleave', leave);
 
-    elements.forEach((el, i) => {
-      const row = Math.floor(i / columns);
-      const col = i % columns;
-      el.style.animationDelay = `${(row + col) * 0.08}s`;
-    });
+    return () => {
+      el?.removeEventListener('mousemove', updateMouse);
+      el?.removeEventListener('mouseleave', leave);
+    };
   }, []);
 
+  useEffect(() => {
+    const loop = () => {
+      letterRefs.current.forEach((ref, i) => {
+        if (!ref || !containerRef.current) return;
+
+        const letterBox = ref.getBoundingClientRect();
+        const containerBox = containerRef.current.getBoundingClientRect();
+        const centerX = letterBox.left + letterBox.width / 2 - containerBox.left;
+        const centerY = letterBox.top + letterBox.height / 2 - containerBox.top;
+        const dx = mousePos.x - centerX;
+        const dy = mousePos.y - centerY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        const threshold = 160;
+        const isClose = dist < threshold;
+
+        hoverTimes.current[i] = isClose
+          ? Math.min(hoverTimes.current[i] + 1, 60)
+          : Math.max(hoverTimes.current[i] - 2, 0);
+
+        const progress = hoverTimes.current[i] / 60;
+        const scale = 0.5 + progress * 1.2;
+        const weight = 400 + progress * 500;
+
+        ref.style.transform = `scale(${scale})`;
+        ref.style.fontVariationSettings = `"wght" ${weight}`;
+      });
+
+      animationRef.current = requestAnimationFrame(loop);
+    };
+
+    animationRef.current = requestAnimationFrame(loop);
+    return () => {
+      if (animationRef.current !== null) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [mousePos]);
+
   return (
-    <div className={`${styles.bentoCard} ${styles[size]}`}>
+    <div className={`${styles.bentoCard} ${styles[size]}`} ref={containerRef}>
+      <div className={styles.cardHeader}>
+        <div className={styles.thumbnail}></div>
+        <h3 className={styles.title}>{title}</h3>
+      </div>
+
       <div className={styles.cardContentRow}>
         <div className={styles.leftColumn}>
-          <div className={styles.cardHeader}>
-            <div className={styles.thumbnail}></div>
-            <h3 className={styles.title}>{title}</h3>
-          </div>
           <p>{description}</p>
         </div>
-        <div ref={gridRef} className={styles.airbnbLetterGrid}></div>
+
+        <div className={styles.airbnbLetterGrid}>
+          {Array.from({ length: 15 }).map((_, i) => (
+            <div key={i} className={styles.cellWrapper}>
+              <span
+                ref={el => {
+                  if (el) letterRefs.current[i] = el;
+                }}
+                className={styles.scalingA}
+              >
+                a
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
