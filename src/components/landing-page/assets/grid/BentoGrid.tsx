@@ -28,17 +28,6 @@ const fontCards: CardData[] = [
   { title: 'Anywhere, Any Type', description: 'Identify fonts from any background, of any shape, any scale, any size.', id: 5 }
 ];
 
-function BentoCard({ title, description, size = 'default' }: BentoCardProps): ReactElement {
-  return (
-    <div className={`${styles.bentoCard} ${styles[size]}`}>
-      <div className={styles.cardHeader}>
-        <div className={styles.thumbnail}></div>
-        <h3 className={styles.title}>{title}</h3>
-      </div>
-      <p>{description}</p>
-    </div>
-  );
-}
 
 export default function BentoGrid(): ReactElement {
   const [viewportSize, setViewportSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
