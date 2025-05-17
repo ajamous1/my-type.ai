@@ -56,8 +56,8 @@ export default function AnywhereAnyTypeCard({
         const isClose = dist < threshold;
 
         hoverTimes.current[i] = isClose
-          ? Math.min(hoverTimes.current[i] + 1, 60)
-          : Math.max(hoverTimes.current[i] - 2, 0);
+          ? Math.min(hoverTimes.current[i] + 0.3, 60)
+          : Math.max(hoverTimes.current[i] - 0.3, 0);
 
         const progress = hoverTimes.current[i] / 60;
         const scale = 0.5 + progress * 1.2;
@@ -90,19 +90,23 @@ export default function AnywhereAnyTypeCard({
           <p>{description}</p>
         </div>
 
-        <div className={styles.airbnbLetterGrid}>
-          {Array.from({ length: 15 }).map((_, i) => (
-            <div key={i} className={styles.cellWrapper}>
-              <span
-                ref={el => {
-                  if (el) letterRefs.current[i] = el;
-                }}
-                className={styles.scalingA}
-              >
-                a
-              </span>
+        <div className={styles.rightColumn}>
+          <div className={styles.gridAligner}>
+            <div className={styles.airbnbLetterGrid}>
+              {Array.from({ length: 15 }).map((_, i) => (
+                <div key={i} className={styles.cellWrapper}>
+                  <span
+                    ref={(el) => {
+                      if (el) letterRefs.current[i] = el;
+                    }}
+                    className={styles.scalingA}
+                  >
+                    a
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
