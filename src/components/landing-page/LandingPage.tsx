@@ -85,7 +85,8 @@ export default function LandingPage() {
         <div className={styles.sideContentContainer}>
           <div className={styles.sideContent}>
             <h2>By designers, for designers.</h2>
-            <h3>Find the font you're looking in the click of a button.</h3>
+            <h3>Find the font you&#39;re looking in the click of a button.</h3>
+
             <BentoGrid />
           </div>
 
