@@ -1,8 +1,8 @@
 .bentoSection {
   width: 100%;
   max-width: 1800px;
-  margin: 0;
-  padding: 0;
+  margin: 0 auto;
+  padding: 24px;
   user-select: none;
 }
 
@@ -58,23 +58,31 @@
 
 /* Grid Layouts */
 .desktopGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 100%;
+}
+
+.topRow, .bottomRow, .fullWidthRow {
   display: grid;
-  gap: 6px;
+  gap: 36px;
   width: 100%;
 }
 
 .topRow, .bottomRow {
-  display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 36px;
-  margin-bottom: 36px;
 }
 
 .bottomRow {
   grid-template-columns: 1fr 2fr;
 }
 
-.tabletGrid, .mobileGrid {
+.fullWidthRow {
+  grid-template-columns: 1fr;
+}
+
+.tabletGrid {
   display: flex;
   flex-direction: column;
   gap: 36px;
@@ -87,44 +95,122 @@
   gap: 36px;
 }
 
+/* Tablet specific adjustments */
+@media (max-width: 768px) and (min-width: 501px) {
+  .tabletGrid .large {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+  
+  .tabletGrid .full {
+    width: 100%;
+  }
+  
+  .tabletGrid .small {
+    width: 100%;
+    height: 250px;
+    min-height: 250px;
+  }
+  
+  /* Fix for Designer-Tuned card content */
+  .tabletGrid .twoCol .designerTunedCard {
+    min-height: 250px;
+    height: 250px;
+  }
+  
+  .letterBackground {
+    width: 180px;
+    height: 220px;
+    bottom: -40px;
+    right: -15px;
+  }
+}
+
 .mobileGrid {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
 .large, .small, .full, .default {
   height: 360px;
 }
 
-.fullWidth {
-  grid-column: 1 / -1;
+.large {
+  min-height: 360px;
+}
+
+.small {
+  min-height: 360px;
+}
+
+.full {
+  min-height: 360px;
   width: 100%;
 }
 
-@media (max-width: 640px) {
+.default {
+  min-height: 260px;
+}
+
+/* Media queries for responsive adjustments */
+@media (max-width: 768px) and (min-width: 501px) {
+  .bentoSection {
+    padding: 16px;
+  }
+  
+  .bentoCard {
+    padding: 30px;
+  }
+  
+  .large, .small, .full, .default {
+    height: 300px;
+    min-height: 300px;
+  }
+  
+  /* Fix for Designer-Tuned card in tablet view */
+  .tabletGrid .twoCol .bentoCard {
+    min-height: 250px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 500px) {
+  .bentoSection {
+    padding: 12px;
+  }
+  
   .bentoCard {
     padding: 24px;
   }
+  
   .cardHeader {
     height: 40px;
   }
+  
   .thumbnail {
     width: 40px;
     height: 40px;
     margin-right: 12px;
   }
+  
   .title {
-    font-size: 16px;
+    font-size: 18px;
   }
+  
   .bentoCard p {
     font-size: 14px;
     margin-top: 12px;
   }
-  .default, .small, .large, .full {
-    height: auto;
-    min-height: 80px;
+  
+  .large, .small, .full, .default {
+    height: 260px;
+    min-height: 220px;
   }
 }
 
+/* Preserving animation styles from original CSS */
 .cardContentRow {
   display: flex;
   flex-direction: row;
@@ -308,7 +394,6 @@
 }
 
 /* === Pinpoint Accuracy === */
-
 .pinpointContainer {
   position: relative;
   display: flex;
@@ -358,18 +443,11 @@
   z-index: 5;
 }
 
-
 @media (pointer: fine) {
   .pinpointContainer {
     --crosshair-margin: 10px;
   }
 }
-
-
-
-
-
-
 
 .rightColumn {
   flex: 1;
@@ -429,14 +507,6 @@
   z-index: 2;
 }
 
-.cardHeader {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-  height: 60px;
-}
-
-
 .letterBackground {
   position: absolute;
   width: 240px;
@@ -465,4 +535,59 @@
   stroke: #DC143C; /* Crimson red */
   stroke-opacity: 1;
   stroke-width: 3.5px;
+}
+
+/* Responsive adjustments for animations */
+@media (max-width: 1024px) {
+  .fallingTextContainer {
+    min-height: 250px;
+    max-height: 300px;
+  }
+  
+  .fallingText {
+    font-size: 36px;
+  }
+  
+  .letterBackground {
+    width: 200px;
+    height: 300px;
+  }
+  
+  .airbnbLetterGrid {
+    grid-template-columns: repeat(5, 40px);
+    grid-template-rows: repeat(3, 40px);
+    gap: 24px;
+  }
+  
+  .scalingA {
+    font-size: 70px;
+  }
+}
+
+@media (max-width: 640px) {
+  .fallingTextContainer {
+    min-height: 200px;
+    max-height: 260px;
+  }
+  
+  .fallingText {
+    font-size: 30px;
+  }
+  
+  .letterBackground {
+    width: 160px;
+    height: 240px;
+    bottom: -40px;
+    right: -10px;
+  }
+  
+  .airbnbLetterGrid {
+    grid-template-columns: repeat(5, 32px);
+    grid-template-rows: repeat(3, 32px);
+    gap: 18px;
+  }
+  
+  .scalingA {
+    font-size: 60px;
+  }
 }
