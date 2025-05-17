@@ -5,10 +5,10 @@ import styles from '@/styles/FontCard.module.css';
 
 export interface FontCardProps {
   fontName: string;
-  image?: string;
+ 
 }
 
-const FontCard = ({ fontName, image }: FontCardProps) => {
+const FontCard = ({ fontName }: FontCardProps) => {
   const [flipped, setFlipped] = useState(false);
 
   const getFontDescription = (name: string): string => {
