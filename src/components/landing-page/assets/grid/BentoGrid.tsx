@@ -14,11 +14,7 @@ interface CardData {
   id: number;
 }
 
-interface BentoCardProps {
-  title: string;
-  description: string;
-  size?: 'default' | 'small' | 'large' | 'full';
-}
+
 
 const fontCards: CardData[] = [
   { title: 'Typographic Depth', description: 'Explore the visual hierarchy and impact of different typefaces', id: 1 },
