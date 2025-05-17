@@ -381,7 +381,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -70%); /* 🔥 Optical vertical correction */
+  transform: translate(-50%, -75%); /* 🔥 Optical vertical correction */
   pointer-events: none;
 }
 
@@ -417,4 +417,52 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   backface-visibility: hidden;
+}
+
+.designerTunedCard {
+  position: relative;
+  overflow: hidden;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 2;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  height: 60px;
+}
+
+
+.letterBackground {
+  position: absolute;
+  width: 240px;
+  height: 360px;
+  bottom: -60px;
+  right: -20px;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.letterSvg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Each path gets the same styling and hover effect */
+.svgPath {
+  transition: stroke 0.3s ease, stroke-opacity 0.3s ease;
+  stroke: #000;
+  stroke-opacity: 0.14;
+  cursor: pointer;
+}
+
+/* Individual path hover */
+.svgPath:hover {
+  stroke: #DC143C; /* Crimson red */
+  stroke-opacity: 1;
+  stroke-width: 3.5px;
 }
