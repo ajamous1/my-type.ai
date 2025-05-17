@@ -6,7 +6,7 @@ import LandingPage from '../components/landing-page/LandingPage';
 
 // ✅ SEO metadata
 export const metadata: Metadata = {
-  title: 'MyType – Discover Your Typeface Instantly',
+  title: 'MyType – Discover and use type',
   description:
     'MyType helps designers find the perfect font in seconds. Explore curated typography, streamline your workflow, and integrate with tools like Figma and Adobe.',
 };
