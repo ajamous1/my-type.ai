@@ -22,14 +22,28 @@ const fontCards: CardData[] = [
   { title: 'Anywhere, Any Type', description: 'Identify fonts from any background, of any shape, any scale, any size.', id: 5 }
 ];
 
-// Create a simplified card component specifically for mobile view
-const MobileCard = ({ title, description }: { title: string, description: string }): ReactElement => {
+// Bento Card component with proper layout structure
+const BentoCard = ({ title, description, id, children }: { 
+  title: string, 
+  description: string, 
+  id: number,
+  children?: React.ReactNode
+}): ReactElement => {
   return (
     <div className={styles.bentoCard}>
+      {/* Card header with thumbnail and title properly vertically aligned */}
       <div className={styles.cardHeader}>
-        <div className={styles.title}>{title}</div>
+        <div className={styles.thumbnail}>
+          {/* Icon or thumbnail content */}
+        </div>
+        <h3 className={styles.title}>{title}</h3>
       </div>
+      
+      {/* Description takes full width below header */}
       <p className={styles.description}>{description}</p>
+      
+      {/* Optional card content */}
+      {children && <div className={styles.cardContent}>{children}</div>}
     </div>
   );
 };
@@ -59,7 +73,7 @@ export default function BentoGrid(): ReactElement {
       <div className={styles.mobileGrid}>
         {fontCards.map((card) => (
           <div key={card.id} className={styles.fullWidthRow}>
-            <MobileCard title={card.title} description={card.description} />
+            <BentoCard title={card.title} description={card.description} id={card.id} />
           </div>
         ))}
       </div>
