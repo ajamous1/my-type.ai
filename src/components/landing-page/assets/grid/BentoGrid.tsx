@@ -23,7 +23,7 @@ const fontCards: CardData[] = [
 ];
 
 // Bento Card component with proper layout structure
-const BentoCard = ({ title, description, id, children }: { 
+const BentoCard = ({ title, description, children }: { 
   title: string, 
   description: string, 
   id: number,
