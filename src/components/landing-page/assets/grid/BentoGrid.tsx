@@ -23,7 +23,7 @@ const fontCards: CardData[] = [
 ];
 
 // Bento Card component with proper layout structure and top-aligned title
-const BentoCard = ({ title, description, children, id }: { 
+const BentoCard = ({ title, description, children }: { 
   title: string, 
   description: string, 
   id: number,
