@@ -22,6 +22,18 @@ const fontCards: CardData[] = [
   { title: 'Anywhere, Any Type', description: 'Identify fonts from any background, of any shape, any scale, any size.', id: 5 }
 ];
 
+// Create a simplified card component specifically for mobile view
+const MobileCard = ({ title, description }: { title: string, description: string }): ReactElement => {
+  return (
+    <div className={styles.bentoCard}>
+      <div className={styles.cardHeader}>
+        <div className={styles.title}>{title}</div>
+      </div>
+      <p className={styles.description}>{description}</p>
+    </div>
+  );
+};
+
 export default function BentoGrid(): ReactElement {
   const [viewportSize, setViewportSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
 
@@ -45,48 +57,11 @@ export default function BentoGrid(): ReactElement {
   const renderMobileGrid = (): ReactElement => {
     return (
       <div className={styles.mobileGrid}>
-        {fontCards.map((card) => {
-          // On mobile, all cards are full width
-          return (
-            <div key={card.id} className={styles.fullWidthRow}>
-              {card.id === 1 && (
-                <FontAnimationCard 
-                  title={card.title} 
-                  description={card.description} 
-                  size="default" 
-                />
-              )}
-              {card.id === 2 && (
-                <LightningBoltCard 
-                  title={card.title} 
-                  description={card.description} 
-                  size="default" 
-                />
-              )}
-              {card.id === 3 && (
-                <DesignerTunedCard
-                  title={card.title}
-                  description={card.description}
-                  size="default"
-                />
-              )}
-              {card.id === 4 && (
-                <PinpointAccuracyCard 
-                  title={card.title} 
-                  description={card.description} 
-                  size="default" 
-                />
-              )}
-              {card.id === 5 && (
-                <AnywhereAnyTypeCard 
-                  title={card.title} 
-                  description={card.description} 
-                  size="default" 
-                />
-              )}
-            </div>
-          );
-        })}
+        {fontCards.map((card) => (
+          <div key={card.id} className={styles.fullWidthRow}>
+            <MobileCard title={card.title} description={card.description} />
+          </div>
+        ))}
       </div>
     );
   };

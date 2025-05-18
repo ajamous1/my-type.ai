@@ -1,5 +1,6 @@
-/* === CORE LAYOUT AND STRUCTURE === */
+/* BentoGrid.module.css */
 
+/* === CORE LAYOUT AND STRUCTURE === */
 .bentoSection {
   width: 100%;
   max-width: 1800px;
@@ -45,7 +46,7 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: clamp(20px, 2vw, 24px);
   font-weight: 500;
   font-family: 'Inter', sans-serif;
   margin: 0;
@@ -53,7 +54,7 @@
 
 .bentoCard p,
 .description {
-  font-size: 18px;
+  font-size: clamp(15px, 1.5vw, 18px);
   color: #666;
   font-family: 'Inter', sans-serif;
   margin: 0;
@@ -144,6 +145,9 @@
     padding: 24px;
     max-width: 100%;
     overflow: hidden;
+    /* Disable hover interactions on tablet */
+    pointer-events: none;
+    transition: none;
   }
 
   .tabletGrid .title {
@@ -154,7 +158,7 @@
     font-size: 16px;
   }
 
-  /* ✅ Updated for Pinpoint Accuracy and Airbnb grids */
+  /* Scale down visual components */
   .tabletGrid .fontGridStatic,
   .tabletGrid .airbnbLetterGrid {
     grid-template-columns: repeat(3, 1fr) !important;
@@ -162,25 +166,16 @@
     gap: 0.5rem;
   }
 
-  .tabletGrid .fallingText {
-    font-size: 48px;
-  }
-
-  .tabletGrid .pinpointContainer {
-    transform: scale(0.85);
-    transform-origin: center;
-    overflow: hidden;
-  }
-
+  /* Scale down all animation containers */
   .tabletGrid .fallingTextContainer,
   .tabletGrid .strokeZapWrapper,
   .tabletGrid .pinpointContainer,
   .tabletGrid .letterBackground {
-    display: block;
     transform: scale(0.9);
+    transform-origin: center;
+    overflow: hidden;
   }
 }
-
 
 /* Mobile */
 @media (max-width: 639px) {
@@ -190,7 +185,8 @@
 
   .mobileGrid .bentoCard {
     width: 100%;
-    min-height: 200px;
+    min-height: auto;
+    height: auto;
     padding: 20px;
   }
 
@@ -216,6 +212,7 @@
     font-size: 15px;
   }
 
+  /* Hide all visual elements on mobile - only show metadata */
   .mobileGrid .fallingTextContainer,
   .mobileGrid .strokeZapWrapper,
   .mobileGrid .pinpointContainer,
@@ -251,6 +248,7 @@
   justify-content: center;
 }
 
+/* Falling Text Animation */
 .fallingTextContainer {
   position: relative;
   overflow: hidden;
@@ -320,6 +318,7 @@
   background: linear-gradient(to top, white 0%, rgba(255, 255, 255, 0) 100%);
 }
 
+/* Lightning Bolt Animation */
 .clippedCard {
   position: relative;
   width: 100%;
@@ -396,6 +395,7 @@
   to { filter: drop-shadow(0 0 20px #DC143C); opacity: 0.15; }
 }
 
+/* Pinpoint Container & Crosshair */
 .pinpointContainer {
   position: relative;
   display: flex;
@@ -414,7 +414,7 @@
 
 .fontGridStatic {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* overridden on tablet */
+  grid-template-columns: repeat(5, 1fr); 
   gap: 0.5rem;
   padding: 0rem;
   position: relative;
@@ -456,6 +456,7 @@
   pointer-events: none;
 }
 
+/* AnyType Grid */
 .airbnbLetterGrid {
   display: grid;
   grid-template-columns: repeat(5, 48px);
@@ -495,6 +496,7 @@
   z-index: 2;
 }
 
+/* SVG Letter Background */
 .letterBackground {
   position: absolute;
   width: 240px;
@@ -522,4 +524,34 @@
   stroke: #DC143C;
   stroke-opacity: 1;
   stroke-width: 3.5px;
+}
+
+/* Disable all animations on touch devices */
+@media (hover: none) {
+  .bentoCard {
+    pointer-events: none;
+    transition: none;
+  }
+  
+  .bentoCard:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .column {
+    animation-play-state: paused !important;
+  }
+  
+  .fallingTextContainer:hover .fallingText,
+  .bentoCard:hover .redZap,
+  .bentoCard:hover .grayBolt,
+  .svgPath:hover {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+    stroke: #000 !important;
+    stroke-opacity: 0.14 !important;
+    stroke-width: initial !important;
+    color: rgba(51, 51, 51, 0.15) !important;
+    background: none !important;
+  }
 }
