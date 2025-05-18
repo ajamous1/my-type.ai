@@ -57,3 +57,4 @@ export default function LightningBoltCard({ title, description, size = 'default'
     </div>
   );
 }
+

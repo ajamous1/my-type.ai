@@ -2,25 +2,23 @@
 
 import styles from '@/styles/BentoGrid.module.css';
 
-
+interface DesignerTunedCardProps {
+  title?: string;
+  description?: string;
+  size?: 'default' | 'small' | 'large' | 'full';
+}
 
 export default function DesignerTunedCard({
-  title = "Designer Tuned",
-  description = "Hover over the letter A to see the effect",
+  title = 'Designer Tuned',
+  description = 'Hover over the letter A to see the effect',
   size = 'default',
-}) {
+}: DesignerTunedCardProps) {
   return (
-    <div className={`${styles.bentoCard} ${styles.designerTunedCard} ${styles[size]}`}>
-    <div className={styles.cardContent}>
-      <div className={styles.cardHeader}>
-        <div className={styles.thumbnail}></div>
-        <h3 className={styles.title}>{title}</h3>
-      </div>
-      <p className={styles.description}>{description}</p>
-    </div>
-
-    <div className={styles.letterBackground}>
-      <svg
+    <div className={`${styles.bentoCard} ${styles[size]}`}>
+      <div className={styles.clippedCard}>
+        {/* SVG Background */}
+        <div className={styles.letterBackground}>
+        <svg
         className={styles.letterSvg}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 399.15 431.73"
@@ -77,18 +75,18 @@ export default function DesignerTunedCard({
           />
           
 
-     
-    
-        
-          
-      
-          
-       
-      
-        </svg>
-      </div>
+          </svg>
+        </div>
 
-    
+        {/* Text Content */}
+        <div className={styles.overlayContent}>
+          <div className={styles.cardHeader}>
+            <div className={styles.thumbnail}></div>
+            <h3 className={styles.title}>{title}</h3>
+          </div>
+          <p className={styles.description}>{description}</p>
+        </div>
+      </div>
     </div>
   );
 }
