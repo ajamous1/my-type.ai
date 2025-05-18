@@ -5,6 +5,7 @@
   max-width: 1800px;
   margin: 0 auto;
   user-select: none;
+  padding: 20px;
 }
 
 .bentoCard {
@@ -117,83 +118,119 @@
 }
 
 /* === RESPONSIVE STYLES === */
+/* Desktop (default above) */
 
-@media (max-width: 768px) and (min-width: 501px) {
+/* Tablet */
+@media (max-width: 1023px) {
+  .bentoSection {
+    padding: 16px;
+  }
+
+  .twoCol {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .tabletGrid .large {
-    width: 100%;
     grid-column: 1 / -1;
+    width: 100%;
   }
 
   .tabletGrid .full {
+    grid-column: 1 / -1;
     width: 100%;
   }
 
-  .tabletGrid .small {
-    width: 100%;
-    height: 250px;
-    min-height: 250px;
+  .tabletGrid .bentoCard {
+    padding: 24px;
+    max-width: 100%;
+    overflow: hidden;
   }
 
-
-  .letterBackground {
-    width: 180px;
-    height: 220px;
-    bottom: -40px;
-    right: -15px;
+  .tabletGrid .title {
+    font-size: 22px;
   }
 
-  .bentoCard {
-    padding: 30px;
+  .tabletGrid .description {
+    font-size: 16px;
   }
 
-  .large,
-  .small,
-  .full,
-  .default {
-    height: 300px;
-    min-height: 300px;
+  /* ✅ Updated for Pinpoint Accuracy and Airbnb grids */
+  .tabletGrid .fontGridStatic,
+  .tabletGrid .airbnbLetterGrid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(3, 1fr) !important;
+    gap: 0.5rem;
   }
 
-  .tabletGrid .twoCol .bentoCard {
-    min-height: 250px;
-    height: 250px;
+  .tabletGrid .fallingText {
+    font-size: 48px;
+  }
+
+  .tabletGrid .pinpointContainer {
+    transform: scale(0.85);
+    transform-origin: center;
+    overflow: hidden;
+  }
+
+  .tabletGrid .fallingTextContainer,
+  .tabletGrid .strokeZapWrapper,
+  .tabletGrid .pinpointContainer,
+  .tabletGrid .letterBackground {
+    display: block;
+    transform: scale(0.9);
   }
 }
 
-@media (max-width: 500px) {
+
+/* Mobile */
+@media (max-width: 639px) {
   .bentoSection {
     padding: 12px;
   }
 
-  .bentoCard {
-    padding: 24px;
+  .mobileGrid .bentoCard {
+    width: 100%;
+    min-height: 200px;
+    padding: 20px;
   }
 
-  .cardHeader {
-    height: 40px;
+  .mobileGrid {
+    gap: 24px;
   }
 
-  .thumbnail {
-    width: 40px;
-    height: 40px;
-    margin-right: 12px;
+  .mobileGrid .cardHeader {
+    height: 50px;
+    margin-bottom: 12px;
   }
 
-  .title {
-    font-size: 18px;
+  .mobileGrid .thumbnail {
+    width: 50px;
+    height: 50px;
   }
 
-  .bentoCard p {
-    font-size: 14px;
-    margin-top: 12px;
+  .mobileGrid .title {
+    font-size: 20px;
   }
 
-  .large,
-  .small,
-  .full,
-  .default {
-    height: 260px;
-    min-height: 220px;
+  .mobileGrid .description {
+    font-size: 15px;
+  }
+
+  .mobileGrid .fallingTextContainer,
+  .mobileGrid .strokeZapWrapper,
+  .mobileGrid .pinpointContainer,
+  .mobileGrid .letterBackground,
+  .mobileGrid .crosshair,
+  .mobileGrid .airbnbLetterGrid,
+  .mobileGrid .cardContentRow {
+    display: none !important;
+  }
+
+  .mobileGrid .cardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
   }
 }
 
@@ -355,14 +392,8 @@
 }
 
 @keyframes boltGlow {
-  from {
-    filter: drop-shadow(0 0 10px #DC143C);
-    opacity: 0.1;
-  }
-  to {
-    filter: drop-shadow(0 0 20px #DC143C);
-    opacity: 0.15;
-  }
+  from { filter: drop-shadow(0 0 10px #DC143C); opacity: 0.1; }
+  to { filter: drop-shadow(0 0 20px #DC143C); opacity: 0.15; }
 }
 
 .pinpointContainer {
@@ -383,7 +414,7 @@
 
 .fontGridStatic {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr); /* overridden on tablet */
   gap: 0.5rem;
   padding: 0rem;
   position: relative;
@@ -445,7 +476,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 80px;
   font-variation-settings: 'wght' 400;
-  color: 0d0d0d;
+  color: #0d0d0d;
   opacity: 0.6;
   cursor: crosshair;
   line-height: 1;
@@ -459,7 +490,6 @@
   backface-visibility: hidden;
 }
 
-
 .cardContent {
   position: relative;
   z-index: 2;
@@ -468,11 +498,12 @@
 .letterBackground {
   position: absolute;
   width: 240px;
-  height: 360px;
-  bottom: -60px;
-  right: -20px;
+  height: 180px;
+  bottom: 0px;
+  right: 20px;
   z-index: 1;
   pointer-events: auto;
+  overflow: visible;
 }
 
 .letterSvg {
@@ -491,71 +522,4 @@
   stroke: #DC143C;
   stroke-opacity: 1;
   stroke-width: 3.5px;
-}
-
-@media (max-width: 1024px) {
-  .fallingTextContainer {
-    min-height: 250px;
-    max-height: 300px;
-  }
-
-  .fallingText {
-    font-size: 36px;
-  }
-
-  .letterBackground {
-    width: 200px;
-    height: 300px;
-  }
-
-  .airbnbLetterGrid {
-    grid-template-columns: repeat(5, 40px);
-    grid-template-rows: repeat(3, 40px);
-    gap: 24px;
-  }
-
-  .scalingA {
-    font-size: 70px;
-  }
-}
-
-@media (max-width: 768px) {
-
-
-  .fallingTextContainer {
-    min-height: 200px;
-    max-height: 260px;
-  }
-
-  .fallingText {
-    font-size: 30px;
-  }
-
-  .letterBackground {
-    width: 160px;
-    height: 240px;
-    bottom: -40px;
-    right: -10px;
-  }
-
-  .airbnbLetterGrid {
-    grid-template-columns: repeat(5, 32px);
-    grid-template-rows: repeat(3, 32px);
-    gap: 18px;
-  }
-
-  .scalingA {
-    font-size: 60px;
-  }
-}
-
-@media (max-width: 500px) {
-  .column,
-  .fallingTextContainer,
-  .strokeZapWrapper,
-  .airbnbLetterGrid,
-  .crosshair,
-  .letterBackground {  /* This hides the "A" animation in Designer-Tuned */
-    display: none !important;
-  }
 }

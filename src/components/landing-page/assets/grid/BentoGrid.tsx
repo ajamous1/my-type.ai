@@ -14,8 +14,6 @@ interface CardData {
   id: number;
 }
 
-
-
 const fontCards: CardData[] = [
   { title: 'Typographic Depth', description: 'Explore the visual hierarchy and impact of different typefaces', id: 1 },
   { title: 'Blazing Fast', description: 'Instant font identification with optimal performance', id: 2 },
@@ -23,7 +21,6 @@ const fontCards: CardData[] = [
   { title: 'Pinpoint Accuracy', description: 'Precise font matching through advanced algorithms', id: 4 },
   { title: 'Anywhere, Any Type', description: 'Identify fonts from any background, of any shape, any scale, any size.', id: 5 }
 ];
-
 
 export default function BentoGrid(): ReactElement {
   const [viewportSize, setViewportSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
@@ -48,31 +45,48 @@ export default function BentoGrid(): ReactElement {
   const renderMobileGrid = (): ReactElement => {
     return (
       <div className={styles.mobileGrid}>
-        <FontAnimationCard 
-          title={fontCards[0].title} 
-          description={fontCards[0].description} 
-          size="large" 
-        />
-        <LightningBoltCard 
-          title={fontCards[1].title} 
-          description={fontCards[1].description} 
-          size="default" 
-        />
-        <DesignerTunedCard
-          title={fontCards[2].title}
-          description={fontCards[2].description}
-          size="default"
-        />
-        <PinpointAccuracyCard 
-          title={fontCards[3].title} 
-          description={fontCards[3].description} 
-          size="default" 
-        />
-        <AnywhereAnyTypeCard 
-          title={fontCards[4].title} 
-          description={fontCards[4].description} 
-          size="default" 
-        />
+        {fontCards.map((card) => {
+          // On mobile, all cards are full width
+          return (
+            <div key={card.id} className={styles.fullWidthRow}>
+              {card.id === 1 && (
+                <FontAnimationCard 
+                  title={card.title} 
+                  description={card.description} 
+                  size="default" 
+                />
+              )}
+              {card.id === 2 && (
+                <LightningBoltCard 
+                  title={card.title} 
+                  description={card.description} 
+                  size="default" 
+                />
+              )}
+              {card.id === 3 && (
+                <DesignerTunedCard
+                  title={card.title}
+                  description={card.description}
+                  size="default"
+                />
+              )}
+              {card.id === 4 && (
+                <PinpointAccuracyCard 
+                  title={card.title} 
+                  description={card.description} 
+                  size="default" 
+                />
+              )}
+              {card.id === 5 && (
+                <AnywhereAnyTypeCard 
+                  title={card.title} 
+                  description={card.description} 
+                  size="default" 
+                />
+              )}
+            </div>
+          );
+        })}
       </div>
     );
   };
@@ -80,27 +94,31 @@ export default function BentoGrid(): ReactElement {
   const renderTabletGrid = (): ReactElement => {
     return (
       <div className={styles.tabletGrid}>
-        {/* First row */}
-        <div className={styles.twoCol}>
+        {/* First row - full width */}
+        <div className={styles.fullWidthRow}>
           <FontAnimationCard 
             title={fontCards[0].title} 
             description={fontCards[0].description} 
             size="large" 
           />
+        </div>
+        
+        {/* Second row - two equal columns */}
+        <div className={styles.twoCol}>
           <LightningBoltCard 
             title={fontCards[1].title} 
             description={fontCards[1].description} 
             size="small" 
           />
-        </div>
-        
-        {/* Second row */}
-        <div className={styles.twoCol}>
           <DesignerTunedCard
             title={fontCards[2].title}
             description={fontCards[2].description}
             size="small"
           />
+        </div>
+        
+        {/* Third row - full width */}
+        <div className={styles.fullWidthRow}>
           <PinpointAccuracyCard 
             title={fontCards[3].title} 
             description={fontCards[3].description} 
@@ -108,12 +126,14 @@ export default function BentoGrid(): ReactElement {
           />
         </div>
         
-        {/* Full width row */}
-        <AnywhereAnyTypeCard 
-          title={fontCards[4].title} 
-          description={fontCards[4].description} 
-          size="full" 
-        />
+        {/* Fourth row - full width */}
+        <div className={styles.fullWidthRow}>
+          <AnywhereAnyTypeCard 
+            title={fontCards[4].title} 
+            description={fontCards[4].description} 
+            size="full" 
+          />
+        </div>
       </div>
     );
   };

@@ -16,9 +16,28 @@ export default function AnywhereAnyTypeCard({
 }: AnywhereAnyTypeCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<HTMLSpanElement[]>([]);
-  const hoverTimes = useRef<number[]>(Array(15).fill(0));
+  const hoverTimes = useRef<number[]>([]);
   const animationRef = useRef<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: -9999, y: -9999 });
+  const [gridCount, setGridCount] = useState(15); // default to desktop layout
+
+  useEffect(() => {
+    // Set grid count based on screen size
+    const updateGridCount = () => {
+      const width = window.innerWidth;
+      if (width <= 1023) {
+        setGridCount(9); // 3x3 on tablets
+        hoverTimes.current = Array(9).fill(0);
+      } else {
+        setGridCount(15); // 5x3 on desktop
+        hoverTimes.current = Array(15).fill(0);
+      }
+    };
+
+    updateGridCount();
+    window.addEventListener('resize', updateGridCount);
+    return () => window.removeEventListener('resize', updateGridCount);
+  }, []);
 
   useEffect(() => {
     const updateMouse = (e: MouseEvent) => {
@@ -76,7 +95,7 @@ export default function AnywhereAnyTypeCard({
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [mousePos]);
+  }, [mousePos, gridCount]);
 
   return (
     <div className={`${styles.bentoCard} ${styles[size]}`} ref={containerRef}>
@@ -93,7 +112,7 @@ export default function AnywhereAnyTypeCard({
         <div className={styles.rightColumn}>
           <div className={styles.gridAligner}>
             <div className={styles.airbnbLetterGrid}>
-              {Array.from({ length: 15 }).map((_, i) => (
+              {Array.from({ length: gridCount }).map((_, i) => (
                 <div key={i} className={styles.cellWrapper}>
                   <span
                     ref={(el) => {
