@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/BentoGrid.module.css';
+import Image from 'next/image';
 
 const fonts = [
   'Helvetica', 'Futura', 'Avant Garde',
@@ -100,7 +101,14 @@ export default function FontAnimationCard({
       <div className={styles.cardContentRow}>
         <div className={`${styles.leftColumn} ${isMobile ? styles.fullWidth : ''}`}>
           <div className={styles.cardHeader}>
-            <div className={styles.thumbnail}></div>
+            <div className={styles.thumbnail}>
+              <Image 
+                src="/assets/icons/depth.svg" 
+                alt="Typography Depth Icon" 
+                width={60} 
+                height={60} 
+              />
+            </div>
             <h3 className={styles.title}>{title}</h3>
           </div>
           <p>{description}</p>

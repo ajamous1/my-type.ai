@@ -22,8 +22,8 @@ const fontCards: CardData[] = [
   { title: 'Anywhere, Any Type', description: 'Identify fonts from any background, of any shape, any scale, any size.', id: 5 }
 ];
 
-// Bento Card component with proper layout structure
-const BentoCard = ({ title, description, children }: { 
+// Bento Card component with proper layout structure and top-aligned title
+const BentoCard = ({ title, description, children, id }: { 
   title: string, 
   description: string, 
   id: number,
@@ -31,7 +31,7 @@ const BentoCard = ({ title, description, children }: {
 }): ReactElement => {
   return (
     <div className={styles.bentoCard}>
-      {/* Card header with thumbnail and title properly vertically aligned */}
+      {/* Card header with thumbnail and title top aligned */}
       <div className={styles.cardHeader}>
         <div className={styles.thumbnail}>
           {/* Icon or thumbnail content */}
