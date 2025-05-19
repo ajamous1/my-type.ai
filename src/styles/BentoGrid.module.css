@@ -32,26 +32,21 @@
 }
 
 .thumbnail {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   margin-right: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   position: relative;
-  top: -1px; /* Slight adjustment for perfect vertical alignment */
 }
 
 .thumbnail img, .thumbnail svg {
-  height: 20px;
-  width: auto;
-  max-width: 20px;
+  height: 25px;
+  width: 25px;
   object-fit: contain;
   display: block;
-  position: relative;
-  top: 0;
-  transform: translateY(0); /* Ensure no extra transformation */
 }
 
 .titleContentWrapper {
@@ -79,6 +74,7 @@
   margin: 8px 0 0 0;
   line-height: 1.4;
   padding-top: 0; /* Ensure no extra padding */
+  max-width: 85%; /* Limit width to create the cutoff effect */
 }
 
 .cardContent {
