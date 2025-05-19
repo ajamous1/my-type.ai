@@ -105,13 +105,13 @@ export default function FontAnimationCard({
               <Image 
                 src="/assets/icons/depth.svg" 
                 alt="Typography Depth Icon" 
-                width={60} 
-                height={60} 
+                width={28} 
+                height={28} 
               />
             </div>
             <h3 className={styles.title}>{title}</h3>
           </div>
-          <p>{description}</p>
+          <p className={styles.description}>{description}</p>
         </div>
 
         {!isMobile && (

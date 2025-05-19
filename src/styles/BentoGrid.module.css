@@ -26,54 +26,58 @@
 .cardHeader {
   display: flex;
   margin-bottom: 16px;
-  align-items: center; /* Vertically center icon and title */
-  height: 60px; /* Fixed height for consistent alignment */
+  align-items: center;
+  height: 28px;
 }
 
 .thumbnail {
-  width: 60px;
-  height: 60px;
-  margin-right: 16px;
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
   display: flex;
-  align-items: center; /* Centers the icon vertically */
+  align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  position: relative; /* For absolute positioning */
+  position: relative;
+  top: -1px; /* Slight adjustment for perfect vertical alignment */
 }
 
 .thumbnail img, .thumbnail svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 42px;
+  height: 20px;
   width: auto;
-  max-width: 42px;
+  max-width: 20px;
   object-fit: contain;
+  display: block;
+  position: relative;
+  top: 0;
+  transform: translateY(0); /* Ensure no extra transformation */
 }
 
 .titleContentWrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
 }
 
 .title {
-  font-size: clamp(20px, 2vw, 24px);
+  font-size: 20px;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
   margin: 0;
-  line-height: 1.2;
+  line-height: 28px;
   color: black;
-  align-self: center; /* Ensure vertical alignment */
+  display: flex;
+  align-items: center;
 }
 
 .description {
   font-size: 16px;
   color: #666;
   font-family: 'Inter', sans-serif;
-  margin: 8px 0 0 0; /* Add top margin to create spacing from title */
-  line-height: 1.5;
+  margin: 8px 0 0 0;
+  line-height: 1.4;
+  padding-top: 0; /* Ensure no extra padding */
 }
 
 .cardContent {
@@ -228,6 +232,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding-top: 0; /* Ensure no extra spacing */
 }
 
 .rightColumn {

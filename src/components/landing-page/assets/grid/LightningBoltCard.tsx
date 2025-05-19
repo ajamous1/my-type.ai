@@ -46,19 +46,21 @@ export default function LightningBoltCard({ title, description, size = 'default'
           </svg>
         </div>
 
-        <div className={styles.overlayContent}>
-          <div className={styles.cardHeader}>
-            <div className={styles.thumbnail}>
-              <Image 
-                src="/assets/icons/lightningbolt.svg" 
-                alt="Lightning Bolt Icon" 
-                width={60} 
-                height={60} 
-              />
+        <div className={styles.cardContentRow} style={{ position: 'relative' }}>
+          <div className={styles.leftColumn}>
+            <div className={styles.cardHeader}>
+              <div className={styles.thumbnail}>
+                <Image 
+                  src="/assets/icons/lightningbolt.svg" 
+                  alt="Lightning Bolt Icon" 
+                  width={28} 
+                  height={28} 
+                />
+              </div>
+              <h3 className={styles.title}>{title}</h3>
             </div>
-            <h3 className={styles.title}>{title}</h3>
+            <p className={styles.description}>{description}</p>
           </div>
-          <p className={styles.description}>{description}</p>
         </div>
       </div>
     </div>

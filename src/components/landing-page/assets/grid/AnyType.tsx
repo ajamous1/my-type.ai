@@ -105,8 +105,8 @@ export default function AnywhereAnyTypeCard({
             <Image
                 src="/assets/icons/globe.svg"
                 alt="Globe Icon"
-                width={60}
-                height={60}
+                width={28}
+                height={28}
                 className={styles.thumbnailImage}
             />
         </div>
@@ -115,7 +115,7 @@ export default function AnywhereAnyTypeCard({
 
       <div className={styles.cardContentRow}>
         <div className={styles.leftColumn}>
-          <p>{description}</p>
+          <p className={styles.description}>{description}</p>
         </div>
 
         <div className={styles.rightColumn}>

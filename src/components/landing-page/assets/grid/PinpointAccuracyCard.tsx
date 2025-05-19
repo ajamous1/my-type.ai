@@ -299,17 +299,16 @@ const path = [
           <div className={styles.leftColumn}>
             <div className={styles.cardHeader}>
               <div className={styles.thumbnail}>
-
               <Image 
                 src="/assets/icons/target.svg" 
                 alt="Target Icon" 
-                width={60} 
-                height={60} 
+                width={28} 
+                height={28} 
               />
               </div>
               <h3 className={styles.title}>{title}</h3>
             </div>
-            <p>{description}</p>
+            <p className={styles.description}>{description}</p>
           </div>
 
           <div ref={containerRef} className={styles.pinpointContainer}>
