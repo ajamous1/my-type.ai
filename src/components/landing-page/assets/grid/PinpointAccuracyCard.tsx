@@ -297,63 +297,61 @@ const path = [
   };
 
   return (
-    <div className={styles.cardWrapper}>
-      <div
-        className={`${styles.bentoCard} ${styles[size]}`}
-        onMouseEnter={() => {
-          if (mode !== 'user') setMode('auto');
-        }}
-        onMouseLeave={handleMouseLeave}
-        onMouseMove={handleMouseMove}
-      >
-        {/* Position relative wrapper to establish positioning context */}
-        <div className={styles.cardContentRow} style={{ position: 'relative' }}>
-          <div className={styles.leftColumn}>
-            <div className={styles.cardHeader}>
-              <div className={styles.thumbnail}>
-                <Image 
-                  src="/assets/icons/target.svg" 
-                  alt="Target Icon" 
-                  width={28} 
-                  height={28} 
-                />
-              </div>
-              <h3 className={styles.title}>{title}</h3>
+    <div 
+      className={`${styles.bentoCard} ${styles[size]}`}
+      onMouseEnter={() => {
+        if (mode !== 'user') setMode('auto');
+      }}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+    >
+      {/* Position relative wrapper to establish positioning context */}
+      <div className={styles.cardContentRow} style={{ position: 'relative' }}>
+        <div className={styles.leftColumn}>
+          <div className={styles.cardHeader}>
+            <div className={styles.thumbnail}>
+              <Image 
+                src="/assets/icons/target.svg" 
+                alt="Target Icon" 
+                width={28} 
+                height={28} 
+              />
             </div>
-            <p className={styles.description}>{description}</p>
+            <h3 className={styles.title}>{title}</h3>
           </div>
-
-          <div ref={containerRef} className={styles.pinpointContainer}>
-            <div
-              ref={fontGridRef}
-              className={styles.fontGridStatic}
-              onMouseEnter={handleFontGridEnter}
-            >
-              {/* Render fewer items on smaller screens */}
-              {Array.from({ length: isSmallScreen ? 9 : 18 }).map((_, i) => (
-                <span
-                  key={i}
-                  className={styles.fallingText}
-                  style={{ fontFamily: fonts[i % fonts.length] }}
-                >
-                  Aa
-                </span>
-              ))}
-            </div>
-          </div>
-          
-          {/* Crosshair moved outside the container that may have clipping */}
-          <div
-            ref={crosshairRef}
-            className={styles.crosshair}
-            style={{
-              position: 'absolute',
-              pointerEvents: 'none',
-              zIndex: 50, // Higher z-index to ensure it's above everything
-              transform: 'translate(-50%, -50%)'
-            }}
-          />
+          <p className={styles.description}>{description}</p>
         </div>
+
+        <div ref={containerRef} className={styles.pinpointContainer}>
+          <div
+            ref={fontGridRef}
+            className={styles.fontGridStatic}
+            onMouseEnter={handleFontGridEnter}
+          >
+            {/* Render fewer items on smaller screens */}
+            {Array.from({ length: isSmallScreen ? 9 : 18 }).map((_, i) => (
+              <span
+                key={i}
+                className={styles.fallingText}
+                style={{ fontFamily: fonts[i % fonts.length] }}
+              >
+                Aa
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        {/* Crosshair moved outside the container that may have clipping */}
+        <div
+          ref={crosshairRef}
+          className={styles.crosshair}
+          style={{
+            position: 'absolute',
+            pointerEvents: 'none',
+            zIndex: 50, // Higher z-index to ensure it's above everything
+            transform: 'translate(-50%, -50%)'
+          }}
+        />
       </div>
     </div>
   );

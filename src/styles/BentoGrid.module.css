@@ -1,11 +1,10 @@
 /* === CORE LAYOUT AND STRUCTURE === */
 .bentoSection {
   width: 100%;
-  max-width: 1800px;
-  margin: 0 auto;
+  max-width: 1152px;
+  margin: 0;
   user-select: none;
-  color: black;
-  overflow-x: hidden;
+  overflow-x: visible;
 }
 
 .bentoCard {
@@ -18,6 +17,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .bentoCard:hover {
@@ -90,7 +90,7 @@
 .mobileGrid {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
 }
 
@@ -99,7 +99,7 @@
 .fullWidthRow,
 .twoCol {
   display: grid;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
 }
 
@@ -415,10 +415,13 @@
 /* === LIGHTNING BOLT === */
 .clippedCard {
   position: relative;
+  overflow: hidden;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  border-radius: 12px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: none;
+  border: none;
 }
 
 .strokeZapWrapper {
@@ -492,18 +495,23 @@
 /* === PINPOINT ACCURACY === */
 .pinpointContainer {
   position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 2rem;
-  height: 100%;
   width: 100%;
-  overflow: visible;
+  height: 240px;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
   z-index: 1;
   mask-image: radial-gradient(circle 34px at var(--mask-x, 50%) var(--mask-y, 50%), white 95%, transparent 100%);
   -webkit-mask-image: radial-gradient(circle 34px at var(--mask-x, 50%) var(--mask-y, 50%), white 95%, transparent 100%);
   mask-repeat: no-repeat;
   -webkit-mask-repeat: no-repeat;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  overflow: hidden;
 }
 
 .fontGridStatic {
@@ -517,6 +525,9 @@
   cursor: crosshair;
   width: 100%;
   max-width: 300px;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
 }
 
 .crosshair {
@@ -592,6 +603,12 @@
   gap: 36px;
   width: fit-content;
   height: fit-content;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
   cursor: crosshair;
 }
 
@@ -726,4 +743,14 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ebebeb;
+  transition: box-shadow 0.3s ease;
+}
+
+.cardWrapper:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }

@@ -85,48 +85,47 @@ export default function LandingPage() {
         <div className={styles.sideContentContainer}>
           <div className={styles.sideContent}>
             <h2>By designers, for designers.</h2>
-            <h3>Find the font you&#39;re looking in the click of a button.</h3>
-
-    
+            <h3>Find the font you&#39;re looking for in the click of a button.</h3>
           </div>
 
           <div className = {styles.bentoSection}>
             <BentoGrid />
           </div>
+        </div>
+      </main>
 
-          {/* Integration section with side-by-side layout */}
-          <div className={styles.sideContent}>
-            <div className={styles.integrationsSection}>
-              <div className={styles.integrationsText}>
-                <h2>Coming soon...</h2>
-                <h3>
-                  Integrate with your favorite design tools and streamline your workflow.
-                </h3>
+      {/* Integration section with full-width layout */}
+      <div className={styles.integrationsSection}>
+        <div className={styles.integrationsText}>
+          <h2>Coming soon...</h2>
+          <h3>
+            Integrate with your favorite design tools and streamline your workflow.
+          </h3>
+        </div>
+        
+        <div className={styles.integrationsContainer}>
+          <div className={styles.integrationsGrid}>
+            {integrations.map((integration) => (
+              <div 
+                className={styles.integrationItem} 
+                key={integration.id}
+                data-app={integration.id}
+              >
+                <img
+                  src={`/assets/logos/${integration.id}.svg`}
+                  alt={integration.name}
+                  className={styles.integrationLogo}
+                />
               </div>
-              
-              <div className={styles.integrationsContainer}>
-                <div className={styles.integrationsGrid}>
-                  {integrations.map((integration) => (
-                    <div 
-                      className={styles.integrationItem} 
-                      key={integration.id}
-                      data-app={integration.id}
-                    >
-                      <img
-                        src={`/assets/logos/${integration.id}.svg`}
-                        alt={integration.name}
-                        className={styles.integrationLogo}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
+        </div>
+      </div>
 
+      <main className={styles.mainContent}>
+        <div className={styles.sideContentContainer}>
           <div className={styles.sideContent}>
             <h2>Find your type.</h2>
-           
           </div>
         </div>
       </main>
