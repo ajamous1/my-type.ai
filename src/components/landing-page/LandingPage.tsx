@@ -41,8 +41,8 @@ export default function LandingPage() {
 
   const createGridCells = () => {
     const cells = [];
-    const cols = Math.ceil(windowWidth / 150) + 4;
-    const rows = Math.ceil((typeof window !== 'undefined' ? window.innerHeight : 1000) / 150) + 3;
+    const cols = Math.ceil(windowWidth / 150) + 1;
+    const rows = 20;
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {

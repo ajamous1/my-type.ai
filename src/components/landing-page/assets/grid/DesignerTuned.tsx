@@ -82,12 +82,11 @@ export default function DesignerTunedCard({
           <div className={styles.cardHeader}>
             <div className={styles.thumbnail}>
               <Image 
-                              src="/assets/icons/pen.svg" 
-                              alt="Pen Icon" 
-                              width={50} 
-                              height={50} 
+                src="/assets/icons/pen.svg" 
+                alt="Pen Icon" 
+                width={60} 
+                height={60} 
               />
-
             </div>
             <h3 className={styles.title}>{title}</h3>
           </div>

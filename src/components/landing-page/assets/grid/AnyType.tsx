@@ -105,8 +105,8 @@ export default function AnywhereAnyTypeCard({
             <Image
                 src="/assets/icons/globe.svg"
                 alt="Globe Icon"
-                width={54}
-                height={54}
+                width={60}
+                height={60}
                 className={styles.thumbnailImage}
             />
         </div>
