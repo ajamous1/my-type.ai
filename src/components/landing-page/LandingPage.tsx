@@ -106,39 +106,19 @@ export default function LandingPage() {
               
               <div className={styles.integrationsContainer}>
                 <div className={styles.integrationsGrid}>
-                  {/* First row of Adobe logos */}
-                  <div className={styles.integrationsRow}>
-                    {integrations.slice(0, 3).map((integration) => (
-                      <div 
-                        className={styles.integrationItem} 
-                        key={integration.id}
-                        data-app={integration.id}
-                      >
-                        <img
-                          src={`/assets/logos/${integration.id}.svg`}
-                          alt={integration.name}
-                          className={styles.integrationLogo}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                  
-                  {/* Second row of Adobe logos */}
-                  <div className={styles.integrationsRow}>
-                    {integrations.slice(3).map((integration) => (
-                      <div 
-                        className={styles.integrationItem} 
-                        key={integration.id}
-                        data-app={integration.id}
-                      >
-                        <img
-                          src={`/assets/logos/${integration.id}.svg`}
-                          alt={integration.name}
-                          className={styles.integrationLogo}
-                        />
-                      </div>
-                    ))}
-                  </div>
+                  {integrations.map((integration) => (
+                    <div 
+                      className={styles.integrationItem} 
+                      key={integration.id}
+                      data-app={integration.id}
+                    >
+                      <img
+                        src={`/assets/logos/${integration.id}.svg`}
+                        alt={integration.name}
+                        className={styles.integrationLogo}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

@@ -156,12 +156,17 @@
   .integrationsContainer {
     flex: 1;
     min-width: 280px;
+    display: flex;
+    justify-content: flex-start;
   }
   
   .integrationsGrid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 0.5rem;
+    width: 100%;
+    max-width: 320px;
   }
   
   .integrationsRow {
@@ -175,8 +180,8 @@
 /* Base integration styles */
 /* Base integration styles */
 .integrationItem {
-    width: 140px;
-    height: 140px;
+    width: 100px;
+    height: 100px;
     background-color: #fff; /* Solid white background */
     border: 2px solid #eaeaea;
     display: flex;
@@ -186,7 +191,8 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.03);
     position: relative;
     overflow: hidden; /* Prevent any content from bleeding outside */
-  }
+    aspect-ratio: 1/1; /* Ensure squares */
+}
   
   /* Gradient border - positioned as a contained element */
   .integrationItem::before {
@@ -279,8 +285,8 @@
   }
 
   .integrationLogo {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     object-fit: contain;
   }
   
@@ -357,5 +363,37 @@
     .integrationItem {
       width: 80px;
       height: 80px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .integrationsSection {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .integrationsText, 
+    .integrationsContainer {
+      width: 100%;
+      max-width: 100%;
+    }
+    
+    .integrationsGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    
+    .integrationsRow {
+      display: contents;
+    }
+    
+    .integrationItem {
+      width: 100%;
+      height: auto;
+      margin-bottom: 0;
+      margin-right: 0;
+      aspect-ratio: 1/1; /* Maintain square shape */
     }
   }
