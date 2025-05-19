@@ -303,8 +303,8 @@ const path = [
               <Image 
                 src="/assets/icons/target.svg" 
                 alt="Target Icon" 
-                width={44} 
-                height={44} 
+                width={54} 
+                height={54} 
               />
               </div>
               <h3 className={styles.title}>{title}</h3>

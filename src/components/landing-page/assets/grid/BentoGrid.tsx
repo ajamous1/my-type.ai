@@ -22,29 +22,23 @@ const fontCards: CardData[] = [
   { title: 'Anywhere, Any Type', description: 'Identify fonts from any background, of any shape, any scale, any size.', id: 5 }
 ];
 
-// Bento Card component with proper layout structure and top-aligned title
-const BentoCard = ({ title, description, children }: { 
-  title: string, 
-  description: string, 
-  id: number,
-  children?: React.ReactNode
+const BentoCard = ({ title, description, icon, children }: {
+  title: string;
+  description: string;
+  icon: ReactElement;
+  children?: React.ReactNode;
 }): ReactElement => {
   return (
     <div className={styles.bentoCard}>
-      {/* Card header with thumbnail and title top aligned */}
-      <div className={styles.cardHeader}>
-        <div className={styles.thumbnail}>
-          {/* Icon or thumbnail content */}
-        </div>
-        <h3 className={styles.title}>{title}</h3>
+    <div className={styles.cardHeader}>
+      <div className={styles.thumbnail}>{icon}</div>
+      <div className={styles.titleContentWrapper}>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.description}>{description}</p>
       </div>
-      
-      {/* Description takes full width below header */}
-      <p className={styles.description}>{description}</p>
-      
-      {/* Optional card content */}
-      {children && <div className={styles.cardContent}>{children}</div>}
     </div>
+    {children && <div className={styles.cardContent}>{children}</div>}
+  </div>
   );
 };
 
@@ -62,113 +56,55 @@ export default function BentoGrid(): ReactElement {
         setViewportSize('desktop');
       }
     };
-    
+
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const renderMobileGrid = (): ReactElement => {
-    return (
-      <div className={styles.mobileGrid}>
-        {fontCards.map((card) => (
-          <div key={card.id} className={styles.fullWidthRow}>
-            <BentoCard title={card.title} description={card.description} id={card.id} />
-          </div>
-        ))}
+  const renderMobileGrid = (): ReactElement => (
+    <div className={styles.mobileGrid}>
+      {fontCards.map((card) => (
+        <div key={card.id} className={styles.fullWidthRow}>
+          <BentoCard title={card.title} description={card.description} icon={<span />}/>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderTabletGrid = (): ReactElement => (
+    <div className={styles.tabletGrid}>
+      <div className={styles.fullWidthRow}>
+        <FontAnimationCard title={fontCards[0].title} description={fontCards[0].description} size="large" />
       </div>
-    );
-  };
-
-  const renderTabletGrid = (): ReactElement => {
-    return (
-      <div className={styles.tabletGrid}>
-        {/* First row - full width */}
-        <div className={styles.fullWidthRow}>
-          <FontAnimationCard 
-            title={fontCards[0].title} 
-            description={fontCards[0].description} 
-            size="large" 
-          />
-        </div>
-        
-        {/* Second row - two equal columns */}
-        <div className={styles.twoCol}>
-          <LightningBoltCard 
-            title={fontCards[1].title} 
-            description={fontCards[1].description} 
-            size="small" 
-          />
-          <DesignerTunedCard
-            title={fontCards[2].title}
-            description={fontCards[2].description}
-            size="small"
-          />
-        </div>
-        
-        {/* Third row - full width */}
-        <div className={styles.fullWidthRow}>
-          <PinpointAccuracyCard 
-            title={fontCards[3].title} 
-            description={fontCards[3].description} 
-            size="large" 
-          />
-        </div>
-        
-        {/* Fourth row - full width */}
-        <div className={styles.fullWidthRow}>
-          <AnywhereAnyTypeCard 
-            title={fontCards[4].title} 
-            description={fontCards[4].description} 
-            size="full" 
-          />
-        </div>
+      <div className={styles.twoCol}>
+        <LightningBoltCard title={fontCards[1].title} description={fontCards[1].description} size="small" />
+        <DesignerTunedCard title={fontCards[2].title} description={fontCards[2].description} size="small" />
       </div>
-    );
-  };
-
-  const renderDesktopGrid = (): ReactElement => {
-    return (
-      <div className={styles.desktopGrid}>
-        {/* Top row: large + small */}
-        <div className={styles.topRow}>
-          <FontAnimationCard 
-            title={fontCards[0].title} 
-            description={fontCards[0].description} 
-            size="large" 
-          />
-          <LightningBoltCard 
-            title={fontCards[1].title} 
-            description={fontCards[1].description} 
-            size="small" 
-          />
-        </div>
-
-        {/* Bottom row: small + large */}
-        <div className={styles.bottomRow}>
-          <DesignerTunedCard
-            title={fontCards[2].title}
-            description={fontCards[2].description}
-            size="small"
-          />
-          <PinpointAccuracyCard 
-            title={fontCards[3].title} 
-            description={fontCards[3].description} 
-            size="large" 
-          />
-        </div>
-
-        {/* Full width row */}
-        <div className={styles.fullWidthRow}>
-          <AnywhereAnyTypeCard 
-            title={fontCards[4].title} 
-            description={fontCards[4].description} 
-            size="full" 
-          />
-        </div>
+      <div className={styles.fullWidthRow}>
+        <PinpointAccuracyCard title={fontCards[3].title} description={fontCards[3].description} size="large" />
       </div>
-    );
-  };
+      <div className={styles.fullWidthRow}>
+        <AnywhereAnyTypeCard title={fontCards[4].title} description={fontCards[4].description} size="full" />
+      </div>
+    </div>
+  );
+
+  const renderDesktopGrid = (): ReactElement => (
+    <div className={styles.desktopGrid}>
+      <div className={styles.topRow}>
+        <FontAnimationCard title={fontCards[0].title} description={fontCards[0].description} size="large" />
+        <LightningBoltCard title={fontCards[1].title} description={fontCards[1].description} size="small" />
+      </div>
+      <div className={styles.bottomRow}>
+        <DesignerTunedCard title={fontCards[2].title} description={fontCards[2].description} size="small" />
+        <PinpointAccuracyCard title={fontCards[3].title} description={fontCards[3].description} size="large" />
+      </div>
+      <div className={styles.fullWidthRow}>
+        <AnywhereAnyTypeCard title={fontCards[4].title} description={fontCards[4].description} size="full" />
+      </div>
+    </div>
+  );
 
   return (
     <div className={styles.bentoSection}>

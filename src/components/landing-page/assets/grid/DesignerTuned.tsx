@@ -84,8 +84,8 @@ export default function DesignerTunedCard({
               <Image 
                               src="/assets/icons/pen.svg" 
                               alt="Pen Icon" 
-                              width={44} 
-                              height={44} 
+                              width={50} 
+                              height={50} 
               />
 
             </div>

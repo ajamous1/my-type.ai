@@ -52,8 +52,8 @@ export default function LightningBoltCard({ title, description, size = 'default'
               <Image 
                 src="/assets/icons/lightningbolt.svg" 
                 alt="Lightning Bolt Icon" 
-                width={74} 
-                height={74} 
+                width={90} 
+                height={90} 
               />
             </div>
             <h3 className={styles.title}>{title}</h3>
