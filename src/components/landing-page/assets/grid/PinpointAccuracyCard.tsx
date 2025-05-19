@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 import styles from '@/styles/BentoGrid.module.css';
 
 const fonts = ['Helvetica', 'Futura', 'Avant Garde', 'Garamond', 'Inter', 'Times New Roman'];
@@ -297,7 +298,15 @@ const path = [
         <div className={styles.cardContentRow} style={{ position: 'relative' }}>
           <div className={styles.leftColumn}>
             <div className={styles.cardHeader}>
-              <div className={styles.thumbnail}></div>
+              <div className={styles.thumbnail}>
+
+              <Image 
+                src="/assets/icons/target.svg" 
+                alt="Target Icon" 
+                width={44} 
+                height={44} 
+              />
+              </div>
               <h3 className={styles.title}>{title}</h3>
             </div>
             <p>{description}</p>

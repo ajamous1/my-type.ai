@@ -1,6 +1,7 @@
 'use client';
 
 import styles from '@/styles/BentoGrid.module.css';
+import Image from 'next/image';
 
 interface DesignerTunedCardProps {
   title?: string;
@@ -79,7 +80,15 @@ export default function DesignerTunedCard({
         {/* Text Content */}
         <div className={styles.cardContent}>
           <div className={styles.cardHeader}>
-            <div className={styles.thumbnail}></div>
+            <div className={styles.thumbnail}>
+              <Image 
+                              src="/assets/icons/pen.svg" 
+                              alt="Pen Icon" 
+                              width={44} 
+                              height={44} 
+              />
+
+            </div>
             <h3 className={styles.title}>{title}</h3>
           </div>
           <p className={styles.description}>{description}</p>

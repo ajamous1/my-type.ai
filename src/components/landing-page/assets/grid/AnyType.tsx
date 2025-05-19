@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import styles from '@/styles/BentoGrid.module.css';
 
 interface AnywhereAnyTypeCardProps {
@@ -100,7 +101,15 @@ export default function AnywhereAnyTypeCard({
   return (
     <div className={`${styles.bentoCard} ${styles[size]}`} ref={containerRef}>
       <div className={styles.cardHeader}>
-        <div className={styles.thumbnail}></div>
+        <div className={styles.thumbnail}>
+            <Image
+                src="/assets/icons/globe.svg"
+                alt="Globe Icon"
+                width={54}
+                height={54}
+                className={styles.thumbnailImage}
+            />
+        </div>
         <h3 className={styles.title}>{title}</h3>
       </div>
 

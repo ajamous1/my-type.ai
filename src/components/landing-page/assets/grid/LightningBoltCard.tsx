@@ -1,7 +1,7 @@
-// components/LightningBoltCard.tsx
 'use client';
 
 import styles from '@/styles/BentoGrid.module.css';
+import Image from 'next/image';
 
 interface LightningBoltCardProps {
   title: string;
@@ -48,7 +48,14 @@ export default function LightningBoltCard({ title, description, size = 'default'
 
         <div className={styles.overlayContent}>
           <div className={styles.cardHeader}>
-            <div className={styles.thumbnail}></div>
+            <div className={styles.thumbnail}>
+              <Image 
+                src="/assets/icons/lightningbolt.svg" 
+                alt="Lightning Bolt Icon" 
+                width={74} 
+                height={74} 
+              />
+            </div>
             <h3 className={styles.title}>{title}</h3>
           </div>
           <p className={styles.description}>{description}</p>
@@ -57,4 +64,3 @@ export default function LightningBoltCard({ title, description, size = 'default'
     </div>
   );
 }
-
