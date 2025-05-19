@@ -4,7 +4,8 @@
   max-width: 1800px;
   margin: 0 auto;
   user-select: none;
-  color: black ;
+  color: black;
+  overflow-x: hidden;
 }
 
 .bentoCard {
@@ -146,7 +147,19 @@
 /* === RESPONSIVE STYLES === */
 @media (max-width: 1023px) {
   .twoCol {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: 100%;
+  }
+  
+  .twoCol .bentoCard {
+    width: 100%;
+    min-width: 0;
+  }
+  
+  /* Additional optimization for small cards */
+  .small {
+    min-height: 300px;
+    height: auto;
   }
 
   .tabletGrid .large,
@@ -157,6 +170,86 @@
 
   .tabletGrid .bentoCard {
     padding: 24px;
+    overflow: hidden;
+  }
+  
+  .leftColumn {
+    min-width: 0; /* Override the min-width: 300px for tablets */
+    width: 100%;
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+  
+  .rightColumn {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 50%;
+  }
+  
+  .pinpointContainer,
+  .fallingTextContainer {
+    max-width: 100%;
+  }
+
+  .airbnbLetterGrid {
+    grid-template-columns: repeat(3, 48px) !important;
+    grid-template-rows: repeat(3, 48px) !important;
+    gap: 24px !important;
+  }
+
+  .gridAligner {
+    transform: scale(0.9);
+    margin: 0 auto;
+  }
+  
+  /* Additional media query for smaller tablets */
+  @media (max-width: 768px) {
+    .cardContentRow {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .rightColumn {
+      max-width: 100%;
+    }
+    
+    .pinpointContainer, 
+    .letterBackground {
+      transform: scale(0.8);
+      transform-origin: center top;
+    }
+  }
+
+  .tabletGrid .large {
+    min-height: 320px;  /* Reduced height for better fit */
+  }
+  
+  .cardWrapper .bentoCard {
+    overflow: hidden;
+  }
+  
+  .cardWrapper .cardContentRow {
+    flex-wrap: wrap;
+  }
+  
+  .cardWrapper .rightColumn {
+    max-width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 12px;
+  }
+  
+  /* Force the pinpoint content to fit in smaller spaces */
+  .cardWrapper .pinpointContainer {
+    min-height: 0;
+    max-height: 200px;
+  }
+  
+  /* Hide the crosshair on smaller screens to prevent it from overflowing */
+  @media (max-width: 800px) {
+    .cardWrapper .crosshair {
+      display: none;
+    }
   }
 }
 
@@ -176,34 +269,35 @@
     height: auto;
   }
 
-
-  .textWrapper {
-    display: flex;
+  .mobileGrid .cardHeader {
     flex-direction: column;
-    justify-content: flex-start; /* Align text block to top */
+    align-items: flex-start;
+    margin-bottom: 12px;
+    height: auto;
   }
 
-  
- .cardHeader {
-  display: flex;
-  align-items: center; /* Center icon vertically with title */
-  gap: 16px;
-  margin-bottom: 8px;
-}
-
-
-  .thumbnail {
-    width: 36px;
-    height: 36px;
-    margin-right: 12px;
+  .mobileGrid .cardHeader > div:first-of-type {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
   }
 
-  .title {
+  .mobileGrid .thumbnail {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    top: 0;
+  }
+
+  .mobileGrid .title {
     font-size: 18px;
+    line-height: 1.2;
+    margin: 0;
   }
 
-  .description {
+  .mobileGrid .description {
     font-size: 14px;
+    margin-top: 4px;
   }
 
   .mobileGrid .fallingTextContainer,
@@ -213,7 +307,7 @@
   .mobileGrid .crosshair,
   .mobileGrid .airbnbLetterGrid,
   .mobileGrid .cardContentRow {
-    display: none ;
+    display: none;
   }
 }
 
@@ -224,6 +318,7 @@
   gap: 2rem;
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 .leftColumn {
@@ -239,14 +334,17 @@
   flex: 1;
   position: relative;
   cursor: crosshair;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .gridAligner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -75%);
+  position: relative;
+  transform: none;
   pointer-events: none;
+  width: fit-content;
+  height: fit-content;
 }
 
 .fallingTextContainer {
@@ -412,21 +510,17 @@
   -webkit-mask-repeat: no-repeat;
 }
 
-@media (pointer: fine) {
-  .pinpointContainer {
-    --crosshair-margin: 10px;
-  }
-}
-
 .fontGridStatic {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.5rem;
-  padding: 0rem;
+  padding: 0;
   position: relative;
   z-index: 1;
   flex: 1;
   cursor: crosshair;
+  width: 100%;
+  max-width: 300px;
 }
 
 .crosshair {
@@ -442,6 +536,58 @@
   z-index: 5;
 }
 
+/* More aggressive tablet optimization for Pinpoint Accuracy */
+@media (max-width: 1180px) {
+  .pinpointContainer {
+    transform: scale(0.85);
+    transform-origin: left center;
+    max-width: 90%;
+  }
+  
+  .fontGridStatic {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+    max-width: 240px;
+  }
+  
+  .fallingText {
+    font-size: 36px;
+  }
+  
+  .crosshair {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 900px) {
+  .pinpointContainer {
+    transform: scale(0.75);
+    max-width: 85%;
+  }
+  
+  .fontGridStatic {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 180px;
+  }
+  
+  .crosshair {
+    width: 60px;
+    height: 60px;
+  }
+  
+  /* Reduce the font size in the grid to fit better */
+  .fallingText {
+    font-size: 32px;
+  }
+}
+
+@media (pointer: fine) {
+  .pinpointContainer {
+    --crosshair-margin: 10px;
+  }
+}
+
 /* === ANYWHERE ANY TYPE === */
 .airbnbLetterGrid {
   display: grid;
@@ -451,6 +597,12 @@
   width: fit-content;
   height: fit-content;
   cursor: crosshair;
+}
+
+.airbnbLetterGrid.tabletGrid {
+  grid-template-columns: repeat(3, 48px);
+  grid-template-rows: repeat(3, 48px);
+  gap: 24px;
 }
 
 .cellWrapper {
@@ -535,4 +687,47 @@
     color: rgba(51, 51, 51, 0.15) ;
     background: none ;
   }
+}
+
+/* Add a specific media query for the mid-size tablets */
+@media (max-width: 880px) {
+  .cardContentRow {
+    gap: 1rem;
+  }
+  
+  .leftColumn {
+    flex: 2; /* Give more space to the text content */
+  }
+  
+  .rightColumn {
+    flex: 1;
+  }
+  
+  .description {
+    font-size: 14px;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+  
+  .small, .large, .default, .full {
+    height: auto;
+    min-height: 300px;
+  }
+  
+  /* Ensure the visual elements are properly contained */
+  .fallingTextContainer,
+  .pinpointContainer,
+  .letterBackground,
+  .airbnbLetterGrid {
+    transform: scale(0.8);
+    transform-origin: center;
+  }
+}
+
+.cardWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }

@@ -19,6 +19,18 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
   const [mousePos, setMousePos] = useState({ x: 120, y: 120 });
   const [mode, setMode] = useState<'idle' | 'auto' | 'user'>('idle');
   const defaultPos = { x: 120, y: 120 };
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  // Check screen size
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth <= 900);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   // Used for the scanning animation pattern
   const animationStateRef = useRef({
@@ -299,12 +311,12 @@ const path = [
           <div className={styles.leftColumn}>
             <div className={styles.cardHeader}>
               <div className={styles.thumbnail}>
-              <Image 
-                src="/assets/icons/target.svg" 
-                alt="Target Icon" 
-                width={28} 
-                height={28} 
-              />
+                <Image 
+                  src="/assets/icons/target.svg" 
+                  alt="Target Icon" 
+                  width={28} 
+                  height={28} 
+                />
               </div>
               <h3 className={styles.title}>{title}</h3>
             </div>
@@ -317,7 +329,8 @@ const path = [
               className={styles.fontGridStatic}
               onMouseEnter={handleFontGridEnter}
             >
-              {Array.from({ length: 18 }).map((_, i) => (
+              {/* Render fewer items on smaller screens */}
+              {Array.from({ length: isSmallScreen ? 9 : 18 }).map((_, i) => (
                 <span
                   key={i}
                   className={styles.fallingText}

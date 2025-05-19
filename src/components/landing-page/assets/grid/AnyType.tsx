@@ -21,12 +21,15 @@ export default function AnywhereAnyTypeCard({
   const animationRef = useRef<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: -9999, y: -9999 });
   const [gridCount, setGridCount] = useState(15); // default to desktop layout
+  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
     // Set grid count based on screen size
     const updateGridCount = () => {
       const width = window.innerWidth;
-      if (width <= 1023) {
+      const isTabletSize = width <= 1023;
+      setIsTablet(isTabletSize);
+      if (isTabletSize) {
         setGridCount(9); // 3x3 on tablets
         hoverTimes.current = Array(9).fill(0);
       } else {
@@ -120,19 +123,26 @@ export default function AnywhereAnyTypeCard({
 
         <div className={styles.rightColumn}>
           <div className={styles.gridAligner}>
-            <div className={styles.airbnbLetterGrid}>
-              {Array.from({ length: gridCount }).map((_, i) => (
-                <div key={i} className={styles.cellWrapper}>
-                  <span
-                    ref={(el) => {
-                      if (el) letterRefs.current[i] = el;
-                    }}
-                    className={styles.scalingA}
-                  >
-                    a
-                  </span>
-                </div>
-              ))}
+            <div className={`${styles.airbnbLetterGrid} ${isTablet ? styles.tabletGrid : ''}`}>
+              {Array.from({ length: gridCount }).map((_, i) => {
+                // Skip rendering elements beyond the current grid size
+                if ((isTablet && i >= 9) || (!isTablet && i >= 15)) {
+                  return null;
+                }
+                
+                return (
+                  <div key={i} className={styles.cellWrapper}>
+                    <span
+                      ref={(el) => {
+                        if (el) letterRefs.current[i] = el;
+                      }}
+                      className={styles.scalingA}
+                    >
+                      a
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

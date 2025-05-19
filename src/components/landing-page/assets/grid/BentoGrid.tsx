@@ -7,6 +7,7 @@ import LightningBoltCard from './LightningBoltCard';
 import PinpointAccuracyCard from './PinpointAccuracyCard';
 import AnywhereAnyTypeCard from './AnyType';
 import DesignerTunedCard from './DesignerTuned';
+import Image from 'next/image';
 
 interface CardData {
   title: string;
@@ -22,23 +23,38 @@ const fontCards: CardData[] = [
   { title: 'Anywhere, Any Type', description: 'Identify fonts from any background, of any shape, any scale, any size.', id: 5 }
 ];
 
-const BentoCard = ({ title, description, icon, children }: {
+const BentoCard = ({ title, description, icon, children, isMobile = false }: {
   title: string;
   description: string;
   icon: ReactElement;
   children?: React.ReactNode;
+  isMobile?: boolean;
 }): ReactElement => {
   return (
     <div className={styles.bentoCard}>
-    <div className={styles.cardHeader}>
-      <div className={styles.thumbnail}>{icon}</div>
-      <div className={styles.titleContentWrapper}>
-        <h2 className={styles.title}>{title}</h2>
-        <p className={styles.description}>{description}</p>
+      <div className={styles.cardHeader}>
+        {!isMobile ? (
+          // Desktop/tablet layout - icon side by side with title/description
+          <>
+            <div className={styles.thumbnail}>{icon}</div>
+            <div className={styles.titleContentWrapper}>
+              <h2 className={styles.title}>{title}</h2>
+              <p className={styles.description}>{description}</p>
+            </div>
+          </>
+        ) : (
+          // Mobile layout - icon inline with title, description below
+          <>
+            <div>
+              <div className={styles.thumbnail}>{icon}</div>
+              <h2 className={styles.title}>{title}</h2>
+            </div>
+            <p className={styles.description}>{description}</p>
+          </>
+        )}
       </div>
+      {children && <div className={styles.cardContent}>{children}</div>}
     </div>
-    {children && <div className={styles.cardContent}>{children}</div>}
-  </div>
   );
 };
 
@@ -64,11 +80,35 @@ export default function BentoGrid(): ReactElement {
 
   const renderMobileGrid = (): ReactElement => (
     <div className={styles.mobileGrid}>
-      {fontCards.map((card) => (
-        <div key={card.id} className={styles.fullWidthRow}>
-          <BentoCard title={card.title} description={card.description} icon={<span />}/>
-        </div>
-      ))}
+      {fontCards.map((card, index) => {
+        // Create the appropriate icon for each card
+        let icon;
+        switch (index) {
+          case 0: // Typographic Depth
+            icon = <Image src="/assets/icons/depth.svg" alt="Typography Depth Icon" width={28} height={28} />;
+            break;
+          case 1: // Blazing Fast
+            icon = <Image src="/assets/icons/lightningbolt.svg" alt="Lightning Bolt Icon" width={28} height={28} />;
+            break;
+          case 2: // Designer-Tuned
+            icon = <Image src="/assets/icons/pen.svg" alt="Pen Icon" width={28} height={28} />;
+            break;
+          case 3: // Pinpoint Accuracy
+            icon = <Image src="/assets/icons/target.svg" alt="Target Icon" width={28} height={28} />;
+            break;
+          case 4: // Anywhere, Any Type
+            icon = <Image src="/assets/icons/globe.svg" alt="Globe Icon" width={28} height={28} />;
+            break;
+          default:
+            icon = <span />;
+        }
+        
+        return (
+          <div key={card.id} className={styles.fullWidthRow}>
+            <BentoCard title={card.title} description={card.description} icon={icon} isMobile={true} />
+          </div>
+        );
+      })}
     </div>
   );
 
