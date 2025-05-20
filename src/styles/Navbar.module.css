@@ -116,20 +116,10 @@
   }
   
   .getExtensionButton:hover {
-    color: #333;
+    color: #0d0d0d;
     opacity: 1;
-    border-color: #333;
-    font-weight: 600;
-  }
-  
-  /* Add this to prevent text layout shift when font-weight changes */
-  .getExtensionButton::after {
-    display: block;
-    content: attr(title);
-    font-weight: 600;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
+    background-color: #f5f5f5;
+    border-color: #0d0d0d;
   }
   
   .menuBtn {
@@ -205,6 +195,16 @@
   
     .navbarContainer {
       justify-content: space-between;
+    }
+  
+    /* Hide the Get Extension button on tablet and mobile */
+    .getExtensionButton {
+      display: none;
+    }
+  
+    /* Hide both extension and waitlist options in mobile menu */
+    .mobileExtension, .mobileWaitlist {
+      display: none;
     }
   }
   

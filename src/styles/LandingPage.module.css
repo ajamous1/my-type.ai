@@ -520,6 +520,23 @@
       position: static;
       transform: none;
     }
+
+    .findTypeContainer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    
+    .actionButtons {
+      flex-direction: row;
+      gap: 8px;
+      width: 100%;
+    }
+    
+    /* Hide the Get Extension button on tablet and mobile */
+    .primaryButton {
+      display: none;
+    }
   }
   
   @media (max-width: 640px) {
@@ -685,20 +702,10 @@
   }
   
   .primaryButton:hover {
-    color: #333;
+    color: #0d0d0d;
     opacity: 1;
-    border-color: #333;
-    font-weight: 600;
-  }
-  
-  /* Add this to prevent text layout shift when font-weight changes */
-  .primaryButton::after {
-    display: block;
-    content: attr(title);
-    font-weight: 600;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
+    background-color: #fafafa;
+    border-color: #0d0d0d;
   }
   
   .secondaryButton {
