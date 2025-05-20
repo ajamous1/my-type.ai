@@ -3,10 +3,11 @@
     width: 100%;
     background-color: white;
     border-bottom: 1px solid #efefef;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
     position: sticky;
     top: 0;
     z-index: 50;
+    height: 64px;
   }
   
   .navbarContainer {
@@ -15,11 +16,120 @@
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
+    height: 100%;
+  }
+  
+  .navbarLeft, .navbarCenter, .navbarRight {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbarLogo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #0d0d0d;
   }
   
   .navbarLogo img {
-    height: 40px;
+    height: 32px;
     max-height: 8vh;
+    margin-right: 8px;
+  }
+  
+  .logoText {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .logoTextRegular {
+    font-weight: 500;
+  }
+  
+  .logoTextBold {
+    font-weight: 700;
+  }
+  
+  .navbarCenter {
+    margin: 0 auto;
+    padding-left: 40px;
+  }
+  
+  .desktopMenu {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .desktopMenu li a {
+    text-decoration: none;
+    color: #0d0d0d;
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.3s ease;
+    opacity: 0.8;
+  }
+  
+  .desktopMenu li a:hover {
+    opacity: 1;
+  }
+  
+  .navbarRight {
+    margin-left: auto;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .joinWaitlistButton {
+    background-color: #0d0d0d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 13px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  
+  .joinWaitlistButton:hover {
+    background-color: #222222;
+  }
+  
+  .getExtensionButton {
+    color: #0d0d0d;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 13px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    border: 1px solid #0d0d0d;
+    display: inline-block;
+  }
+  
+  .getExtensionButton:hover {
+    color: #333;
+    opacity: 1;
+    border-color: #333;
+    font-weight: 600;
+  }
+  
+  /* Add this to prevent text layout shift when font-weight changes */
+  .getExtensionButton::after {
+    display: block;
+    content: attr(title);
+    font-weight: 600;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
   }
   
   .menuBtn {
@@ -27,62 +137,88 @@
     border: none;
     cursor: pointer;
     display: none;
+    margin-left: 16px;
   }
   
-  .navbarMenu {
-    display: flex;
-    gap: 2rem;
+  .mobileMenu {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    flex-direction: column;
+    width: 100%;
+    border-top: 1px solid #efefef;
+    padding: 1rem 2rem;
     list-style: none;
-    margin: 0;
-    padding: 0;
   }
   
-  .navbarItem {
+  .mobileMenu.active {
     display: flex;
-    align-items: center;
   }
   
-  .navbarLink {
+  .mobileMenu li {
+    margin: 12px 0;
+  }
+  
+  .mobileMenu li a {
     text-decoration: none;
     color: #0d0d0d;
     font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.3s ease;
+    font-size: 16px;
   }
   
-  .navbarLink:hover {
-    color: #c22126;
+  .mobileExtension {
+    display: inline-block;
+    color: #0d0d0d !important;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 13px;
+    margin-top: 8px;
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-size: 16px;
+  }
+  
+  .mobileWaitlist {
+    display: inline-block;
+    background-color: #0d0d0d;
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 13px;
+    margin-top: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-size: 16px;
   }
   
   @media (max-width: 768px) {
+    .navbarCenter {
+      display: none;
+    }
+  
     .menuBtn {
       display: block;
     }
   
-    .navbarMenu {
-      position: absolute;
-      top: 70px;
-      right: 0;
-      background-color: white;
-      flex-direction: column;
-      width: 100%;
-      max-width: 300px;
-      border-left: 1px solid #efefef;
-      border-top: 1px solid #efefef;
-      display: none;
-      padding: 1rem;
+    .navbarContainer {
+      justify-content: space-between;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .navbar {
+      padding: 0 1rem;
     }
   
-    .navbarMenu.active {
-      display: flex;
+    .navbarLogo img {
+      height: 24px;
     }
   
-    .navbarItem {
-      margin-bottom: 1rem;
-    }
-  
-    .navbarItem:last-child {
-      margin-bottom: 0;
+    .logoText {
+      font-size: 18px;
     }
   }
   

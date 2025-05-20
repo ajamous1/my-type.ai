@@ -66,9 +66,9 @@
     background-color: white;
     color: #0d0d0d;
     border: 2px solid #0d0d0d;
-    border-radius: 50px;
+    border-radius: 13px;
     padding: 0.75rem 6rem;
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 500;
     transition: all 0.3s ease;
     user-select: none;
@@ -207,7 +207,7 @@
   .integrationsGrid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 240px));
-    gap: 20px;
+    gap: 5px;
     width: fit-content;
     margin: 0 auto;
     justify-content: center;
@@ -642,4 +642,102 @@
 
   .dealCardAnimation.animate {
     animation: dealCard 0.5s ease-out forwards;
+  }
+
+  .findTypeContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .findTypeContainer h2 {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    align-items: center;
+  }
+  
+  .primaryButton {
+    color: #0d0d0d;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 13px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    border: 1px solid #0d0d0d;
+    display: inline-block;
+  }
+  
+  .primaryButton:hover {
+    color: #333;
+    opacity: 1;
+    border-color: #333;
+    font-weight: 600;
+  }
+  
+  /* Add this to prevent text layout shift when font-weight changes */
+  .primaryButton::after {
+    display: block;
+    content: attr(title);
+    font-weight: 600;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+  
+  .secondaryButton {
+    background-color: #0d0d0d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 13px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  
+  .secondaryButton:hover {
+    background-color: #222222;
+  }
+  
+  @media (max-width: 768px) {
+    .findTypeContainer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    
+    .actionButtons {
+      flex-direction: row;
+      gap: 8px;
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .actionButtons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .primaryButton, .secondaryButton {
+      text-align: center;
+    }
   }

@@ -125,7 +125,13 @@ export default function LandingPage() {
       <main className={styles.mainContent}>
         <div className={styles.sideContentContainer}>
           <div className={styles.sideContent}>
-            <h2>Find your type.</h2>
+            <div className={styles.findTypeContainer}>
+              <h2>Find your type.</h2>
+              <div className={styles.actionButtons}>
+                <a href="#extension" className={styles.primaryButton} title="Get Extension">Get Extension</a>
+                <a href="#waitlist" className={styles.secondaryButton} title="Join Waitlist">Join Waitlist</a>
+              </div>
+            </div>
           </div>
         </div>
       </main>
