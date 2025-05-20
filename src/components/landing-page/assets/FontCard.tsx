@@ -1,15 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from '@/styles/FontCard.module.css';
+import landingStyles from '@/styles/LandingPage.module.css';
 
 export interface FontCardProps {
   fontName: string;
- 
+  index?: number;
 }
 
-const FontCard = ({ fontName }: FontCardProps) => {
+const FontCard = ({ fontName, index = 0 }: FontCardProps) => {
   const [flipped, setFlipped] = useState(false);
+  const [animated, setAnimated] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Animation effect on first render
+  useEffect(() => {
+    const delay = 300 + (index * 100); // Staggered delay based on card index
+    
+    // Set a timer to start the animation after the delay
+    const timer = setTimeout(() => {
+      setAnimated(true);
+    }, delay);
+    
+    return () => clearTimeout(timer);
+  }, [index]);
 
   const getFontDescription = (name: string): string => {
     switch (name) {
@@ -30,7 +45,8 @@ const FontCard = ({ fontName }: FontCardProps) => {
 
   return (
     <div 
-      className={styles.fontCardWrapper} 
+      ref={cardRef}
+      className={`${styles.fontCardWrapper} ${landingStyles.dealCardAnimation} ${animated ? landingStyles.animate : ''}`} 
       onClick={() => setFlipped(prev => !prev)}
     >
       <div className={`${styles.cardInner} ${flipped ? styles.flipped : ''}`}>

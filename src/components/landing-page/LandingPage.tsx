@@ -76,7 +76,7 @@ export default function LandingPage() {
       <div className={styles.scrollWrapper}>
         <div className={styles.fontCardsContainer}>
           {fonts.map((font, index) => (
-            <FontCard key={index} fontName={font.fontName} />
+            <FontCard key={index} fontName={font.fontName} index={index} />
           ))}
         </div>
       </div>
