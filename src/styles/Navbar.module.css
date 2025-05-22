@@ -88,11 +88,11 @@
   .joinWaitlistButton {
     background-color: #0d0d0d;
     color: white;
-    padding: 10px 20px;
-    border-radius: 13px;
+    padding: 8px 14px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 12px;
     transition: all 0.3s ease;
     display: inline-block;
   }
@@ -104,11 +104,11 @@
   .getExtensionButton {
     color: #0d0d0d;
     background-color: white;
-    padding: 10px 20px;
-    border-radius: 13px;
+    padding: 8px 14px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 12px;
     transition: all 0.3s ease;
     opacity: 0.8;
     border: 1px solid #0d0d0d;

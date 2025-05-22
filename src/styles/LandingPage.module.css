@@ -85,25 +85,31 @@
   .scrollWrapper {
     width: 100%;
     overflow-x: auto;
-    overflow-y: hidden; /* Prevent vertical scrolling */
+    overflow-y: hidden;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     padding: 2rem 0;
+    position: relative;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
   }
   
   .scrollWrapper::-webkit-scrollbar {
-    display: none;
+    display: none; /* Hide scrollbar for Chrome/Safari/Opera */
   }
   
   .fontCardsContainer {
     display: flex;
     gap: 1.5rem;
-    width: max-content;
-    padding: 0 20px;
-    margin: 0 auto;
+    width: auto;
+    min-width: min-content;
+    padding: 0;
+    margin: 0;
     scroll-snap-type: x mandatory;
-    scroll-padding: 20px;
+    scroll-padding-left: 20px;
     cursor: crosshair;
+    padding-left: 20px; /* Match section padding */
+    padding-right: 100px; /* Ensure last card is fully visible */
   }
   
   .sideContentContainer {
@@ -477,8 +483,8 @@
   
     .fontCardsContainer {
       gap: 1rem;
-      padding-left: calc(50vw - 120px);
-      padding-right: calc(50vw - 120px);
+      padding-left: 20px;
+      padding-right: 80px; /* Ensure last card is fully visible */
     }
   
     .scrollWrapper {
@@ -620,6 +626,11 @@
     .sideContent h3 {
       font-size: 1rem;
       margin-bottom: 1.5rem;
+    }
+
+    .fontCardsContainer {
+      gap: 0.75rem;
+      padding-right: 60px; /* Ensure last card is fully visible */
     }
   }
 
