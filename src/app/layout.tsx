@@ -8,11 +8,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'MyType.ai - Your Font Assistant',
-  description: 'Discover, pair, and customize fonts with AI assistance',
+  title: 'MyType - Discover and use Type',
+  description: 'MyType is an AI-powered typography tool that identifies, analyzes, and visualizes fonts to help designers make smarter typographic decisions.',
   openGraph: {
-    title: 'MyType.ai - Your Font Assistant',
-    description: 'Discover, pair, and customize fonts with AI assistance',
+    title: 'MyType - Discover and use Type',
+    description: 'MyType is an AI-powered typography tool that identifies, analyzes, and visualizes fonts to help designers make smarter typographic decisions.',
     images: [
       {
         url: '/assets/elements/img-metadata.png',
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MyType.ai - Your Font Assistant',
-    description: 'Discover, pair, and customize fonts with AI assistance',
+    title: 'MyType - Discover and use Type',
+    description: 'MyType is an AI-powered typography tool that identifies, analyzes, and visualizes fonts to help designers make smarter typographic decisions.',
     images: ['/assets/elements/img-metadata.png'],
   },
 };
