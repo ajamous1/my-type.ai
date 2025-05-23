@@ -53,8 +53,9 @@
   }
   
   .navbarCenter {
-    margin: 0 auto;
-    padding-left: 40px;
+    position: absolute;
+    left: 45%;
+    transform: translateX(-50%);
   }
   
   .desktopMenu {
@@ -86,7 +87,7 @@
   }
   
   .joinWaitlistButton {
-    background-color: #0d0d0d;
+    background-color: #DC143C;
     color: white;
     padding: 8px 14px;
     border-radius: 10px;
@@ -98,7 +99,8 @@
   }
   
   .joinWaitlistButton:hover {
-    background-color: #222222;
+    background-color: #B01130;
+ 
   }
   
   .getExtensionButton {
