@@ -87,7 +87,7 @@
   }
   
   .joinWaitlistButton {
-    background-color: #DC143C;
+    background-color: #0d0d0d;
     color: white;
     padding: 8px 14px;
     border-radius: 10px;
@@ -99,8 +99,7 @@
   }
   
   .joinWaitlistButton:hover {
-    background-color: #B01130;
- 
+    background-color: #222222;
   }
   
   .getExtensionButton {

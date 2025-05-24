@@ -78,9 +78,8 @@
   }
   
   .ctaButton:hover {
-    background-color: #DC143C;
-    color: #ffffff;
-    border-color: #B01130;
+    background-color: #0d0d0d;
+    color: white;
   }
   
   .scrollWrapper {
@@ -721,7 +720,7 @@
   }
   
   .secondaryButton {
-    background-color: #DC143C;
+    background-color: #0d0d0d;
     color: white;
     padding: 10px 20px;
     border-radius: 13px;
@@ -733,7 +732,7 @@
   }
   
   .secondaryButton:hover {
-    background-color: #B01130;
+    background-color: #222222;
   }
   
   @media (max-width: 768px) {
