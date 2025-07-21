@@ -45,7 +45,7 @@ export default function Navbar() {
           <li><a href="/docs">Docs</a></li>
           <li><a href="/blog">Blog</a></li>
           <li><a href="/contact">Contact</a></li>
-          <li><a href="#contact" className={styles.mobileExtension} title="Get Extension">Get Extension</a></li>
+          <li><a href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" className={styles.mobileExtension} title="Get Extension">Get Extension</a></li>
           <li><a href="#waitlist" className={styles.mobileWaitlist} title="Join Waitlist">Join Waitlist</a></li>
         </ul>
       </div>
