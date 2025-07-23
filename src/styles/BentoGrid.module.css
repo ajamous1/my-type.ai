@@ -550,6 +550,35 @@
   z-index: 5;
 }
 
+.fontItemWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.fontLabel {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: -10px;
+  background-color: #111;
+  color: white;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 20;
+  opacity: 0.95;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  pointer-events: none;
+}
+
+.selectedFont {
+  background-color: #DC143C; 
+}
+
 /* More aggressive tablet optimization for Pinpoint Accuracy */
 @media (max-width: 1180px) {
   .pinpointContainer {

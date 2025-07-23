@@ -13,6 +13,7 @@ interface PinpointAccuracyCardProps {
 }
 
 export default function PinpointAccuracyCard({ title, description, size = 'large' }: PinpointAccuracyCardProps) {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const fontGridRef = useRef<HTMLDivElement>(null);
   const crosshairRef = useRef<HTMLDivElement>(null);
@@ -329,15 +330,27 @@ const path = [
             onMouseEnter={handleFontGridEnter}
           >
             {/* Render fewer items on smaller screens */}
-            {Array.from({ length: isSmallScreen ? 9 : 18 }).map((_, i) => (
-              <span
-                key={i}
-                className={styles.fallingText}
-                style={{ fontFamily: fonts[i % fonts.length] }}
-              >
-                Aa
-              </span>
-            ))}
+            {Array.from({ length: isSmallScreen ? 9 : 18 }).map((_, i) => {
+              const isSelected = selectedIndex === i;
+              const fontName = fonts[i % fonts.length];
+
+              return (
+                <div key={i} className={styles.fontItemWrapper}>
+                  {isSelected && (
+                    <div className={styles.fontLabel}>
+                      {fontName}
+                    </div>
+                  )}
+                  <span
+                    className={`${styles.fallingText} ${isSelected ? styles.selectedFont : ''}`}
+                    style={{ fontFamily: fontName }}
+                    onClick={() => setSelectedIndex(isSelected ? null : i)}
+                  >
+                    Aa
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
         
