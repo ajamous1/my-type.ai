@@ -130,7 +130,7 @@ export default function LandingPage() {
               <div className={styles.actionButtons}>
                 <a 
   href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
-  className={styles.getExtensionButton} 
+  className={styles.primaryButton} 
   title="Get Extension"
   target="_blank" 
   rel="noopener noreferrer"
