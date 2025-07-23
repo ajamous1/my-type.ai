@@ -128,7 +128,16 @@ export default function LandingPage() {
             <div className={styles.findTypeContainer}>
               <h2>Find your type.</h2>
               <div className={styles.actionButtons}>
-                <a href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" className={styles.primaryButton} title="Get Extension">Get Extension</a>
+                <a 
+  href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
+  className={styles.getExtensionButton} 
+  title="Get Extension"
+  target="_blank" 
+  rel="noopener noreferrer"
+>
+  Get Extension
+</a>
+
                 <a href="#waitlist" className={styles.secondaryButton} title="Join Waitlist">Join Waitlist</a>
               </div>
             </div>
