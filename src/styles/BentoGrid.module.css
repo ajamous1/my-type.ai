@@ -379,12 +379,15 @@
   color: transparent;
 }
 
+
+
 .column {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   animation: scrollDown 10s linear infinite;
   animation-play-state: paused;
+  transition: transform 0.2s ease;
 }
 
 .bentoCard:hover .column {
