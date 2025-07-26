@@ -3,11 +3,17 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/BentoGrid.module.css';
 import Image from 'next/image';
-
+import {
+  CARD_ROTATE_ANGLES,
+  CARD_TOP_OFFSETS,
+  CARD_LEFT_OFFSETS,
+} from '../../../../app/constants/constants';
 const fonts = [
   'Helvetica', 'Futura', 'Avant Garde',
   'Garamond', 'Inter', 'Times New Roman',
 ];
+
+
 
 interface FontAnimationCardProps {
   title?: string;
@@ -76,18 +82,24 @@ export default function FontAnimationCard({
   }, []);
 
   const generateFontItems = (offset = 0) =>
-    Array.from({ length: 12 }).map((_, i) => (
-      <span
-        key={offset + i}
-        className={styles.fallingText}
-        style={{
-          fontFamily: fonts[(offset + i) % fonts.length],
-          '--text-intensity': '0',
-        } as React.CSSProperties}
-      >
-        Aa
-      </span>
-    ));
+    Array.from({ length: 12 }).map((_, i) => {
+      const idx = offset + i;
+      return (
+        <span
+          key={idx}
+          className={styles.fallingText}
+          style={{
+            fontFamily: fonts[idx % fonts.length],
+            transform: `rotate(${CARD_ROTATE_ANGLES[idx % CARD_ROTATE_ANGLES.length]}deg)`,
+            top:    CARD_TOP_OFFSETS[idx % CARD_TOP_OFFSETS.length],
+            left:   CARD_LEFT_OFFSETS[idx % CARD_LEFT_OFFSETS.length],
+            '--text-intensity': '0',
+          } as React.CSSProperties}
+        >
+          Aa
+        </span>
+      );
+    });
 
   return (
     <div
