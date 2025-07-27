@@ -65,12 +65,7 @@
 .dark .secondaryButton:hover {
     background-color: #e0e0e0;
 }
-    margin: 0;
-    width: 100%;
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: hidden; /* Prevent vertical scrolling in this container */
-  }
+
   
   .gridContainer {
     position: absolute;
