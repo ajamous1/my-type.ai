@@ -3,6 +3,27 @@
   --font-primary: 'Inter', sans-serif;
   --background: #ffffff;
   --text-color: #0d0d0d;
+  --background-secondary: #f0f0f0;
+  --text-secondary: #666666;
+  --border-color: #eaeaea;
+  --button-background: #ffffff;
+  --button-text: #0d0d0d;
+  --button-border: #0d0d0d;
+  --button-hover-background: #0d0d0d;
+  --button-hover-text: #ffffff;
+}
+
+body.dark {
+  --background: #0d0d0d;
+  --text-color: #ffffff;
+  --background-secondary: #1a1a1a;
+  --text-secondary: #a0a0a0;
+  --border-color: #333333;
+  --button-background: #0d0d0d;
+  --button-text: #ffffff;
+  --button-border: #ffffff;
+  --button-hover-background: #ffffff;
+  --button-hover-text: #0d0d0d;
 }
 
 

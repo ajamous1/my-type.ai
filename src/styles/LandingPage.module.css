@@ -2,69 +2,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: var(--background);
     padding: 20px;
-}
-
-.dark .landingPage {
-    background-color: #0d0d0d;
-}
-
-.dark .heroContent h1 {
-    color: white;
-}
-
-.dark .ctaButton {
-    background-color: #0d0d0d;
-    color: white;
-    border: 2px solid white;
-}
-
-.dark .ctaButton:hover {
-    background-color: white;
-    color: #0d0d0d;
-}
-
-.dark .sideContent h2 {
-    color: white;
-}
-
-.dark .sideContent h3 {
-    color: #a0a0a0;
-}
-
-.dark .integrationsText h2 {
-    color: white;
-}
-
-.dark .integrationsText h3 {
-    color: #a0a0a0;
-}
-
-.dark .integrationItem {
-    background-color: #1a1a1a;
-    border-color: #333333;
-}
-
-.dark .primaryButton {
-    color: white;
-    background-color: #0d0d0d;
-    border-color: white;
-}
-
-.dark .primaryButton:hover {
-    color: #0d0d0d;
-    background-color: white;
-}
-
-.dark .secondaryButton {
-    background-color: white;
-    color: #0d0d0d;
-}
-
-.dark .secondaryButton:hover {
-    background-color: #e0e0e0;
-}
     margin: 0;
     width: 100%;
     position: relative;
@@ -117,16 +56,16 @@
     font-weight: 600;
     line-height: 1.2;
     margin-bottom: 2rem;
-    color: #000;
+    color: var(--text-color);
     font-family: 'Inter', sans-serif;
     opacity: 0;
     animation: fadeInUp 0.6s ease-out forwards;
   }
   
   .ctaButton {
-    background-color: white;
-    color: #0d0d0d;
-    border: 2px solid #0d0d0d;
+    background-color: var(--button-background);
+    color: var(--button-text);
+    border: 2px solid var(--button-border);
     border-radius: 13px;
     padding: 0.75rem 6rem;
     font-size: 1.35rem;
@@ -139,8 +78,8 @@
   }
   
   .ctaButton:hover {
-    background-color: #0d0d0d;
-    color: white;
+    background-color: var(--button-hover-background);
+    color: var(--button-hover-text);
   }
   
   .scrollWrapper {
@@ -201,7 +140,7 @@
     font-weight: 400;
     margin-top: 2rem;
     font-family: 'Inter', sans-serif;
-    color: #000;
+    color: var(--text-color);
   }
   
   .sideContent h3 {
@@ -209,7 +148,7 @@
     font-weight: 400;
     margin-top: 0.5rem;
     font-family: 'Inter', sans-serif;
-    color: #666;
+    color: var(--text-secondary);
     line-height: 1.6;
     max-width: 700px;
     margin-bottom: 0.5rem;
@@ -255,7 +194,7 @@
     font-weight: 400;
     margin-top: 1rem;
     font-family: 'Inter', sans-serif;
-    color: #000;
+    color: var(--text-color);
   }
   
   .integrationsText h3 {
@@ -263,7 +202,7 @@
     font-weight: 400;
     margin-top: 0.5rem;
     font-family: 'Inter', sans-serif;
-    color: #666;
+    color: var(--text-secondary);
     line-height: 1.6;
     max-width: 100%;
     margin-bottom: 1rem;
@@ -284,8 +223,8 @@
     aspect-ratio: 1 / 1;
     max-width: 240px;
     width: 100%;
-    background-color: #fff;
-    border: 1px solid #eaeaea;
+    background-color: var(--background-secondary);
+    border: 1px solid var(--border-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -760,8 +699,8 @@
   }
   
   .primaryButton {
-    color: #0d0d0d;
-    background-color: white;
+    color: var(--button-text);
+    background-color: var(--button-background);
     padding: 10px 20px;
     border-radius: 13px;
     text-decoration: none;
@@ -769,20 +708,20 @@
     font-size: 16px;
     transition: all 0.3s ease;
     opacity: 0.8;
-    border: 1px solid #0d0d0d;
+    border: 1px solid var(--button-border);
     display: inline-block;
   }
   
   .primaryButton:hover {
-    color: #0d0d0d;
+    color: var(--button-hover-text);
     opacity: 1;
-    background-color: #fafafa;
-    border-color: #0d0d0d;
+    background-color: var(--button-hover-background);
+    border-color: var(--button-border);
   }
   
   .secondaryButton {
-    background-color: #0d0d0d;
-    color: white;
+    background-color: var(--button-hover-background);
+    color: var(--button-hover-text);
     padding: 10px 20px;
     border-radius: 13px;
     text-decoration: none;
