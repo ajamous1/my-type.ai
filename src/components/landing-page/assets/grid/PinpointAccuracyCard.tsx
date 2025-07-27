@@ -22,6 +22,17 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
   const defaultPos = { x: 120, y: 120 };
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+  // Reset selected index after some time
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      const timer = setTimeout(() => {
+        setSelectedIndex(null);
+      }, 1400); // 1.4 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [selectedIndex]);
+
   // Check screen size
   useEffect(() => {
     const checkScreenSize = () => {
@@ -336,17 +347,15 @@ const path = [
 
               return (
                 <div key={i} className={styles.fontItemWrapper}>
-                  {isSelected && (
-                    <div className={styles.fontLabel}>
-                      {fontName}
-                    </div>
-                  )}
                   <span
                     className={`${styles.fallingText} ${isSelected ? styles.selectedFont : ''}`}
                     style={{ fontFamily: fontName }}
-                    onClick={() => setSelectedIndex(isSelected ? null : i)}
+                    onClick={() => setSelectedIndex(i)}
                   >
                     Aa
+                    {isSelected && (
+                      <div className={`${styles.fontLabel} ${styles.fadeOut}`}>{fontName}</div>
+                    )}
                   </span>
                 </div>
               );
