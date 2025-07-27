@@ -29,7 +29,16 @@ export default function Navbar() {
         </div>
 
         <div className={styles.navbarRight}>
-          <a href="#contact" className={styles.getExtensionButton} title="Get Extension">Get Extension</a>
+        <a 
+  href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
+  className={styles.getExtensionButton} 
+  title="Get Extension"
+  target="_blank" 
+  rel="noopener noreferrer"
+>
+  Get Extension
+</a>
+
           <a href="#waitlist" className={styles.joinWaitlistButton} title="Join Waitlist">Join Waitlist</a>
         </div>
 
@@ -45,7 +54,16 @@ export default function Navbar() {
           <li><a href="/docs">Docs</a></li>
           <li><a href="/blog">Blog</a></li>
           <li><a href="/contact">Contact</a></li>
-          <li><a href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" className={styles.mobileExtension} title="Get Extension">Get Extension</a></li>
+          <li><a 
+  href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
+  className={styles.getExtensionButton} 
+  title="Get Extension"
+  target="_blank" 
+  rel="noopener noreferrer"
+>
+  Get Extension
+</a>
+</li>
           <li><a href="#waitlist" className={styles.mobileWaitlist} title="Join Waitlist">Join Waitlist</a></li>
         </ul>
       </div>
