@@ -4,6 +4,67 @@
     flex-direction: column;
     background-color: white;
     padding: 20px;
+}
+
+.dark .landingPage {
+    background-color: #0d0d0d;
+}
+
+.dark .heroContent h1 {
+    color: white;
+}
+
+.dark .ctaButton {
+    background-color: #0d0d0d;
+    color: white;
+    border: 2px solid white;
+}
+
+.dark .ctaButton:hover {
+    background-color: white;
+    color: #0d0d0d;
+}
+
+.dark .sideContent h2 {
+    color: white;
+}
+
+.dark .sideContent h3 {
+    color: #a0a0a0;
+}
+
+.dark .integrationsText h2 {
+    color: white;
+}
+
+.dark .integrationsText h3 {
+    color: #a0a0a0;
+}
+
+.dark .integrationItem {
+    background-color: #1a1a1a;
+    border-color: #333333;
+}
+
+.dark .primaryButton {
+    color: white;
+    background-color: #0d0d0d;
+    border-color: white;
+}
+
+.dark .primaryButton:hover {
+    color: #0d0d0d;
+    background-color: white;
+}
+
+.dark .secondaryButton {
+    background-color: white;
+    color: #0d0d0d;
+}
+
+.dark .secondaryButton:hover {
+    background-color: #e0e0e0;
+}
     margin: 0;
     width: 100%;
     position: relative;

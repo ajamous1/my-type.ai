@@ -4,6 +4,12 @@
     background-color: white;
     border-bottom: 1px solid #efefef;
     padding: 0 2rem;
+}
+
+.dark .navbar {
+    background-color: #0d0d0d;
+    border-bottom: 1px solid #222222;
+}
     position: sticky;
     top: 0;
     z-index: 50;

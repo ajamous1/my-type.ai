@@ -5,10 +5,6 @@
   --text-color: #0d0d0d;
 }
 
-[data-theme='dark'] {
-  --background: #0d0d0d;
-  --text-color: #ffffff;
-}
 
 
 html, 
