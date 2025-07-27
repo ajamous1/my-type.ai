@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import styles from '@/styles/Navbar.module.css';
 import Link from 'next/link';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <nav className={styles.navbar}>
@@ -29,6 +31,9 @@ export default function Navbar() {
         </div>
 
         <div className={styles.navbarRight}>
+          <button onClick={toggleTheme} className={styles.themeToggleButton}>
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
           <a href="#contact" className={styles.getExtensionButton} title="Get Extension">Get Extension</a>
           <a href="#waitlist" className={styles.joinWaitlistButton} title="Join Waitlist">Join Waitlist</a>
         </div>
