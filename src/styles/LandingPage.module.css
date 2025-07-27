@@ -26,8 +26,8 @@
     position: absolute;
     width: 150px;
     height: 150px;
-    border-top: 1px solid #ebebeb8f;
-    border-left: 1px solid #ebebeb8f;
+    border-top: 1px solid var(--grid-color);
+    border-left: 1px solid var(--grid-color);
     pointer-events: none;
   }
   
@@ -223,8 +223,8 @@
     aspect-ratio: 1 / 1;
     max-width: 240px;
     width: 100%;
-    background-color: var(--background-secondary);
-    border: 1px solid var(--border-color);
+    background-color: #fff;
+    border: 1px solid #eaeaea;
     display: flex;
     justify-content: center;
     align-items: center;

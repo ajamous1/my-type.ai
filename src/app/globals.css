@@ -11,6 +11,7 @@
   --button-border: #0d0d0d;
   --button-hover-background: #0d0d0d;
   --button-hover-text: #ffffff;
+  --grid-color: #ebebeb8f;
 }
 
 body.dark {
@@ -24,6 +25,7 @@ body.dark {
   --button-border: #ffffff;
   --button-hover-background: #ffffff;
   --button-hover-text: #0d0d0d;
+  --grid-color: #ebebeb23;
 }
 
 
