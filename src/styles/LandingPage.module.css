@@ -700,7 +700,7 @@
   
   .primaryButton {
     color: var(--button-text);
-    background-color: var(--button-background);
+    background-color: var(--button-background-light);
     padding: 10px 20px;
     border-radius: 13px;
     text-decoration: none;
@@ -713,14 +713,11 @@
   }
   
   .primaryButton:hover {
-    color: var(--button-hover-text);
-    opacity: 1;
-    background-color: var(--button-hover-background);
-    border-color: var(--button-border);
+    background-color: var(--button-hover-background-light);
   }
   
   .secondaryButton {
-    background-color: var(--button-hover-background);
+    background-color: var(--button-background-dark);
     color: var(--button-hover-text);
     padding: 10px 20px;
     border-radius: 13px;
@@ -732,7 +729,7 @@
   }
   
   .secondaryButton:hover {
-    background-color: #222222;
+    background-color: var(--button-hover-background-dark);
   }
   
   @media (max-width: 768px) {

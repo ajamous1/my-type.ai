@@ -87,7 +87,7 @@
   }
   
   .joinWaitlistButton {
-    background-color: var(--button-hover-background);
+    background-color: var(--button-background-dark);
     color: var(--button-hover-text);
     padding: 8px 14px;
     border-radius: 10px;
@@ -99,12 +99,12 @@
   }
   
   .joinWaitlistButton:hover {
-    background-color: #222222;
+    background-color: var(--button-hover-background-dark);
   }
   
   .getExtensionButton {
     color: var(--button-text);
-    background-color: var(--button-background);
+    background-color: var(--button-background-light);
     padding: 8px 14px;
     border-radius: 10px;
     text-decoration: none;
@@ -117,9 +117,8 @@
   }
   
   .getExtensionButton:hover {
-    color: var(--button-hover-text);
     opacity: 1;
-    background-color: var(--button-hover-background);
+    background-color: var(--button-background-light);
     border-color: var(--button-border);
   }
   
