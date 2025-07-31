@@ -9,15 +9,16 @@ import {
   CARD_LEFT_OFFSETS,
 } from '../../../../app/constants/constants';
 import {
-  Roboto, Lato, Montserrat, Open_Sans, Poppins, Playfair_Display, Merriweather, Raleway, Ubuntu, Oswald, Inter, Noto_Serif, Inconsolata, PT_Serif
+  Roboto, Lato, Montserrat, Open_Sans, Poppins, Playfair_Display, Merriweather, Raleway, Ubuntu, Oswald, Inter, Noto_Serif, Inconsolata, PT_Serif,
+  Abril_Fatface, Bangers, Indie_Flower, Courier_Prime
 } from 'next/font/google';
 
 const roboto          = Roboto({ subsets: ['latin'], weight: ['400','700'] });
 const lato            = Lato({ subsets: ['latin'], weight: ['400','700'] });
 const montserrat      = Montserrat({ subsets: ['latin'], weight: ['400','700'] });
-const openSans        = Open_Sans({ subsets: ['latin'], weight: ['400','700'] });
-const poppins         = Poppins({ subsets: ['latin'], weight: ['400','700'] });
-const playfairDisplay = Playfair_Display({ subsets: ['latin'], weight: ['400','700'] });
+const bangers         = Bangers({ subsets:['latin'], weight:['400'] });
+const indieFlower     = Indie_Flower({ subsets:['latin'], weight:['400'] });
+const courierPrime    = Courier_Prime({ subsets:['latin'], weight:['400'] });
 const merriweather    = Merriweather({ subsets: ['latin'], weight: ['400','700'] });
 const raleway         = Raleway({ subsets: ['latin'], weight: ['400','700'] });
 const ubuntu          = Ubuntu({ subsets: ['latin'], weight: ['400','700'] });
@@ -26,14 +27,24 @@ const inter           = Inter({ subsets: ['latin'], weight: ['400','700'] });
 const notoSerif       = Noto_Serif({ subsets: ['latin'], weight: ['400','700'] });
 const inconsolata     = Inconsolata({ subsets: ['latin'], weight: ['400','700'] });
 const ptSerif         = PT_Serif({ subsets: ['latin'], weight: ['400','700'] });
+const abrilFatface    = Abril_Fatface({ subsets:['latin'], weight:['400'] });
+const openSans        = Open_Sans({ subsets: ['latin'], weight: ['400','700'] });
+const poppins         = Poppins({ subsets: ['latin'], weight: ['400','700'] });
+const playfairDisplay = Playfair_Display({ subsets: ['latin'], weight: ['400','700'] });
 
-
-const fontObjs = [roboto, lato, montserrat, openSans, poppins, playfairDisplay, merriweather, raleway, ubuntu, oswald, inter, notoSerif, inconsolata, ptSerif];
+const fontObjs = [
+  roboto, lato, montserrat, bangers, indieFlower,
+  courierPrime, merriweather, raleway, abrilFatface, oswald,
+  inter, notoSerif, inconsolata, ptSerif,
+  ubuntu, openSans, poppins, playfairDisplay, 
+];
 interface FontAnimationCardProps {
   title?: string;
   description?: string;
   size?: 'default' | 'small' | 'large' | 'full';
 }
+const STEP = 7;
+const FONT_COUNT = fontObjs.length; // 14
 
 export default function FontAnimationCard({
   title = 'Typographic Depth',
@@ -163,7 +174,7 @@ export default function FontAnimationCard({
             </div>
             <div className={`${styles.column} ${styles.col2}`}>
               {generateFontItems(4)}
-              {generateFontItems(18)}
+              {generateFontItems(16)}
               {generateFontItems(28)}
               
             </div>
