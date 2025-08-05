@@ -3,7 +3,41 @@
   --font-primary: 'Inter', sans-serif;
   --background: #ffffff;
   --text-color: #0d0d0d;
+  --background-secondary: #f0f0f0;
+  --text-secondary: #666666;
+  --border-color: #eaeaea;
+  --button-background: #ffffff;
+  --button-text: #0d0d0d;
+  --button-border: #0d0d0d;
+  --button-background-light: #ffffff;
+  --button-background-dark: #0d0d0d;
+  --button-hover-background: #0d0d0d;
+  --button-hover-background-light: #f5f5f5;
+  --button-hover-background-dark: #0d0d0d;
+  --button-hover-text: #ffffff;
+  --grid-color: #ebebeb8f;
+  --falling-text: rgba(51, 51, 51, 0.15);
 }
+
+body.dark {
+  --background: #0d0d0d;
+  --text-color: #ffffff;
+  --background-secondary: #1a1a1a;
+  --text-secondary: #a0a0a0;
+  --border-color: #333333;
+  --button-background: #0d0d0d;
+  --button-text: #ffffff;
+  --button-border: #ffffff;
+  --button-background-light: #0d0d0d;
+  --button-background-dark: #ffffff;
+  --button-hover-background: #ffffff;
+  --button-hover-background-light: #222222;
+  --button-hover-background-dark: #f5f5f5;
+  --button-hover-text: #0d0d0d;
+  --grid-color: #ebebeb23;
+  --falling-text: rgba(51, 51, 51, 0.788);
+}
+
 
 
 html, 

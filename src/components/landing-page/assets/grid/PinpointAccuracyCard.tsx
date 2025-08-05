@@ -13,6 +13,7 @@ interface PinpointAccuracyCardProps {
 }
 
 export default function PinpointAccuracyCard({ title, description, size = 'large' }: PinpointAccuracyCardProps) {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const fontGridRef = useRef<HTMLDivElement>(null);
   const crosshairRef = useRef<HTMLDivElement>(null);
@@ -20,6 +21,17 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
   const [mode, setMode] = useState<'idle' | 'auto' | 'user'>('idle');
   const defaultPos = { x: 120, y: 120 };
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  // Reset selected index after some time
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      const timer = setTimeout(() => {
+        setSelectedIndex(null);
+      }, 1400); // 1.4 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [selectedIndex]);
 
   // Check screen size
   useEffect(() => {
@@ -329,15 +341,25 @@ const path = [
             onMouseEnter={handleFontGridEnter}
           >
             {/* Render fewer items on smaller screens */}
-            {Array.from({ length: isSmallScreen ? 9 : 18 }).map((_, i) => (
-              <span
-                key={i}
-                className={styles.fallingText}
-                style={{ fontFamily: fonts[i % fonts.length] }}
-              >
-                Aa
-              </span>
-            ))}
+            {Array.from({ length: isSmallScreen ? 9 : 18 }).map((_, i) => {
+              const isSelected = selectedIndex === i;
+              const fontName = fonts[i % fonts.length];
+
+              return (
+                <div key={i} className={styles.fontItemWrapper}>
+                  <span
+                    className={`${styles.fallingText} ${isSelected ? styles.selectedFont : ''}`}
+                    style={{ fontFamily: fontName }}
+                    onClick={() => setSelectedIndex(i)}
+                  >
+                    Aa
+                    {isSelected && (
+                      <div className={`${styles.fontLabel} ${styles.fadeOut}`}>{fontName}</div>
+                    )}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
         

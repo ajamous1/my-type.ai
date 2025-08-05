@@ -2,7 +2,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: var(--background);
     padding: 20px;
     margin: 0;
     width: 100%;
@@ -26,8 +26,8 @@
     position: absolute;
     width: 150px;
     height: 150px;
-    border-top: 1px solid #ebebeb8f;
-    border-left: 1px solid #ebebeb8f;
+    border-top: 1px solid var(--grid-color);
+    border-left: 1px solid var(--grid-color);
     pointer-events: none;
   }
   
@@ -56,16 +56,16 @@
     font-weight: 600;
     line-height: 1.2;
     margin-bottom: 2rem;
-    color: #000;
+    color: var(--text-color);
     font-family: 'Inter', sans-serif;
     opacity: 0;
     animation: fadeInUp 0.6s ease-out forwards;
   }
   
   .ctaButton {
-    background-color: white;
-    color: #0d0d0d;
-    border: 2px solid #0d0d0d;
+    background-color: var(--button-background);
+    color: var(--button-text);
+    border: 2px solid var(--button-border);
     border-radius: 13px;
     padding: 0.75rem 6rem;
     font-size: 1.35rem;
@@ -78,8 +78,8 @@
   }
   
   .ctaButton:hover {
-    background-color: #0d0d0d;
-    color: white;
+    background-color: var(--button-hover-background);
+    color: var(--button-hover-text);
   }
   
   .scrollWrapper {
@@ -140,7 +140,7 @@
     font-weight: 400;
     margin-top: 2rem;
     font-family: 'Inter', sans-serif;
-    color: #000;
+    color: var(--text-color);
   }
   
   .sideContent h3 {
@@ -148,7 +148,7 @@
     font-weight: 400;
     margin-top: 0.5rem;
     font-family: 'Inter', sans-serif;
-    color: #666;
+    color: var(--text-secondary);
     line-height: 1.6;
     max-width: 700px;
     margin-bottom: 0.5rem;
@@ -194,7 +194,7 @@
     font-weight: 400;
     margin-top: 1rem;
     font-family: 'Inter', sans-serif;
-    color: #000;
+    color: var(--text-color);
   }
   
   .integrationsText h3 {
@@ -202,7 +202,7 @@
     font-weight: 400;
     margin-top: 0.5rem;
     font-family: 'Inter', sans-serif;
-    color: #666;
+    color: var(--text-secondary);
     line-height: 1.6;
     max-width: 100%;
     margin-bottom: 1rem;
@@ -699,8 +699,8 @@
   }
   
   .primaryButton {
-    color: #0d0d0d;
-    background-color: white;
+    color: var(--button-text);
+    background-color: var(--button-background-light);
     padding: 10px 20px;
     border-radius: 13px;
     text-decoration: none;
@@ -708,20 +708,17 @@
     font-size: 16px;
     transition: all 0.3s ease;
     opacity: 0.8;
-    border: 1px solid #0d0d0d;
+    border: 1px solid var(--button-border);
     display: inline-block;
   }
   
   .primaryButton:hover {
-    color: #0d0d0d;
-    opacity: 1;
-    background-color: #fafafa;
-    border-color: #0d0d0d;
+    background-color: var(--button-hover-background-light);
   }
   
   .secondaryButton {
-    background-color: #0d0d0d;
-    color: white;
+    background-color: var(--button-background-dark);
+    color: var(--button-hover-text);
     padding: 10px 20px;
     border-radius: 13px;
     text-decoration: none;
@@ -732,7 +729,7 @@
   }
   
   .secondaryButton:hover {
-    background-color: #222222;
+    background-color: var(--button-hover-background-dark);
   }
   
   @media (max-width: 768px) {
