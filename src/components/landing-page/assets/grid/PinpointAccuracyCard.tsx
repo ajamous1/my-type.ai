@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
 import styles from '@/styles/BentoGrid.module.css';
@@ -65,7 +65,7 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
   const scanPathRef = useRef<Array<{x: number, y: number}>>([]);
   
   // Initialize the scanning path based on the grid dimensions
-  const initScanPath = () => {
+  const initScanPath = useCallback(() => {
     if (!fontGridRef.current || !containerRef.current) return;
     
     const gridBounds = fontGridRef.current.getBoundingClientRect();
@@ -97,7 +97,7 @@ const path = [
     // Set initial target to first waypoint
     animationStateRef.current.targetPos = { ...path[0] };
     animationStateRef.current.currentPos = { ...defaultPos };
-  };
+  }, [defaultPos]);
 
   // Smooth animation function that moves between waypoints
   const animateScan = (timestamp: number) => {
@@ -172,7 +172,7 @@ const path = [
     animationFrameRef.current = requestAnimationFrame(animateScan);
   };
 
-  const startScanAnimation = () => {
+  const startScanAnimation = useCallback(() => {
     if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     
     // Initialize scan path if not already done
@@ -182,7 +182,7 @@ const path = [
     
     animationStateRef.current.lastTimestamp = performance.now();
     animationFrameRef.current = requestAnimationFrame(animateScan);
-  };
+  }, [initScanPath, defaultPos]);
 
   useEffect(() => {
     // Set crosshair at default idle position
@@ -217,7 +217,7 @@ const path = [
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
-  }, []);
+  }, [defaultPos.x, defaultPos.y, initScanPath]);
 
   useEffect(() => {
     if (mode === 'auto') {
@@ -225,7 +225,7 @@ const path = [
     } else {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     }
-  }, [mode]);
+  }, [mode, startScanAnimation]);
 
   const handleFontGridEnter = () => setMode('user');
 

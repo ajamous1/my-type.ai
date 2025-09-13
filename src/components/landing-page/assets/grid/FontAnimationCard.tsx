@@ -5,7 +5,6 @@ import styles from '@/styles/BentoGrid.module.css';
 import { useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
 import {
-  CARD_ROTATE_ANGLES,
   CARD_TOP_OFFSETS,
   CARD_LEFT_OFFSETS,
 } from '../../../../app/constants/constants';
@@ -44,8 +43,6 @@ interface FontAnimationCardProps {
   description?: string;
   size?: 'default' | 'small' | 'large' | 'full';
 }
-const STEP = 7;
-const FONT_COUNT = fontObjs.length; // 14
 
 export default function FontAnimationCard({
   title = 'Typographic Depth',
@@ -58,7 +55,6 @@ export default function FontAnimationCard({
   const containerRef = useRef<HTMLDivElement>(null);
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
-  const [fontIndex, setFontIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if screen is mobile size
@@ -114,7 +110,7 @@ export default function FontAnimationCard({
   const generateFontItems = (offset = 0) => 
     
     Array.from({ length: 12 }).map((_, i) => {
-      let idx = offset + i;
+      const idx = offset + i;
       const font = fontObjs[idx % fontObjs.length];
       console.log(idx);
       return (
