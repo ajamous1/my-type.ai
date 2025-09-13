@@ -193,10 +193,6 @@
     border-color: #B8122A;
   }
   
-  /* Hide mobile theme switcher on desktop */
-  .themeSwitcherMobile {
-    display: none;
-  }
 
   @media (max-width: 768px) {
     .navbarCenter {
@@ -219,13 +215,6 @@
     /* Hide both extension and waitlist options in mobile menu */
     .mobileExtension, .mobileWaitlist {
       display: none;
-    }
-  
-    /* Show theme switcher on mobile */
-    .themeSwitcherMobile {
-      display: flex;
-      justify-content: center;
-      margin: 16px 0;
     }
   }
   
