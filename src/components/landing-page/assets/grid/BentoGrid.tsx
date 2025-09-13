@@ -9,7 +9,6 @@ import LightningBoltCard from './LightningBoltCard';
 import PinpointAccuracyCard from './PinpointAccuracyCard';
 import AnywhereAnyTypeCard from './AnyType';
 import DesignerTunedCard from './DesignerTuned';
-import Image from 'next/image';
 
 interface CardData {
   title: string;
