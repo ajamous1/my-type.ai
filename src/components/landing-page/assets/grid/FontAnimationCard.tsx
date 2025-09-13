@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/BentoGrid.module.css';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useDarkMode } from '@/hooks/useDarkMode';
 import Image from 'next/image';
 import {
   CARD_TOP_OFFSETS,
@@ -49,8 +49,7 @@ export default function FontAnimationCard({
   description = 'Explore the visual hierarchy and impact of different typefaces',
   size = 'large',
 }: FontAnimationCardProps) {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const isDark = useDarkMode();
   const iconSrc = isDark ? '/assets/icons/depth-dark.svg' : '/assets/icons/depth.svg';
   const containerRef = useRef<HTMLDivElement>(null);
   const [isCardHovered, setIsCardHovered] = useState(false);

@@ -1,7 +1,7 @@
 'use client';
 
 import styles from '@/styles/BentoGrid.module.css';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useDarkMode } from '@/hooks/useDarkMode';
 import Image from 'next/image';
 
 interface LightningBoltCardProps {
@@ -11,8 +11,7 @@ interface LightningBoltCardProps {
 }
 
 export default function LightningBoltCard({ title, description, size = 'default' }: LightningBoltCardProps) {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const isDark = useDarkMode();
   const iconSrc = isDark ? '/assets/icons/lightningbolt-dark.svg' : '/assets/icons/lightningbolt.svg';
 
   return (

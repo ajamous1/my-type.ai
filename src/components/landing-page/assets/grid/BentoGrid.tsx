@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect, ReactElement } from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useDarkMode } from '@/hooks/useDarkMode';
 import styles from '@/styles/BentoGrid.module.css';
+import Image from 'next/image';
 import FontAnimationCard from './FontAnimationCard';
 import LightningBoltCard from './LightningBoltCard';
 import PinpointAccuracyCard from './PinpointAccuracyCard';
@@ -60,8 +61,7 @@ const BentoCard = ({ title, description, icon, children, isMobile = false }: {
 };
 
 export default function BentoGrid(): ReactElement {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const isDark = useDarkMode();
   const [viewportSize, setViewportSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
 
   useEffect(() => {

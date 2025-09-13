@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from '@/styles/FontCard.module.css';
 import landingStyles from '@/styles/LandingPage.module.css';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useDarkMode } from '@/hooks/useDarkMode';
 import FontCardBack from '../../FontCardBack';
 import { FontMeta, getFontByName } from '../../../data/fonts';
 
@@ -16,7 +16,7 @@ const FontCard = ({ fontName, index = 0 }: FontCardProps) => {
   const [flipped, setFlipped] = useState(false);
   const [animated, setAnimated] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
+  const isDark = useDarkMode();
 
   // Animation effect on first render
   useEffect(() => {
@@ -37,7 +37,6 @@ const FontCard = ({ fontName, index = 0 }: FontCardProps) => {
 
   const getSvgPath = (name: string): string => {
     const normalized = name.replace(/\s+/g, '').toLowerCase();
-    const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     const suffix = isDark ? '-dark' : '';
     return `/assets/cards/mytypecard${normalized}${suffix}.svg`;
   };

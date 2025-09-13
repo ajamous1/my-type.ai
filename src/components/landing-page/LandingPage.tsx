@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import FontCard from './assets/FontCard';
 import BentoGrid from './assets/grid/BentoGrid';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useDarkMode } from '@/hooks/useDarkMode';
 import styles from '@/styles/LandingPage.module.css';
 
 interface Font {
@@ -13,8 +13,7 @@ interface Font {
 
 export default function LandingPage() {
   const [windowWidth, setWindowWidth] = useState(0);
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const isDark = useDarkMode();
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);

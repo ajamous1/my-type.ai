@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useDarkMode } from '@/hooks/useDarkMode';
 import Image from 'next/image';
 import styles from '@/styles/BentoGrid.module.css';
 
@@ -14,8 +14,7 @@ interface PinpointAccuracyCardProps {
 }
 
 export default function PinpointAccuracyCard({ title, description, size = 'large' }: PinpointAccuracyCardProps) {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const isDark = useDarkMode();
   const iconSrc = isDark ? '/assets/icons/target-dark.svg' : '/assets/icons/target.svg';
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useDarkMode } from '@/hooks/useDarkMode';
 import Image from 'next/image';
 import styles from '@/styles/BentoGrid.module.css';
 
@@ -16,8 +16,7 @@ export default function AnywhereAnyTypeCard({
   description,
   size = 'full',
 }: AnywhereAnyTypeCardProps) {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const isDark = useDarkMode();
   const iconSrc = isDark ? '/assets/icons/globe-dark.svg' : '/assets/icons/globe.svg';
   const containerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<HTMLSpanElement[]>([]);
