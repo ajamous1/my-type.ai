@@ -263,10 +263,10 @@
   .mobileGrid .bentoCard {
     width: 100%;
     padding: 16px;
-    background-color: white;
+    background-color: var(--background);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid #ebebeb;
+    border: 1px solid var(--card-border-color);
     min-height: auto;
     height: auto;
   }
@@ -812,9 +812,9 @@
   height: 100%;
   overflow: visible !important;
   border-radius: 12px;
-  background-color: white;
+  background-color: var(--background);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid #ebebeb;
+  border: 1px solid var(--card-border-color);
   transition: box-shadow 0.3s ease;
 }
 

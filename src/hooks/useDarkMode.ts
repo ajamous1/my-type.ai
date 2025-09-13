@@ -6,8 +6,16 @@ import { useTheme } from '@/contexts/ThemeContext';
 export function useDarkMode(): boolean {
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Set mounted to true after first render
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
+    if (!mounted) return; // Don't run until after hydration
+    
     const updateDarkMode = () => {
       if (theme === 'dark') {
         setIsDark(true);
@@ -31,7 +39,7 @@ export function useDarkMode(): boolean {
       mediaQuery.addEventListener('change', handleChange);
       return () => mediaQuery.removeEventListener('change', handleChange);
     }
-  }, [theme]);
+  }, [theme, mounted]);
 
   return isDark;
 }
