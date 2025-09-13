@@ -142,7 +142,7 @@
     background-color: var(--background);
     flex-direction: column;
     width: 100%;
-    border-top: 1px solid #efefef;
+    border-top: 1px solid var(--border-color);
     padding: 1rem 2rem;
     list-style: none;
   }
@@ -169,7 +169,7 @@
     padding: 10px 20px;
     border-radius: 13px;
     margin-top: 8px;
-    border: 1px solid #e5e5e5;
+    border: 1px solid var(--border-color);
     text-align: center;
     transition: all 0.3s ease;
     font-size: 16px;
@@ -193,6 +193,11 @@
     border-color: #B8122A;
   }
   
+  /* Hide mobile theme switcher on desktop */
+  .themeSwitcherMobile {
+    display: none;
+  }
+
   @media (max-width: 768px) {
     .navbarCenter {
       display: none;
@@ -214,6 +219,13 @@
     /* Hide both extension and waitlist options in mobile menu */
     .mobileExtension, .mobileWaitlist {
       display: none;
+    }
+  
+    /* Show theme switcher on mobile */
+    .themeSwitcherMobile {
+      display: flex;
+      justify-content: center;
+      margin: 16px 0;
     }
   }
   

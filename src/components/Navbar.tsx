@@ -3,9 +3,12 @@
 import { useState } from 'react';
 import styles from '@/styles/Navbar.module.css';
 import Link from 'next/link';
+import { useDarkMode } from '@/hooks/useDarkMode';
+import ThemeSwitcher from './ThemeSwitcher';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isDark = useDarkMode();
 
   return (
     <nav className={styles.navbar}>
@@ -29,6 +32,7 @@ export default function Navbar() {
         </div>
 
         <div className={styles.navbarRight}>
+          <ThemeSwitcher />
           <a href="#waitlist" className={styles.getExtensionButton} title="Join Waitlist">Join Waitlist</a>
 
         <a 
@@ -44,9 +48,9 @@ export default function Navbar() {
 
         <button className={styles.menuBtn} onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 12H21" stroke="#0d0d0d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M3 6H21" stroke="#0d0d0d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M3 18H21" stroke="#0d0d0d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3 12H21" stroke={isDark ? "#ffffff" : "#0d0d0d"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3 6H21" stroke={isDark ? "#ffffff" : "#0d0d0d"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3 18H21" stroke={isDark ? "#ffffff" : "#0d0d0d"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
 
@@ -54,6 +58,7 @@ export default function Navbar() {
           <li><a href="/docs">Docs</a></li>
           <li><a href="/blog">Blog</a></li>
           <li><a href="/contact">Contact</a></li>
+          <li className={styles.themeSwitcherMobile}><ThemeSwitcher /></li>
           <li><a href="#waitlist" className={styles.getExtensionButton} title="Join Waitlist">Join Waitlist</a></li>
           <li><a 
   href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
