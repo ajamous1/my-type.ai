@@ -87,8 +87,8 @@
   }
   
   .joinWaitlistButton {
-    background-color: var(--button-background-dark);
-    color: var(--button-hover-text);
+    background-color: #DC143C; /* MyType red background */
+    color: #ffffff; /* White text */
     padding: 8px 14px;
     border-radius: 10px;
     text-decoration: none;
@@ -96,10 +96,12 @@
     font-size: 12px;
     transition: all 0.3s ease;
     display: inline-block;
+    border: 1px solid #DC143C;
   }
   
   .joinWaitlistButton:hover {
-    background-color: var(--button-hover-background-dark);
+    background-color: #B8122A; /* Darker red on hover */
+    border-color: #B8122A;
   }
   
   .getExtensionButton {
@@ -118,8 +120,9 @@
   
   .getExtensionButton:hover {
     opacity: 1;
-    background-color: var(--button-background-light);
-    border-color: var(--button-border);
+    background-color: #DC143C; /* MyType red background on hover */
+    color: #ffffff; /* White text on red background */
+    border-color: #DC143C;
   }
   
   .menuBtn {
@@ -174,14 +177,20 @@
   
   .mobileWaitlist {
     display: inline-block;
-    background-color: var(--button-hover-background);
-    color: var(--button-hover-text) !important;
+    background-color: #DC143C; /* MyType red background */
+    color: #ffffff !important; /* White text */
     padding: 10px 20px;
     border-radius: 13px;
     margin-top: 8px;
     text-align: center;
     transition: all 0.3s ease;
     font-size: 16px;
+    border: 1px solid #DC143C;
+  }
+  
+  .mobileWaitlist:hover {
+    background-color: #B8122A; /* Darker red on hover */
+    border-color: #B8122A;
   }
   
   @media (max-width: 768px) {

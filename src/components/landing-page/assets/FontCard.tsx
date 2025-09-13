@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import styles from '@/styles/FontCard.module.css';
 import landingStyles from '@/styles/LandingPage.module.css';
 import { useTheme } from '@/contexts/ThemeContext';
+import FontCardBack from '../../FontCardBack';
+import { FontMeta, getFontByName } from '../../../data/fonts';
 
 export interface FontCardProps {
   fontName: string;
@@ -28,16 +30,9 @@ const FontCard = ({ fontName, index = 0 }: FontCardProps) => {
     return () => clearTimeout(timer);
   }, [index]);
 
-  const getFontDescription = (name: string): string => {
-    switch (name) {
-      case 'Helvetica': return 'A classic Swiss sans-serif known for its clarity and neutrality.';
-      case 'Futura': return 'A geometric sans-serif typeface designed in the 1920s.';
-      case 'Avant Garde': return 'Inspired by the logo of the Avant Garde magazine.';
-      case 'Garamond': return 'An old-style serif font used in books and publishing.';
-      case 'Inter': return 'A modern sans-serif designed for digital interfaces.';
-      case 'Times New Roman': return 'A traditional serif font used in newspapers and academia.';
-      default: return 'A beautiful typeface with distinctive characteristics.';
-    }
+  // Use the shared font data
+  const getFontMeta = (name: string): FontMeta => {
+    return getFontByName(name);
   };
 
   const getSvgPath = (name: string): string => {
@@ -47,19 +42,32 @@ const FontCard = ({ fontName, index = 0 }: FontCardProps) => {
     return `/assets/cards/mytypecard${normalized}${suffix}.svg`;
   };
 
+  const handleCardClick = () => {
+    setFlipped(prev => !prev);
+  };
+
+  const handleSettingChange = () => {
+    // Auto-flip to front when a setting is changed
+    setTimeout(() => setFlipped(false), 150);
+  };
+
   return (
     <div 
       ref={cardRef}
       className={`${styles.fontCardWrapper} ${landingStyles.dealCardAnimation} ${animated ? landingStyles.animate : ''}`} 
-      onClick={() => setFlipped(prev => !prev)}
+      onClick={handleCardClick}
     >
       <div className={`${styles.cardInner} ${flipped ? styles.flipped : ''}`}>
         <div className={styles.cardFront}>
           <img src={getSvgPath(fontName)} alt={fontName} className={styles.fontImage} />
         </div>
         <div className={styles.cardBack}>
-          <h3>{fontName}</h3>
-          <p>{getFontDescription(fontName)}</p>
+          <FontCardBack 
+            font={getFontMeta(fontName)}
+            showGrid={false}
+            className={styles.fontCardBackContent}
+            onSettingChange={handleSettingChange}
+          />
         </div>
       </div>
     </div>

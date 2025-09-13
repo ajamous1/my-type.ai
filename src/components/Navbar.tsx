@@ -29,17 +29,17 @@ export default function Navbar() {
         </div>
 
         <div className={styles.navbarRight}>
+          <a href="#waitlist" className={styles.getExtensionButton} title="Join Waitlist">Join Waitlist</a>
+
         <a 
   href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
-  className={styles.getExtensionButton} 
+  className={styles.joinWaitlistButton} 
   title="Get Extension"
   target="_blank" 
   rel="noopener noreferrer"
 >
   Get Extension
 </a>
-
-          <a href="#waitlist" className={styles.joinWaitlistButton} title="Join Waitlist">Join Waitlist</a>
         </div>
 
         <button className={styles.menuBtn} onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -54,9 +54,10 @@ export default function Navbar() {
           <li><a href="/docs">Docs</a></li>
           <li><a href="/blog">Blog</a></li>
           <li><a href="/contact">Contact</a></li>
+          <li><a href="#waitlist" className={styles.getExtensionButton} title="Join Waitlist">Join Waitlist</a></li>
           <li><a 
   href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
-  className={styles.getExtensionButton} 
+  className={styles.mobileWaitlist} 
   title="Get Extension"
   target="_blank" 
   rel="noopener noreferrer"
@@ -64,7 +65,6 @@ export default function Navbar() {
   Get Extension
 </a>
 </li>
-          <li><a href="#waitlist" className={styles.mobileWaitlist} title="Join Waitlist">Join Waitlist</a></li>
         </ul>
       </div>
     </nav>

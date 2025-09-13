@@ -9,17 +9,17 @@ export default function ThemeSwitcher() {
   return (
     <div className={styles.themeSwitcher}>
       <button onClick={() => setTheme('light')} className={theme === 'light' ? styles.active : ''}>
-        <span className={`material-symbols-outlined ${styles.icon}`}>
+        <span className={`material-symbols-outlined material-icons ${styles.icon}`} title="Light mode">
           light_mode
         </span>
       </button>
       <button onClick={() => setTheme('dark')} className={theme === 'dark' ? styles.active : ''}>
-        <span className={`material-symbols-outlined ${styles.icon}`}>
+        <span className={`material-symbols-outlined material-icons ${styles.icon}`} title="Dark mode">
           dark_mode
         </span>
       </button>
       <button onClick={() => setTheme('system')} className={theme === 'system' ? styles.active : ''}>
-        <span className={`material-symbols-outlined ${styles.icon}`}>
+        <span className={`material-symbols-outlined material-icons ${styles.icon}`} title="System theme">
           computer
         </span>
       </button>

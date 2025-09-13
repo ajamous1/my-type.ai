@@ -72,7 +72,15 @@ export default function LandingPage() {
             <br />
             with type.
           </h1>
-          <button className={styles.ctaButton}>Get Started</button>
+          <a 
+            href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
+            className={styles.ctaButton}
+            target="_blank" 
+            rel="noopener noreferrer"
+            title="Get Started with MyType Extension"
+          >
+            Get Started
+          </a>
         </div>
       </main>
 
@@ -131,17 +139,17 @@ export default function LandingPage() {
             <div className={styles.findTypeContainer}>
               <h2>Find your type.</h2>
               <div className={styles.actionButtons}>
+                <a href="#waitlist" className={styles.primaryButton} title="Join Waitlist">Join Waitlist</a>
+
                 <a 
   href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
-  className={styles.primaryButton} 
+  className={styles.secondaryButton} 
   title="Get Extension"
   target="_blank" 
   rel="noopener noreferrer"
 >
   Get Extension
 </a>
-
-                <a href="#waitlist" className={styles.secondaryButton} title="Join Waitlist">Join Waitlist</a>
               </div>
             </div>
           </div>

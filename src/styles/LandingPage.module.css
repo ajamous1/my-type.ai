@@ -1,4 +1,4 @@
-.landingPage {
+  .landingPage {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -7,7 +7,6 @@
     margin: 0;
     width: 100%;
     position: relative;
-    overflow-x: hidden;
     overflow-y: hidden; /* Prevent vertical scrolling in this container */
   }
   
@@ -75,15 +74,19 @@
     cursor: pointer;
     opacity: 0;
     animation: fadeInUp 0.6s ease-out 0s forwards;
+    text-decoration: none; /* Remove underline for link */
+    display: inline-block; /* Make it behave like a button */
   }
   
   .ctaButton:hover {
-    background-color: var(--button-hover-background);
-    color: var(--button-hover-text);
+    background-color: #DC143C; /* MyType red background on hover */
+    color: #ffffff; /* White text on red background */
+    border-color: #DC143C;
   }
   
   .scrollWrapper {
-    width: 100%;
+    width: 100vw;
+    margin-left: -20px; /* Offset the parent padding */
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
@@ -103,13 +106,14 @@
     gap: 1.5rem;
     width: auto;
     min-width: min-content;
-    padding: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-left: 40px; /* Extra padding to account for viewport width */
+    padding-right: 200px; /* Much more padding for spontaneous overflow */
     margin: 0;
     scroll-snap-type: x mandatory;
-    scroll-padding-left: 20px;
+    scroll-padding-left: 40px;
     cursor: crosshair;
-    padding-left: 20px; /* Match section padding */
-    padding-right: 100px; /* Ensure last card is fully visible */
     background-color: var(--font-cards-background);
     border-radius: 1rem;
   }
@@ -491,6 +495,8 @@
   
     .scrollWrapper {
       padding: 1rem 0;
+      margin-left: -1.5rem; /* Offset mobile padding */
+      width: 100vw;
     }
   
     .integrationRow {
@@ -719,8 +725,8 @@
   }
   
   .secondaryButton {
-    background-color: var(--button-background-dark);
-    color: var(--button-hover-text);
+    background-color: #DC143C; /* MyType red background */
+    color: #ffffff; /* White text */
     padding: 10px 20px;
     border-radius: 13px;
     text-decoration: none;
@@ -728,10 +734,12 @@
     font-size: 16px;
     transition: all 0.3s ease;
     display: inline-block;
+    border: 1px solid #DC143C;
   }
   
   .secondaryButton:hover {
-    background-color: var(--button-hover-background-dark);
+    background-color: #B8122A; /* Darker red on hover */
+    border-color: #B8122A;
   }
   
   @media (max-width: 768px) {
