@@ -8,7 +8,6 @@ export type FontCardBackProps = {
   font: FontMeta;
   showGrid?: boolean;     // default true
   className?: string;
-  onSettingChange?: () => void; // callback when a setting is changed
 };
 
 // Generate letters and numbers text
@@ -24,8 +23,7 @@ const generateLettersAndNumbers = (isUppercase: boolean): string => {
 export default function FontCardBack({ 
   font, 
   showGrid = true, 
-  className = '',
-  onSettingChange
+  className = ''
 }: FontCardBackProps) {
   const [previewMode, setPreviewMode] = useState<'description' | 'letters'>('description');
   const [isUppercase, setIsUppercase] = useState(false);

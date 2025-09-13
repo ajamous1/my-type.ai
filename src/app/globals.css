@@ -52,7 +52,7 @@ body.dark {
 
 html, 
 body {
-  overflow-x: visible;
+  overflow-x: hidden;
   max-width: 100%;
   margin: 0;
   padding: 0;

@@ -46,11 +46,6 @@ const FontCard = ({ fontName, index = 0 }: FontCardProps) => {
     setFlipped(prev => !prev);
   };
 
-  const handleSettingChange = () => {
-    // Auto-flip to front when a setting is changed
-    setTimeout(() => setFlipped(false), 150);
-  };
-
   return (
     <div 
       ref={cardRef}
@@ -66,7 +61,6 @@ const FontCard = ({ fontName, index = 0 }: FontCardProps) => {
             font={getFontMeta(fontName)}
             showGrid={false}
             className={styles.fontCardBackContent}
-            onSettingChange={handleSettingChange}
           />
         </div>
       </div>

@@ -85,8 +85,8 @@
   }
   
   .scrollWrapper {
-    width: 100vw;
-    margin-left: -20px; /* Offset the parent padding */
+    width: 100%;
+    margin-left: 0; /* Avoid page-level overflow */
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
@@ -109,9 +109,10 @@
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     padding-left: 40px; /* Extra padding to account for viewport width */
-    padding-right: 200px; /* Much more padding for spontaneous overflow */
+    padding-right: 60px; /* Allow last card to breathe without causing extra page width */
     margin: 0;
-    scroll-snap-type: x mandatory;
+    /* Make snapping gentle so cards can rest partially on-screen */
+    scroll-snap-type: x proximity;
     scroll-padding-left: 40px;
     cursor: crosshair;
     background-color: var(--font-cards-background);
@@ -490,13 +491,13 @@
     .fontCardsContainer {
       gap: 1rem;
       padding-left: 20px;
-      padding-right: 80px; /* Ensure last card is fully visible */
+      padding-right: 40px; /* Ensure last card is fully visible */
     }
   
     .scrollWrapper {
       padding: 1rem 0;
-      margin-left: -1.5rem; /* Offset mobile padding */
-      width: 100vw;
+      margin-left: 0; /* Avoid page-level overflow on mobile */
+      width: 100%;
     }
   
     .integrationRow {
