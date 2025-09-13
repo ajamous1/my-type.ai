@@ -21,6 +21,7 @@
   --card-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   --font-cards-background: transparent;
   --integration-background: #ffffff;
+  --theme-icon-color: #0d0d0d;
 }
 
 body.dark {
@@ -44,6 +45,7 @@ body.dark {
   --card-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   --font-cards-background: transparent;
   --integration-background: #0d0d0d;
+  --theme-icon-color: #fcfcff;
 }
 
 
