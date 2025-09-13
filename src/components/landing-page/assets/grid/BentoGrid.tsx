@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, ReactElement } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
 import styles from '@/styles/BentoGrid.module.css';
 import FontAnimationCard from './FontAnimationCard';
 import LightningBoltCard from './LightningBoltCard';
@@ -59,6 +60,8 @@ const BentoCard = ({ title, description, icon, children, isMobile = false }: {
 };
 
 export default function BentoGrid(): ReactElement {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
   const [viewportSize, setViewportSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
 
   useEffect(() => {
@@ -85,19 +88,19 @@ export default function BentoGrid(): ReactElement {
         let icon;
         switch (index) {
           case 0: // Typographic Depth
-            icon = <Image src="/assets/icons/depth.svg" alt="Typography Depth Icon" width={28} height={28} />;
+            icon = <Image src={isDark ? '/assets/icons/depth-dark.svg' : '/assets/icons/depth.svg'} alt="Typography Depth Icon" width={28} height={28} />;
             break;
           case 1: // Blazing Fast
-            icon = <Image src="/assets/icons/lightningbolt.svg" alt="Lightning Bolt Icon" width={28} height={28} />;
+            icon = <Image src={isDark ? '/assets/icons/lightningbolt-dark.svg' : '/assets/icons/lightningbolt.svg'} alt="Lightning Bolt Icon" width={28} height={28} />;
             break;
           case 2: // Designer-Tuned
-            icon = <Image src="/assets/icons/pen.svg" alt="Pen Icon" width={28} height={28} />;
+            icon = <Image src={isDark ? '/assets/icons/pen-dark.svg' : '/assets/icons/pen.svg'} alt="Pen Icon" width={28} height={28} />;
             break;
           case 3: // Pinpoint Accuracy
-            icon = <Image src="/assets/icons/target.svg" alt="Target Icon" width={28} height={28} />;
+            icon = <Image src={isDark ? '/assets/icons/target-dark.svg' : '/assets/icons/target.svg'} alt="Target Icon" width={28} height={28} />;
             break;
           case 4: // Anywhere, Any Type
-            icon = <Image src="/assets/icons/globe.svg" alt="Globe Icon" width={28} height={28} />;
+            icon = <Image src={isDark ? '/assets/icons/globe-dark.svg' : '/assets/icons/globe.svg'} alt="Globe Icon" width={28} height={28} />;
             break;
           default:
             icon = <span />;

@@ -1,6 +1,7 @@
 'use client';
 
 import styles from '@/styles/BentoGrid.module.css';
+import { useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
 
 interface DesignerTunedCardProps {
@@ -14,6 +15,9 @@ export default function DesignerTunedCard({
   description = 'Hover over the letter A to see the effect',
   size = 'default',
 }: DesignerTunedCardProps) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const iconSrc = isDark ? '/assets/icons/pen-dark.svg' : '/assets/icons/pen.svg';
   return (
     <div className={`${styles.bentoCard} ${styles[size]}`}>
       <div className={styles.clippedCard}>
@@ -83,7 +87,7 @@ export default function DesignerTunedCard({
             <div className={styles.cardHeader}>
               <div className={styles.thumbnail}>
                 <Image 
-                  src="/assets/icons/pen.svg" 
+                  src={iconSrc} 
                   alt="Pen Icon" 
                   width={28} 
                   height={28} 

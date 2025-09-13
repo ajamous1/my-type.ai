@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
 import styles from '@/styles/BentoGrid.module.css';
 
@@ -13,6 +14,9 @@ interface PinpointAccuracyCardProps {
 }
 
 export default function PinpointAccuracyCard({ title, description, size = 'large' }: PinpointAccuracyCardProps) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const iconSrc = isDark ? '/assets/icons/target-dark.svg' : '/assets/icons/target.svg';
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const fontGridRef = useRef<HTMLDivElement>(null);
@@ -323,7 +327,7 @@ const path = [
           <div className={styles.cardHeader}>
             <div className={styles.thumbnail}>
               <Image 
-                src="/assets/icons/target.svg" 
+                src={iconSrc} 
                 alt="Target Icon" 
                 width={28} 
                 height={28} 

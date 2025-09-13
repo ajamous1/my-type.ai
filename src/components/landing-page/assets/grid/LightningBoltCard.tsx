@@ -1,6 +1,7 @@
 'use client';
 
 import styles from '@/styles/BentoGrid.module.css';
+import { useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
 
 interface LightningBoltCardProps {
@@ -10,6 +11,10 @@ interface LightningBoltCardProps {
 }
 
 export default function LightningBoltCard({ title, description, size = 'default' }: LightningBoltCardProps) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const iconSrc = isDark ? '/assets/icons/lightningbolt-dark.svg' : '/assets/icons/lightningbolt.svg';
+
   return (
     <div className={`${styles.bentoCard} ${styles[size]}`}>
       <div className={styles.clippedCard}>
@@ -51,7 +56,7 @@ export default function LightningBoltCard({ title, description, size = 'default'
             <div className={styles.cardHeader}>
               <div className={styles.thumbnail}>
                 <Image 
-                  src="/assets/icons/lightningbolt.svg" 
+                  src={iconSrc} 
                   alt="Lightning Bolt Icon" 
                   width={28} 
                   height={28} 

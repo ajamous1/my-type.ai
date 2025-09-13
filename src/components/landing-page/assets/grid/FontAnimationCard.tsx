@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/BentoGrid.module.css';
+import { useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
 import {
   CARD_ROTATE_ANGLES,
@@ -51,6 +52,9 @@ export default function FontAnimationCard({
   description = 'Explore the visual hierarchy and impact of different typefaces',
   size = 'large',
 }: FontAnimationCardProps) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const iconSrc = isDark ? '/assets/icons/depth-dark.svg' : '/assets/icons/depth.svg';
   const containerRef = useRef<HTMLDivElement>(null);
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -118,7 +122,7 @@ export default function FontAnimationCard({
           key={idx}
           className={`${styles.fallingText} ${font.className}`}
           style={{
-            transform: `rotate(${CARD_ROTATE_ANGLES[idx % CARD_ROTATE_ANGLES.length]}deg)`,
+            transform: `rotate(0deg)`,
             top:    CARD_TOP_OFFSETS[idx % CARD_TOP_OFFSETS.length],
             left:   CARD_LEFT_OFFSETS[idx % CARD_LEFT_OFFSETS.length],
             '--text-intensity': '0',
@@ -143,7 +147,7 @@ export default function FontAnimationCard({
           <div className={styles.cardHeader}>
             <div className={styles.thumbnail}>
               <Image 
-                src="/assets/icons/depth.svg" 
+                src={iconSrc} 
                 alt="Typography Depth Icon" 
                 width={28} 
                 height={28} 

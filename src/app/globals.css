@@ -17,6 +17,10 @@
   --button-hover-text: #ffffff;
   --grid-color: #ebebeb8f;
   --falling-text: rgba(51, 51, 51, 0.15);
+  --card-border-color: transparent;
+  --card-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --font-cards-background: transparent;
+  --integration-background: #ffffff;
 }
 
 body.dark {
@@ -36,6 +40,10 @@ body.dark {
   --button-hover-text: #0d0d0d;
   --grid-color: #ebebeb23;
   --falling-text: rgba(51, 51, 51, 0.788);
+  --card-border-color: #ebebeb;
+  --card-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --font-cards-background: transparent;
+  --integration-background: #0d0d0d;
 }
 
 

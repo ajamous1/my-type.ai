@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
 import Image from 'next/image';
 import styles from '@/styles/BentoGrid.module.css';
 
@@ -15,6 +16,9 @@ export default function AnywhereAnyTypeCard({
   description,
   size = 'full',
 }: AnywhereAnyTypeCardProps) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const iconSrc = isDark ? '/assets/icons/globe-dark.svg' : '/assets/icons/globe.svg';
   const containerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<HTMLSpanElement[]>([]);
   const hoverTimes = useRef<number[]>([]);
@@ -106,7 +110,7 @@ export default function AnywhereAnyTypeCard({
       <div className={styles.cardHeader}>
         <div className={styles.thumbnail}>
             <Image
-                src="/assets/icons/globe.svg"
+                src={iconSrc}
                 alt="Globe Icon"
                 width={28}
                 height={28}

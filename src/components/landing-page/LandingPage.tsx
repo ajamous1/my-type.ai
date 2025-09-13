@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import FontCard from './assets/FontCard';
 import BentoGrid from './assets/grid/BentoGrid';
+import { useTheme } from '@/contexts/ThemeContext';
 import styles from '@/styles/LandingPage.module.css';
 
 interface Font {
@@ -12,6 +13,8 @@ interface Font {
 
 export default function LandingPage() {
   const [windowWidth, setWindowWidth] = useState(0);
+  const { theme } = useTheme();
+  const isDark = theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -112,7 +115,7 @@ export default function LandingPage() {
                 data-app={integration.id}
               >
                 <img
-                  src={`/assets/logos/${integration.id}.svg`}
+                  src={`/assets/logos/${integration.id}${isDark ? '-dark' : ''}.svg`}
                   alt={integration.name}
                   className={styles.integrationLogo}
                 />
