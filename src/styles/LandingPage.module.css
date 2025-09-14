@@ -677,9 +677,9 @@
     will-change: transform, opacity;
   }
 
-  .dealCardAnimation.animate {
-    animation: dealCard 0.5s ease-out forwards;
-  }
+.dealCardAnimation.animate {
+  animation: dealCard 0.2s ease-out forwards;
+}
 
   .findTypeContainer {
     width: 100%;

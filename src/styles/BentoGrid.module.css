@@ -21,7 +21,7 @@
 }
 
 .bentoCard:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--card-hover-shadow);
 }
 
 .cardHeader {
@@ -170,7 +170,7 @@
 
   .tabletGrid .bentoCard {
     padding: 24px;
-    overflow: hidden;
+    overflow: visible !important;
   }
   
   .leftColumn {
@@ -227,7 +227,7 @@
   }
   
   .cardWrapper .bentoCard {
-    overflow: hidden;
+    overflow: visible !important;
   }
   
   .cardWrapper .cardContentRow {
@@ -342,6 +342,21 @@
   overflow: visible;
 }
 
+.pinpointRightColumn {
+  flex: 1;
+  position: relative;
+  cursor: crosshair;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  /* Apply the circular reveal mask only for pinpoint accuracy */
+  mask-image: radial-gradient(circle 34px at var(--mask-x, 50%) var(--mask-y, 50%), white 95%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle 34px at var(--mask-x, 50%) var(--mask-y, 50%), white 95%, transparent 100%);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
 .gridAligner {
   position: relative;
   transform: none;
@@ -370,6 +385,8 @@
   background-clip: text;
   -webkit-background-clip: text;
   transition: background-color 0.4s ease;
+  overflow: visible;
+  white-space: nowrap;
 }
 
 .fallingTextContainer:hover .fallingText {
@@ -514,14 +531,10 @@
   align-items: center;
   border-radius: 8px;
   z-index: 1;
-  mask-image: radial-gradient(circle 34px at var(--mask-x, 50%) var(--mask-y, 50%), white 95%, transparent 100%);
-  -webkit-mask-image: radial-gradient(circle 34px at var(--mask-x, 50%) var(--mask-y, 50%), white 95%, transparent 100%);
-  mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
   background-color: transparent;
   box-shadow: none;
   border: none;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .fontGridStatic {
@@ -538,6 +551,7 @@
   background-color: transparent;
   box-shadow: none;
   border: none;
+  overflow: visible;
 }
 
 .crosshair {
@@ -559,6 +573,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+  overflow: visible;
 }
 
 .fontLabel {
@@ -577,9 +592,15 @@
   text-align: center; 
   white-space: normal; 
   z-index: 10;
-  opacity: 1;
+  opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
+  animation: fadeIn 0.15s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
 @keyframes fadeOut {
@@ -589,7 +610,7 @@
 }
 
 .fadeOut {
-  animation: fadeOut 1.5s forwards;
+  animation: fadeOut 0.4s forwards;
 }
 
 .selectedFont {

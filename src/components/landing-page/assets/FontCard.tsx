@@ -20,7 +20,7 @@ const FontCard = ({ fontName, index = 0 }: FontCardProps) => {
 
   // Animation effect on first render
   useEffect(() => {
-    const delay = 300 + (index * 100); // Staggered delay based on card index
+    const delay = 120 + (index * 40); // Staggered delay based on card index (150% faster)
     
     // Set a timer to start the animation after the delay
     const timer = setTimeout(() => {

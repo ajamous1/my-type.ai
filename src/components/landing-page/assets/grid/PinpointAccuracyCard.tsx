@@ -18,309 +18,172 @@ export default function PinpointAccuracyCard({ title, description, size = 'large
   const iconSrc = isDark ? '/assets/icons/target-dark.svg' : '/assets/icons/target.svg';
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const fontGridRef = useRef<HTMLDivElement>(null);
   const crosshairRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 120, y: 120 });
-  const [mode, setMode] = useState<'idle' | 'auto' | 'user'>('idle');
-  const defaultPos = { x: 120, y: 120 };
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isUserControlled, setIsUserControlled] = useState(false);
+  const animationRef = useRef<number | null>(null);
+  const scanningRef = useRef({
+    angle: 0,
+    centerX: 120,
+    centerY: 120,
+    radiusX: 80,
+    radiusY: 60
+  });
 
   // Reset selected index after some time
   useEffect(() => {
     if (selectedIndex !== null) {
       const timer = setTimeout(() => {
         setSelectedIndex(null);
-      }, 1400); // 1.4 seconds
-
+      }, 467); // 100% faster than 933ms (2x speed)
       return () => clearTimeout(timer);
     }
   }, [selectedIndex]);
 
-  // Check screen size
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth <= 900);
-    };
-    
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
+  // Update mask position
+  const updateMaskPosition = useCallback((x: number, y: number) => {
+    // Apply mask on the right column using coordinates translated from container space
+    const containerEl = containerRef.current;
+    const rightCol = containerEl?.parentElement as HTMLElement | null;
+    if (containerEl && rightCol) {
+      const containerRect = containerEl.getBoundingClientRect();
+      const rightColRect = rightCol.getBoundingClientRect();
+      const offsetX = containerRect.left - rightColRect.left;
+      const offsetY = containerRect.top - rightColRect.top;
+
+      rightCol.style.setProperty('--mask-x', `${offsetX + x}px`);
+      rightCol.style.setProperty('--mask-y', `${offsetY + y}px`);
+    }
   }, []);
 
-  // Used for the scanning animation pattern
-  const animationStateRef = useRef({
-    lastTimestamp: 0,
-    targetPos: { x: 120, y: 120 },
-    currentPos: { x: 120, y: 120 },
-    currentWaypoint: 0,
-    scanSpeed: 0.15, // Controls how fast the crosshair moves between points
-    pauseDuration: 300, // Time to pause at each waypoint in ms
-    pauseTimer: 0, // Counter for the current pause
-  });
-
-  const animationFrameRef = useRef<number | null>(null);
-
-  // Define the scanning pattern waypoints - will be calculated based on grid size
-  const scanPathRef = useRef<Array<{x: number, y: number}>>([]);
-  
-  // Initialize the scanning path based on the grid dimensions
-  const initScanPath = useCallback(() => {
-    if (!fontGridRef.current || !containerRef.current) return;
-    
-    const gridBounds = fontGridRef.current.getBoundingClientRect();
-    const containerBounds = containerRef.current.getBoundingClientRect();
-    
-    const minX = gridBounds.left - containerBounds.left + 20; // Add margin
-    const minY = gridBounds.top - containerBounds.top + 20;
-    const maxX = minX + gridBounds.width - 40;
-    const maxY = minY + gridBounds.height - 40;
-    
-// Generate a natural Z-pattern that sweeps the grid twice
-const marginX = (maxX - minX);
-const marginY = (maxY - minY) * 0.1;
-
-const path = [
-  // Sweep 1: top-left to bottom-right
-  { x: minX + marginX, y: minY + marginY },
-  { x: maxX - marginX, y: maxY - marginY },
-
-  // Sweep 2: bottom-left to top-right
-  { x: minX + marginX, y: maxY - marginY },
-  { x: maxX - marginX, y: minY + marginY },
-];
- 
-
-    
-    scanPathRef.current = path;
-    
-    // Set initial target to first waypoint
-    animationStateRef.current.targetPos = { ...path[0] };
-    animationStateRef.current.currentPos = { ...defaultPos };
-  }, [defaultPos]);
-
-  // Smooth animation function that moves between waypoints
-  const animateScan = (timestamp: number) => {
-    if (mode !== 'auto') return;
-    
-    const container = containerRef.current;
-    if (!container) return;
-    
-    const state = animationStateRef.current;
-    const delta = timestamp - state.lastTimestamp;
-    state.lastTimestamp = timestamp;
-    
-    // If we're pausing at a waypoint
-    if (state.pauseTimer > 0) {
-      state.pauseTimer -= delta;
+  // Update crosshair position (align with mask center)
+  const updateCrosshairPosition = useCallback((x: number, y: number) => {
+    if (crosshairRef.current && containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const cardRect = containerRef.current.closest(`.${styles.cardContentRow}`)?.getBoundingClientRect();
       
-      // Continue pausing
-      animationFrameRef.current = requestAnimationFrame(animateScan);
-      return;
-    }
-    
-    // Calculate distance to target
-    const dx = state.targetPos.x - state.currentPos.x;
-    const dy = state.targetPos.y - state.currentPos.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    
-    // If we've reached the target (or very close)
-    if (distance < 1) {
-      // Move to next waypoint
-      const nextWaypoint = (state.currentWaypoint + 1) % scanPathRef.current.length;
-      state.currentWaypoint = nextWaypoint;
-      state.targetPos = scanPathRef.current[nextWaypoint];
-      
-      // Start pause timer when reaching a waypoint
-      state.pauseTimer = state.pauseDuration;
-      
-      animationFrameRef.current = requestAnimationFrame(animateScan);
-      return;
-    }
-    
-    // Move towards target with easing
-    const step = Math.min(state.scanSpeed * delta, distance);
-    const ratio = step / distance;
-    
-    state.currentPos.x += dx * ratio;
-    state.currentPos.y += dy * ratio;
-    
-    // Update the UI
-    setMousePos({ x: state.currentPos.x, y: state.currentPos.y });
-    container.style.setProperty('--mask-x', `${state.currentPos.x}px`);
-    container.style.setProperty('--mask-y', `${state.currentPos.y}px`);
-    
-    if (crosshairRef.current) {
-      // Get position relative to cardContentRow for the crosshair
-      const cardRow = container.closest(`.${styles.cardContentRow}`);
-      const cardRowBounds = cardRow?.getBoundingClientRect();
-      const containerBounds = container.getBoundingClientRect();
-      
-      if (cardRowBounds) {
-        const containerOffsetX = containerBounds.left - cardRowBounds.left;
-        const containerOffsetY = containerBounds.top - cardRowBounds.top;
+      if (cardRect) {
+        // Position crosshair relative to the card content row to match mask position
+        const offsetX = containerRect.left - cardRect.left;
+        const offsetY = containerRect.top - cardRect.top;
         
-        // Position crosshair relative to the card content row
-        crosshairRef.current.style.left = `${containerOffsetX + state.currentPos.x}px`;
-        crosshairRef.current.style.top = `${containerOffsetY + state.currentPos.y}px`;
-      } else {
-        crosshairRef.current.style.left = `${state.currentPos.x}px`;
-        crosshairRef.current.style.top = `${state.currentPos.y}px`;
+        crosshairRef.current.style.left = `${offsetX + x}px`;
+        crosshairRef.current.style.top = `${offsetY + y}px`;
       }
     }
+  }, []);
+
+  // Scanning animation (zigzag pattern)
+  const scanAnimation = useCallback(() => {
+    if (!isHovered || isUserControlled) return;
+
+    const scan = scanningRef.current;
+    scan.angle += 0.02; // Slower, smoother animation
     
-    animationFrameRef.current = requestAnimationFrame(animateScan);
+    // Create a figure-8 or zigzag pattern
+    const x = scan.centerX + Math.sin(scan.angle) * scan.radiusX;
+    const y = scan.centerY + Math.sin(scan.angle * 2) * scan.radiusY;
+    
+    setMousePos({ x, y });
+    updateMaskPosition(x, y);
+    updateCrosshairPosition(x, y);
+    
+    animationRef.current = requestAnimationFrame(scanAnimation);
+  }, [isHovered, isUserControlled, updateMaskPosition, updateCrosshairPosition]);
+
+  // Start/stop scanning animation
+  useEffect(() => {
+    if (isHovered && !isUserControlled) {
+      scanAnimation();
+    } else if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+      }
+    };
+  }, [isHovered, isUserControlled, scanAnimation]);
+
+  // Initialize position
+  useEffect(() => {
+    const defaultPos = { x: 120, y: 120 };
+    setMousePos(defaultPos);
+    updateMaskPosition(defaultPos.x, defaultPos.y);
+    updateCrosshairPosition(defaultPos.x, defaultPos.y);
+  }, [updateMaskPosition, updateCrosshairPosition]);
+
+  const handleCardMouseEnter = () => {
+    setIsHovered(true);
+    setIsUserControlled(false);
   };
 
-  const startScanAnimation = useCallback(() => {
-    if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+  const handleCardMouseLeave = () => {
+    setIsHovered(false);
+    setIsUserControlled(false);
     
-    // Initialize scan path if not already done
-    if (scanPathRef.current.length === 0) {
-      initScanPath();
-    }
+    // Smooth return to center
+    const startPos = { ...mousePos };
+    const endPos = { x: 120, y: 120 };
+    const duration = 500;
+    const startTime = performance.now();
     
-    animationStateRef.current.lastTimestamp = performance.now();
-    animationFrameRef.current = requestAnimationFrame(animateScan);
-  }, [initScanPath, defaultPos]);
-
-  useEffect(() => {
-    // Set crosshair at default idle position
-    const container = containerRef.current;
-    if (container) {
-      container.style.setProperty('--mask-x', `${defaultPos.x}px`);
-      container.style.setProperty('--mask-y', `${defaultPos.y}px`);
-    }
-    
-    if (crosshairRef.current && container) {
-      // Get position relative to cardContentRow for the crosshair
-      const cardRow = container.closest(`.${styles.cardContentRow}`);
-      const cardRowBounds = cardRow?.getBoundingClientRect();
-      const containerBounds = container.getBoundingClientRect();
+    const animateReturn = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
       
-      if (cardRowBounds) {
-        const containerOffsetX = containerBounds.left - cardRowBounds.left;
-        const containerOffsetY = containerBounds.top - cardRowBounds.top;
-        
-        // Position crosshair relative to the card content row
-        crosshairRef.current.style.left = `${containerOffsetX + defaultPos.x}px`;
-        crosshairRef.current.style.top = `${containerOffsetY + defaultPos.y}px`;
-      } else {
-        crosshairRef.current.style.left = `${defaultPos.x}px`;
-        crosshairRef.current.style.top = `${defaultPos.y}px`;
+      const x = startPos.x + (endPos.x - startPos.x) * easeOut;
+      const y = startPos.y + (endPos.y - startPos.y) * easeOut;
+      
+      setMousePos({ x, y });
+      updateMaskPosition(x, y);
+      updateCrosshairPosition(x, y);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animateReturn);
       }
-    }
-    
-    // Initialize scan path on component mount
-    initScanPath();
-
-    return () => {
-      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [defaultPos.x, defaultPos.y, initScanPath]);
-
-  useEffect(() => {
-    if (mode === 'auto') {
-      startScanAnimation();
-    } else {
-      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
-    }
-  }, [mode, startScanAnimation]);
-
-  const handleFontGridEnter = () => setMode('user');
+    
+    requestAnimationFrame(animateReturn);
+  };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (mode !== 'user') return;
+    if (!isHovered) return;
+    
+    setIsUserControlled(true);
 
     const container = containerRef.current;
     if (!container) return;
 
-    const bounds = container.getBoundingClientRect();
-    const MARGIN = 40;
-    const x = Math.min(bounds.width - MARGIN, Math.max(MARGIN, e.clientX - bounds.left));
-    const y = Math.min(bounds.height - MARGIN, Math.max(MARGIN, e.clientY - bounds.top));
-
-    // Get position relative to cardContentRow for the crosshair
-    const cardRow = container.closest(`.${styles.cardContentRow}`);
-    const cardRowBounds = cardRow?.getBoundingClientRect() || bounds;
-    const containerOffsetX = bounds.left - cardRowBounds.left;
-    const containerOffsetY = bounds.top - cardRowBounds.top;
-
-    // Smooth mouse following with easing
-    const easedX = mousePos.x + (x - mousePos.x) * 0.2;
-    const easedY = mousePos.y + (y - mousePos.y) * 0.2;
-
-    setMousePos({ x: easedX, y: easedY });
-    container.style.setProperty('--mask-x', `${easedX}px`);
-    container.style.setProperty('--mask-y', `${easedY}px`);
-
-    if (crosshairRef.current) {
-      // Position crosshair relative to the card content row
-      crosshairRef.current.style.left = `${containerOffsetX + easedX}px`;
-      crosshairRef.current.style.top = `${containerOffsetY + easedY}px`;
-    }
+    const rect = container.getBoundingClientRect();
+    const x = Math.max(20, Math.min(rect.width - 20, e.clientX - rect.left));
+    const y = Math.max(20, Math.min(rect.height - 20, e.clientY - rect.top));
+    
+    setMousePos({ x, y });
+    updateMaskPosition(x, y);
+    updateCrosshairPosition(x, y);
   };
 
-  const handleMouseLeave = () => {
-    const x0 = mousePos.x;
-    const y0 = mousePos.y;
-    const x1 = defaultPos.x;
-    const y1 = defaultPos.y;
-    const duration = 500;
-    const start = performance.now();
-
-    setMode('idle');
-
-    // Smooth animation back to default position
-    const animateBack = (t: number) => {
-      const container = containerRef.current;
-      if (!container) return;
-
-      const progress = Math.min(1, (t - start) / duration);
-      const ease = 1 - Math.pow(1 - progress, 3); // Cubic ease-out for smoother finish
-      const x = x0 + (x1 - x0) * ease;
-      const y = y0 + (y1 - y0) * ease;
-
-      setMousePos({ x, y });
-      container.style.setProperty('--mask-x', `${x}px`);
-      container.style.setProperty('--mask-y', `${y}px`);
-
-      if (crosshairRef.current) {
-        // Get position relative to cardContentRow for the crosshair
-        const cardRow = container.closest(`.${styles.cardContentRow}`);
-        const cardRowBounds = cardRow?.getBoundingClientRect();
-        const containerBounds = container.getBoundingClientRect();
-        
-        if (cardRowBounds) {
-          const containerOffsetX = containerBounds.left - cardRowBounds.left;
-          const containerOffsetY = containerBounds.top - cardRowBounds.top;
-          
-          // Position crosshair relative to the card content row
-          crosshairRef.current.style.left = `${containerOffsetX + x}px`;
-          crosshairRef.current.style.top = `${containerOffsetY + y}px`;
-        } else {
-          crosshairRef.current.style.left = `${x}px`;
-          crosshairRef.current.style.top = `${y}px`;
-        }
+  const handleMouseStop = () => {
+    // After a brief delay, switch back to scanning if still hovered
+    setTimeout(() => {
+      if (isHovered) {
+        setIsUserControlled(false);
       }
-
-      if (progress < 1) {
-        requestAnimationFrame(animateBack);
-      }
-    };
-
-    requestAnimationFrame(animateBack);
+    }, 1000);
   };
 
   return (
     <div 
       className={`${styles.bentoCard} ${styles[size]}`}
-      onMouseEnter={() => {
-        if (mode !== 'user') setMode('auto');
-      }}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
+      onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={handleCardMouseLeave}
     >
-      {/* Position relative wrapper to establish positioning context */}
       <div className={styles.cardContentRow} style={{ position: 'relative' }}>
         <div className={styles.leftColumn}>
           <div className={styles.cardHeader}>
@@ -337,43 +200,46 @@ const path = [
           <p className={styles.description}>{description}</p>
         </div>
 
-        <div ref={containerRef} className={styles.pinpointContainer}>
-          <div
-            ref={fontGridRef}
-            className={styles.fontGridStatic}
-            onMouseEnter={handleFontGridEnter}
+        <div className={styles.pinpointRightColumn}>
+          <div 
+            ref={containerRef}
+            className={styles.pinpointContainer}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseStop}
           >
-            {/* Render fewer items on smaller screens */}
-            {Array.from({ length: isSmallScreen ? 9 : 18 }).map((_, i) => {
-              const isSelected = selectedIndex === i;
-              const fontName = fonts[i % fonts.length];
+            <div className={styles.fontGridStatic}>
+            {Array.from({ length: 18 }).map((_, i) => {
+                const isSelected = selectedIndex === i;
+                const fontName = fonts[i % fonts.length];
+                const displayName = fontName === 'Times New Roman' ? 'Times' : fontName;
 
-              return (
-                <div key={i} className={styles.fontItemWrapper}>
-                  <span
-                    className={`${styles.fallingText} ${isSelected ? styles.selectedFont : ''}`}
-                    style={{ fontFamily: fontName }}
-                    onClick={() => setSelectedIndex(i)}
-                  >
-                    Aa
-                    {isSelected && (
-                      <div className={`${styles.fontLabel} ${styles.fadeOut}`}>{fontName}</div>
-                    )}
-                  </span>
-                </div>
-              );
-            })}
+                return (
+                  <div key={i} className={styles.fontItemWrapper}>
+                    <span
+                      className={`${styles.fallingText} ${isSelected ? styles.selectedFont : ''}`}
+                      style={{ fontFamily: fontName }}
+                      onClick={() => setSelectedIndex(i)}
+                    >
+                      Aa
+                      {isSelected && (
+                        <div className={`${styles.fontLabel} ${styles.fadeOut}`}>{displayName}</div>
+                      )}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
         
-        {/* Crosshair moved outside the container that may have clipping */}
+        {/* Crosshair positioned absolutely within the card */}
         <div
           ref={crosshairRef}
           className={styles.crosshair}
           style={{
             position: 'absolute',
             pointerEvents: 'none',
-            zIndex: 50, // Higher z-index to ensure it's above everything
+            zIndex: 10,
             transform: 'translate(-50%, -50%)'
           }}
         />
