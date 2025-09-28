@@ -1,0 +1,202 @@
+.container {
+  min-height: calc(100vh - 128px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--background);
+}
+
+.content {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.form {
+  margin-bottom: 3rem;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-direction: column;
+}
+
+.emailInput {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: var(--background);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.emailInput:focus {
+  outline: none;
+  border-color: #DC143C;
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+}
+
+.emailInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitButton {
+  background: #DC143C;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #B8122A;
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.message {
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.error {
+  background: rgba(220, 20, 60, 0.1);
+  color: #DC143C;
+  border: 1px solid rgba(220, 20, 60, 0.2);
+}
+
+.successContainer {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  background: #10B981;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 auto 1.5rem;
+}
+
+.successMessage {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.addAnotherButton {
+  background: transparent;
+  color: #DC143C;
+  border: 2px solid #DC143C;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addAnotherButton:hover {
+  background: #DC143C;
+  color: white;
+}
+
+.features {
+  text-align: left;
+  background: var(--card-background);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.featuresTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featuresList li {
+  padding: 0.75rem 0;
+  color: var(--text-color);
+  position: relative;
+  padding-left: 2rem;
+}
+
+.featuresList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #10B981;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+@media (min-width: 768px) {
+  .inputGroup {
+    flex-direction: row;
+  }
+  
+  .emailInput {
+    flex: 1;
+  }
+  
+  .submitButton {
+    flex-shrink: 0;
+  }
+  
+  .title {
+    font-size: 4rem;
+  }
+}

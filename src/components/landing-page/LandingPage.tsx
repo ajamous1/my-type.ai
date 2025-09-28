@@ -138,7 +138,7 @@ export default function LandingPage() {
             <div className={styles.findTypeContainer}>
               <h2>Find your type.</h2>
               <div className={styles.actionButtons}>
-                <a href="#waitlist" className={styles.primaryButton} title="Join Waitlist">Join Waitlist</a>
+                <a href="/waitlist" className={styles.primaryButton} title="Join Waitlist">Join Waitlist</a>
 
                 <a 
   href="https://chromewebstore.google.com/detail/mytype-find-any-fonts-fro/jklhhfcegndoebijajkmioefnpgpomfl" 
