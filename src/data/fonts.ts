@@ -60,3 +60,4 @@ export const getFontByName = (name: string): FontMeta => {
     cssStack: 'inherit'
   };
 };
+

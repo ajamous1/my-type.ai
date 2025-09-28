@@ -3,6 +3,15 @@ import { supabase } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Supabase is properly configured
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.warn('Supabase not configured - waitlist feature disabled');
+      return NextResponse.json(
+        { error: 'Waitlist feature is temporarily unavailable. Please try again later.' },
+        { status: 503 }
+      );
+    }
+
     const { email } = await request.json();
 
     if (!email) {

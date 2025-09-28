@@ -35,6 +35,7 @@ export default function WaitlistPage() {
         setMessage(data.error || 'Something went wrong. Please try again.');
       }
     } catch (error) {
+      console.error('Waitlist submission error:', error);
       setMessage('Network error. Please check your connection and try again.');
     } finally {
       setIsLoading(false);
@@ -96,7 +97,7 @@ export default function WaitlistPage() {
           )}
 
           <div className={styles.features}>
-            <h3 className={styles.featuresTitle}>What you'll get:</h3>
+            <h3 className={styles.featuresTitle}>What you&apos;ll get:</h3>
             <ul className={styles.featuresList}>
               <li>Early access to MyType when it launches</li>
               <li>Exclusive updates on new features</li>
